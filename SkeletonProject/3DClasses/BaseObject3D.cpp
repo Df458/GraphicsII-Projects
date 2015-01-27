@@ -26,10 +26,10 @@ BaseObject3D::~BaseObject3D(void)
 }
 
 //-----------------------------------------------------------------------------
-void BaseObject3D::Create( IDirect3DDevice9* gd3dDevice )
+void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
-    buildDemoCubeVertexBuffer( gd3dDevice );
-    buildDemoCubeIndexBuffer( gd3dDevice );
+    buildDemoCubeVertexBuffer( gd3dDevice, resolution );
+    buildDemoCubeIndexBuffer( gd3dDevice, resolution );
 }
 
 //-----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
 }
 
 //-----------------------------------------------------------------------------
-void BaseObject3D::buildDemoCubeVertexBuffer( IDirect3DDevice9* gd3dDevice )
+void BaseObject3D::buildDemoCubeVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
 	// Obtain a pointer to a new vertex buffer.
 	HR(gd3dDevice->CreateVertexBuffer(8 * sizeof(VertexPos), D3DUSAGE_WRITEONLY,
@@ -80,7 +80,7 @@ void BaseObject3D::buildDemoCubeVertexBuffer( IDirect3DDevice9* gd3dDevice )
 }
 
 //-----------------------------------------------------------------------------
-void BaseObject3D::buildDemoCubeIndexBuffer( IDirect3DDevice9* gd3dDevice )
+void BaseObject3D::buildDemoCubeIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
 	// Obtain a pointer to a new index buffer.
 	HR(gd3dDevice->CreateIndexBuffer(36 * sizeof(WORD), D3DUSAGE_WRITEONLY,

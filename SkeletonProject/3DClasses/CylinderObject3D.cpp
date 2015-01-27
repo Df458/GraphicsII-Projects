@@ -10,7 +10,7 @@ CylinderObject3D::~CylinderObject3D()
 {
 }
 
-void CylinderObject3D::Create(IDirect3DDevice9* gd3dDevice)
+void CylinderObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
 
 }

@@ -29,15 +29,15 @@ protected:
 
 protected:
     // Replace the code in the following methods
-    virtual void buildDemoCubeVertexBuffer( IDirect3DDevice9* gd3dDevice );
-    virtual void buildDemoCubeIndexBuffer( IDirect3DDevice9* gd3dDevice );
+	virtual void buildDemoCubeVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution);
+	virtual void buildDemoCubeIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution);
 
 public:
     BaseObject3D(void);
     ~BaseObject3D(void);
 
     // Replace or add to the following code as you progress with the material
-    virtual void Create( IDirect3DDevice9* gd3dDevice );
+    virtual void Create( IDirect3DDevice9* gd3dDevice, unsigned int resolution = 1 );
     virtual void Render( IDirect3DDevice9* gd3dDevice, D3DXMATRIX& view, D3DXMATRIX& projection );
 };
 //=============================================================================

@@ -10,7 +10,7 @@ UVSphereObject3D::~UVSphereObject3D()
 {
 }
 
-void UVSphereObject3D::Create(IDirect3DDevice9* gd3dDevice)
+void UVSphereObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
 
 }

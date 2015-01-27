@@ -10,7 +10,7 @@ ConeObject3D::~ConeObject3D()
 {
 }
 
-void ConeObject3D::Create(IDirect3DDevice9* gd3dDevice)
+void ConeObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
 
 }

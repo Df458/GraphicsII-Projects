@@ -7,7 +7,7 @@ public:
 	ConeObject3D();
 	~ConeObject3D();
 
-	virtual void Create(IDirect3DDevice9* gd3dDevice);
+	virtual void Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution );
 	virtual void Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& view, D3DXMATRIX& projection);
 };
 

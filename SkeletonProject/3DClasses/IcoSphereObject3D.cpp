@@ -10,7 +10,7 @@ IcoSphereObject3D::~IcoSphereObject3D()
 {
 }
 
-void IcoSphereObject3D::Create(IDirect3DDevice9* gd3dDevice)
+void IcoSphereObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
 
 }
