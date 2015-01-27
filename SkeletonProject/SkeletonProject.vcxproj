@@ -88,6 +88,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="3DClasses\BaseObject3D.cpp" />
+    <ClCompile Include="3DClasses\ConeObject3D.cpp" />
+    <ClCompile Include="3DClasses\CylinderObject3D.cpp" />
+    <ClCompile Include="3DClasses\IcoSphereObject3D.cpp" />
+    <ClCompile Include="3DClasses\UVSphereObject3D.cpp" />
     <ClCompile Include="3DClasses\Vertex.cpp" />
     <ClCompile Include="d3dApp.cpp" />
     <ClCompile Include="DirectInput.cpp" />
@@ -96,6 +100,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3DClasses\BaseObject3D.h" />
+    <ClInclude Include="3DClasses\ConeObject3D.h" />
+    <ClInclude Include="3DClasses\CylinderObject3D.h" />
+    <ClInclude Include="3DClasses\IcoSphereObject3D.h" />
+    <ClInclude Include="3DClasses\UVSphereObject3D.h" />
     <ClInclude Include="3DClasses\Vertex.h" />
     <ClInclude Include="d3dApp.h" />
     <ClInclude Include="d3dUtil.h" />
