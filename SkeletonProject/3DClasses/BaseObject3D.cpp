@@ -28,8 +28,8 @@ BaseObject3D::~BaseObject3D(void)
 //-----------------------------------------------------------------------------
 void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
-    buildDemoCubeVertexBuffer( gd3dDevice, resolution );
-    buildDemoCubeIndexBuffer( gd3dDevice, resolution );
+    buildVertexBuffer( gd3dDevice, resolution );
+    buildIndexBuffer( gd3dDevice, resolution );
 }
 
 //-----------------------------------------------------------------------------
@@ -37,8 +37,8 @@ void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
     D3DXMATRIX& view, D3DXMATRIX& projection )
 {
     // Update the statistics singlton class
-    GfxStats::GetInstance()->addVertices(8);
-    GfxStats::GetInstance()->addTriangles(12);
+    GfxStats::GetInstance()->addVertices(m_VertexCount);
+    GfxStats::GetInstance()->addTriangles(m_TriCount);
 
     // Set the buffers and format
     HR(gd3dDevice->SetStreamSource(0, m_VertexBuffer, 0, sizeof(VertexPos)));
@@ -51,11 +51,11 @@ void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
 	HR(gd3dDevice->SetTransform(D3DTS_PROJECTION, &projection));	
     
     // Send to render
-    HR(gd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12));
+    HR(gd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_VertexCount, 0, m_TriCount));
 }
 
 //-----------------------------------------------------------------------------
-void BaseObject3D::buildDemoCubeVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
+void BaseObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
 	// Obtain a pointer to a new vertex buffer.
 	HR(gd3dDevice->CreateVertexBuffer(8 * sizeof(VertexPos), D3DUSAGE_WRITEONLY,
@@ -77,10 +77,11 @@ void BaseObject3D::buildDemoCubeVertexBuffer(IDirect3DDevice9* gd3dDevice, unsig
 	v[7] = VertexPos( 1.0f, -1.0f,  1.0f);
 
 	HR(m_VertexBuffer->Unlock());
+    m_VertexCount = 8;
 }
 
 //-----------------------------------------------------------------------------
-void BaseObject3D::buildDemoCubeIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
+void BaseObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
 	// Obtain a pointer to a new index buffer.
 	HR(gd3dDevice->CreateIndexBuffer(36 * sizeof(WORD), D3DUSAGE_WRITEONLY,
@@ -118,5 +119,7 @@ void BaseObject3D::buildDemoCubeIndexBuffer(IDirect3DDevice9* gd3dDevice, unsign
 	k[33] = 4; k[34] = 3; k[35] = 7;
 
 	HR(m_IndexBuffer->Unlock());
+    m_IndexCount = 36;
+    m_TriCount = m_IndexCount / 3;
 }
 //=============================================================================

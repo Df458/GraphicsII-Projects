@@ -6,8 +6,8 @@ class UVSphereObject3D :
 public:
 	UVSphereObject3D();
 	~UVSphereObject3D();
-
-	virtual void Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution = 16 );
-	virtual void Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& view, D3DXMATRIX& projection);
+protected:
+    void buildVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution);
+    void buildIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution);
 };
 

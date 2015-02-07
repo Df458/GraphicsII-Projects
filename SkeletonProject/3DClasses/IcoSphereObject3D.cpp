@@ -10,11 +10,10 @@ IcoSphereObject3D::~IcoSphereObject3D()
 {
 }
 
-void IcoSphereObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
+void IcoSphereObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
-
 }
-void IcoSphereObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& view, D3DXMATRIX& projection)
-{
 
+void IcoSphereObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
+{
 }

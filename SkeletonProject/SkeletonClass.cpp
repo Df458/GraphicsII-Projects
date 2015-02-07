@@ -19,8 +19,8 @@
 #include <list>
 
 #include "SkeletonClass.h"
-#include "3DClasses\BaseObject3D.h"
-#include "3DClasses\Vertex.h"
+#include "3DClasses/BaseObject3D.h"
+#include "3DClasses/Vertex.h"
 //=============================================================================
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 				   PSTR cmdLine, int showCmd)

@@ -21,7 +21,7 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <dxerr.h>
+#include <dxerr9.h>
 #include <string>
 #include <sstream>
 

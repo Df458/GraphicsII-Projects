@@ -10,11 +10,8 @@ ConeObject3D::~ConeObject3D()
 {
 }
 
-void ConeObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
-{
-
+void ConeObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution) {
 }
-void ConeObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& view, D3DXMATRIX& projection)
-{
 
+void ConeObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution) {
 }
