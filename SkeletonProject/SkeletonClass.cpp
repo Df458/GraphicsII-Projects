@@ -20,6 +20,7 @@
 
 #include "SkeletonClass.h"
 #include "3DClasses/BaseObject3D.h"
+#include "3DClasses/ConeObject3D.h"
 #include "3DClasses/Vertex.h"
 //=============================================================================
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
@@ -52,8 +53,8 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	mCameraRotationY = 1.2 * D3DX_PI;
 	mCameraHeight    = 5.0f;
 
-    // repleace or add to the following object creation
-    m_Objects.push_back( new BaseObject3D );
+    // replace or add to the following object creation
+    m_Objects.push_back( new ConeObject3D );
     m_Objects[0]->Create( gd3dDevice );
 
 	onResetDevice();

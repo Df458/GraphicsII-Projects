@@ -40,8 +40,9 @@ public:
     ~BaseObject3D(void);
 
     // Replace or add to the following code as you progress with the material
-    void Create( IDirect3DDevice9* gd3dDevice, unsigned int resolution = 1 );
-    void Render( IDirect3DDevice9* gd3dDevice, D3DXMATRIX& view, D3DXMATRIX& projection );
+	virtual void Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution = 1);
+	void Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& view, D3DXMATRIX& projection);
+	void Update(float deltaTime);
 };
 //=============================================================================
 #endif // _BASE_OBJECT_3D_H

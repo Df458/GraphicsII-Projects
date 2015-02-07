@@ -53,6 +53,11 @@ void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
     // Send to render
     HR(gd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_VertexCount, 0, m_TriCount));
 }
+//-----------------------------------------------------------------------------
+void BaseObject3D::Update(float deltaTime)
+{
+	//TODO: add updating for rotation, transformation, etc...
+}
 
 //-----------------------------------------------------------------------------
 void BaseObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution)

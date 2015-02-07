@@ -89,6 +89,7 @@
   <ItemGroup>
     <ClCompile Include="3DClasses\BaseObject3D.cpp" />
     <ClCompile Include="3DClasses\ConeObject3D.cpp" />
+    <ClCompile Include="3DClasses\CubeObject3D.cpp" />
     <ClCompile Include="3DClasses\CylinderObject3D.cpp" />
     <ClCompile Include="3DClasses\IcoSphereObject3D.cpp" />
     <ClCompile Include="3DClasses\UVSphereObject3D.cpp" />
@@ -101,6 +102,7 @@
   <ItemGroup>
     <ClInclude Include="3DClasses\BaseObject3D.h" />
     <ClInclude Include="3DClasses\ConeObject3D.h" />
+    <ClInclude Include="3DClasses\CubeObject3D.h" />
     <ClInclude Include="3DClasses\CylinderObject3D.h" />
     <ClInclude Include="3DClasses\IcoSphereObject3D.h" />
     <ClInclude Include="3DClasses\UVSphereObject3D.h" />

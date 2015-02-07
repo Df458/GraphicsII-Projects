@@ -7,7 +7,14 @@ public:
 	ConeObject3D();
 	~ConeObject3D();
 protected:
-    void buildVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution);
-    void buildIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution);
+	unsigned m_Height;
+	unsigned m_Radius;
+	unsigned m_RadialSegments;
+
+	virtual void Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution);
+		
+
+	virtual void buildVertexBuffer(IDirect3DDevice9* gd3dDevice);
+	virtual void buildIndexBuffer(IDirect3DDevice9* gd3dDevice);
 };
 
