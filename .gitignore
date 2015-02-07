@@ -1,0 +1,9 @@
+# Ignore vim undo files
+*.un~
+
+# Ignore object files
+**/obj
+*.o
+
+# Ignore executables
+*.exe
