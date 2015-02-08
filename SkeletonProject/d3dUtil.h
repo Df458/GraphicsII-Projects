@@ -37,6 +37,11 @@ class D3DApp;
 extern D3DApp* gd3dApp;
 extern IDirect3DDevice9* gd3dDevice;
 
+// Safety define
+#ifndef M_PI
+#define M_PI 3.14159265358979323846264338327
+#endif
+
 //==============================================================================
 // Singleton
 //------------------------------------------------------------------------------
