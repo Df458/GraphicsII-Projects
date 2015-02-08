@@ -25,12 +25,11 @@ BaseObject3D::~BaseObject3D(void)
 	ReleaseCOM(m_IndexBuffer);
 }
 
-//-----------------------------------------------------------------------------
-/*void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
+void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice)
 {
-    buildVertexBuffer( gd3dDevice, resolution );
-    buildIndexBuffer( gd3dDevice, resolution );
-}*/
+    buildVertexBuffer( gd3dDevice);
+    buildIndexBuffer( gd3dDevice);
+}
 
 //-----------------------------------------------------------------------------
 void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,

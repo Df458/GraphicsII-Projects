@@ -16,12 +16,6 @@ CylinderObject3D::CylinderObject3D(float radius, unsigned radialSegments, float 
 	m_IndexCount = m_TriCount * 3;
 }
 
-void CylinderObject3D::Create(IDirect3DDevice9* gd3dDevice)
-{
-	buildVertexBuffer(gd3dDevice);
-	buildIndexBuffer(gd3dDevice);
-}
-
 void CylinderObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice)
 {
 	// Obtain a pointer to a new vertex buffer.

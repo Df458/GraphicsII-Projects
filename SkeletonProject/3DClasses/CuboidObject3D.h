@@ -1,8 +1,6 @@
 #pragma once
 #include "BaseObject3D.h"
 
-//TODO: Define Generation variables in constructor;
-
 class CuboidObject3D :
 	public BaseObject3D
 {
@@ -17,10 +15,9 @@ protected:
 
 	unsigned mX_Resolution; //Vertical divisions of Cuboid along the Lengths' sides
 	unsigned mY_Resolution; //Horizontal divisions of Cuboid
-	unsigned mZ_Resolution; // Vertical divisions of Cuboid along the Widths' sides
+	unsigned mZ_Resolution; //Vertical divisions of Cuboid along the Widths' sides
 
 	//Implementation of pure virtual generation functions
-	virtual void Create(IDirect3DDevice9* gd3dDevice);
 	virtual void buildVertexBuffer(IDirect3DDevice9* gd3dDevice);
 	virtual void buildIndexBuffer(IDirect3DDevice9* gd3dDevice);
 };

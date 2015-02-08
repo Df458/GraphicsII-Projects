@@ -10,32 +10,13 @@
 #define M_PI 3.14159265358979323846264338327
 #endif
 
-ConeObject3D::ConeObject3D(float radius, unsigned radialSegments, float height):
-m_Radius(radius), m_RadialSegments(radialSegments), m_Height(height)
+ConeObject3D::ConeObject3D(float radius, unsigned radialSegments, float height)
+	:BaseObject3D(),m_Radius(radius), m_RadialSegments(radialSegments), m_Height(height)
 {
-	m_VertexBuffer = NULL;
-	m_IndexBuffer = NULL;
-
-	D3DXMatrixIdentity(&m_World);
-
 	m_VertexCount = m_RadialSegments + 2;
 	m_TriCount = m_RadialSegments * 2;
 	m_IndexCount = m_TriCount * 3;
-
 }
-
-ConeObject3D::~ConeObject3D(void)
-{
-	ReleaseCOM(m_VertexBuffer);
-	ReleaseCOM(m_IndexBuffer);
-}
-
-void ConeObject3D::Create(IDirect3DDevice9* gd3dDevice)
-{
-	buildVertexBuffer(gd3dDevice);
-	buildIndexBuffer(gd3dDevice);
-}
-
 
 void ConeObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice) 
 {
