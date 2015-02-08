@@ -26,11 +26,11 @@ BaseObject3D::~BaseObject3D(void)
 }
 
 //-----------------------------------------------------------------------------
-void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
+/*void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
     buildVertexBuffer( gd3dDevice, resolution );
     buildIndexBuffer( gd3dDevice, resolution );
-}
+}*/
 
 //-----------------------------------------------------------------------------
 void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
@@ -60,6 +60,7 @@ void BaseObject3D::Update(float deltaTime)
 }
 
 //-----------------------------------------------------------------------------
+/*
 void BaseObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
 	// Obtain a pointer to a new vertex buffer.
@@ -83,9 +84,10 @@ void BaseObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int 
 
 	HR(m_VertexBuffer->Unlock());
     m_VertexCount = 8;
-}
+}*/
 
 //-----------------------------------------------------------------------------
+/*
 void BaseObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
 {
 	// Obtain a pointer to a new index buffer.
@@ -126,5 +128,5 @@ void BaseObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int r
 	HR(m_IndexBuffer->Unlock());
     m_IndexCount = 36;
     m_TriCount = m_IndexCount / 3;
-}
+}*/
 //=============================================================================

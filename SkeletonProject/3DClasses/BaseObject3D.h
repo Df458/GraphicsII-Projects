@@ -32,15 +32,15 @@ protected:
 
 protected:
     // Replace the code in the following methods
-	virtual void buildVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution);
-	virtual void buildIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution);
+	virtual void buildVertexBuffer(IDirect3DDevice9* gd3dDevice) = 0;
+	virtual void buildIndexBuffer(IDirect3DDevice9* gd3dDevice) = 0;
 
 public:
     BaseObject3D(void);
-    ~BaseObject3D(void);
+    virtual ~BaseObject3D(void);
 
     // Replace or add to the following code as you progress with the material
-	virtual void Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution = 1);
+	virtual void Create(IDirect3DDevice9* gd3dDevice) = 0;
 	void Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& view, D3DXMATRIX& projection);
 	void Update(float deltaTime);
 };

@@ -6,37 +6,18 @@
 #include <math.h>
 
 
-CylinderObject3D::CylinderObject3D()
+CylinderObject3D::CylinderObject3D(float radius, unsigned radialSegments, float height)
+	:BaseObject3D(),m_Radius(radius), m_RadialSegments(radialSegments), m_Height(height)
 {
-	m_VertexBuffer = NULL;
-	m_IndexBuffer = NULL;
-
-	D3DXMatrixIdentity(&m_World);
-}
-
-
-CylinderObject3D::~CylinderObject3D()
-{
-	ReleaseCOM(m_VertexBuffer);
-	ReleaseCOM(m_IndexBuffer);
-}
-
-void CylinderObject3D::Create(IDirect3DDevice9* gd3dDevice, unsigned int resolution)
-{
-	unsigned int 
-		height = 2, 
-		radius = 2, 
-		radialsegments = 36;
-	m_Height = height;
-	m_Radius = radius;
-	m_RadialSegments = radialsegments;
-
-	//Determine vertex count;
+	// Determine vertex count;
 	m_VertexCount = (m_RadialSegments * 2) + 2;
 	//Determine intex count;
 	m_TriCount = m_RadialSegments * 4;
 	m_IndexCount = m_TriCount * 3;
+}
 
+void CylinderObject3D::Create(IDirect3DDevice9* gd3dDevice)
+{
 	buildVertexBuffer(gd3dDevice);
 	buildIndexBuffer(gd3dDevice);
 }
