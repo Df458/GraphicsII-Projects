@@ -18,10 +18,15 @@
 #define D3D_DEBUG_INFO
 #endif
 #endif
-
 #include <d3d9.h>
 #include <d3dx9.h>
+
+#ifdef __GNUC__
+#include <dxerr9.h>
+#else
 #include <dxerr.h>
+#endif
+
 #include <string>
 #include <sstream>
 
