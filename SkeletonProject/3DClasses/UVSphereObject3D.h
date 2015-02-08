@@ -4,10 +4,14 @@ class UVSphereObject3D :
 	public BaseObject3D
 {
 public:
-	UVSphereObject3D();
+	UVSphereObject3D(float radius, unsigned rings, unsigned radialSegments);
 	~UVSphereObject3D();
 protected:
-    void buildVertexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution);
-    void buildIndexBuffer(IDirect3DDevice9* gd3dDevice, unsigned int resolution);
+    float m_Radius;
+    unsigned m_Rings;
+    unsigned m_RadialSegments;
+
+    void buildVertexBuffer(IDirect3DDevice9* gd3dDevice);
+    void buildIndexBuffer(IDirect3DDevice9* gd3dDevice);
 };
 
