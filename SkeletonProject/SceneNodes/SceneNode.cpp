@@ -41,16 +41,24 @@ void SceneNode::renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     activeScene->popMatrix();
 }
 
-void SceneNode::Translate(float x, float y, float z, bool relative)
+void SceneNode::Translate(float x, float y, float z, bool relative, bool rotation_relative)
 {
-    if(!relative)
-        D3DXMatrixTranslation(&m_World, x, y, z);
-    else
+	if (!relative) {
+		D3DXMatrixTranslation(&m_World, x, y, z);
+	}
+	else
     {
         D3DXMATRIX trans;
-
+		
         D3DXMatrixTranslation(&trans, x, y, z);
-        m_World *= trans;
+		
+		if (rotation_relative)
+		{
+			trans *= m_Rotation;
+			D3DXMatrixRotationYawPitchRoll(&m_World, 0, 0, 0);
+		}
+		
+		m_World *= trans;
     }
 }
 
@@ -94,14 +102,11 @@ void SceneNode::Rotate(float yaw, float pitch, float roll, bool relative)
 	}
     else
     {
-        D3DXMATRIX trans;
-
-        D3DXMatrixRotationYawPitchRoll(&trans, yaw, pitch, roll);
-        m_World *= trans;
-
 		m_Yaw += yaw;
 		m_Pitch += pitch;
-		m_Roll =+ roll;
+		m_Roll += roll;
+
+		D3DXMatrixRotationYawPitchRoll(&m_World, m_Yaw, m_Pitch, m_Roll);
     }
 }
 

@@ -12,7 +12,7 @@ public:
     virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice) {};
     virtual void renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice);
 
-    void Translate(float x, float y, float z, bool relative = false);
+    void Translate(float x, float y, float z, bool relative = false, bool rotation_relative = false);
     void Rotate(float yaw, float pitch, float roll, bool relative = false);
     void Scale(float x, float y, float z, bool relative = false);
 
@@ -28,7 +28,10 @@ protected:
 	float 
 		m_Yaw = 0,		 
 		m_Pitch = 0, 
-		m_Roll = 0;
+		m_Roll = 0,
+		m_X = 0,
+		m_Y = 0,
+		m_Z = 0;
 
     D3DXMATRIX m_World;
 	D3DXMATRIX m_Rotation;
