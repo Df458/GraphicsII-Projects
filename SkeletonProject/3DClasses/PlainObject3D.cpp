@@ -7,15 +7,12 @@ PlainObject3D::PlainObject3D(float length, float width, unsigned X_Resolution, u
 {
 	//Calculate Vertex Count
 	m_VertexCount =
-		8
-		+ (X_Resolution - 1) * 4
-		+ (Z_Resolution - 1) * 4 + (Z_Resolution - 1) * (X_Resolution - 1) * 2;
+		4
+		+ (X_Resolution - 1) * 2
+		+ (Z_Resolution - 1) * 2 + (Z_Resolution - 1) * (X_Resolution - 1);
 
 		//Calculate Triangle Count
-		m_TriCount =
-		12
-		+ (X_Resolution - 1) * 8
-		+ (Z_Resolution - 1) * 8 + (Z_Resolution - 1) * (X_Resolution - 1) * 4;
+	m_TriCount = X_Resolution * Z_Resolution * 2;
 
 	m_IndexCount = m_TriCount * 3;
 }
@@ -69,7 +66,7 @@ void PlainObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 	int currentDepth = 0;
 	int totalIndices = 0;
 	int currentVertIndex = 0;
-	for (int tris = 0; tris < mZ_Resolution * mZ_Resolution * 2; tris += 2)
+	for (int tris = 0; tris < mX_Resolution * mZ_Resolution * 2; tris += 2)
 	{
 		k[totalIndices] = currentVertIndex;
 		k[totalIndices + 1] = currentVertIndex + 1 + xUp;
