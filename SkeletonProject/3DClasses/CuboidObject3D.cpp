@@ -77,7 +77,7 @@ void CuboidObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 	int totalIndices = 0;
 	int currentVertIndex = 0;
 
-	//Generate Left Face
+	//Generate Left/Right Face
 	for (int tris = 0; tris < mZ_Resolution * mY_Resolution * 2; tris += 2)
 	{
 		k[totalIndices] = currentVertIndex;
@@ -105,10 +105,9 @@ void CuboidObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 			currentVertIndex++;//go up a row
 		}
 	}
-
-
 	//Generate Stuff
 	//face segment shift
+	int leftFaceIndexSize = totalIndices;
 	unsigned leftFaceVertSize =
 		4
 		+ (mZ_Resolution - 1) * 2
@@ -118,7 +117,6 @@ void CuboidObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 	unsigned leftShift = (mZ_Resolution + 1) * 2 +  (mY_Resolution - 1) * 2;
 	currentVertIndex = 0 + leftFaceVertSize;
 
-	int leftFaceIndexSize;
 	do
 	{
 		//Make Ring Sections
@@ -134,7 +132,7 @@ void CuboidObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 			leftsideUp = mZ_Resolution + 1;
 		}
 		//if right edge
-		if (currentVertIndex + leftFaceVertSize == m_VertexCount)
+		if (currentVertIndex == m_VertexCount - leftFaceVertSize)
 			rightsideUp = mZ_Resolution + 1; //traversing up is 3
 
 		//Make Top/Bottom side
@@ -162,41 +160,41 @@ void CuboidObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 
 			totalIndices += 6;
 		}
-		leftFaceIndexSize = totalIndices;
+		
 		//Make Front/Back side
 		//default for nonend ring
 		int forwardUp = 2;
 
 		for (int i = 0; i < mY_Resolution; i++)
 		{		
-			int mod = 0;
-			if (i != 0)
-			{
-				mod = 1;
-			}
-			//back end
-			k[totalIndices] = currentVertIndex + ((i - 1) * leftsideUp + mY_Resolution) + 1;						//vertex on bottom right
-			k[totalIndices + 1] = currentVertIndex + ((i) * leftsideUp + mY_Resolution + 1 ) - Ringleft;			//vertex on bottom left
-			k[totalIndices + 2] = currentVertIndex + (i + 1) * rightsideUp + 1;
-			//k[totalIndices + 1] = 6;
-			//vertex on top right
+			
+			//front end
+			k[totalIndices] = currentVertIndex + (i * rightsideUp );
+			k[totalIndices + 1] = 0;
+			k[totalIndices + 2] = 6;
 
-			k[totalIndices + 3] = 0;				//vertex on bottom left of front face
-			k[totalIndices + 4] = 0;//vertex on top left of front face
-			k[totalIndices + 5] = 0;			//vertex on top right
-
+			k[totalIndices + 3] = 666;
+			k[totalIndices + 4] = 666;
+			k[totalIndices + 5] = 666;
 			totalIndices += 6;
 
 			//front end
 			/*
 			k[totalIndices] = currentVertIndex - Ringleft + mZ_Resolution + (i * rightsideUp);						//vertex on bottom right of front face
 			k[totalIndices + 1] = currentVertIndex - Ringleft + mZ_Resolution + rightsideUp + (i * rightsideUp);				//vertex on bottom left of front face
-			k[totalIndices + 2] = currentVertIndex + mZ_Resolution + (i * rightsideUp);			//vertex on top right
-			*/
+			k[totalIndices + 2] = currentVertIndex + mZ_Resolution + (i * rightsideUp);			//vertex on top right*/
+			k[totalIndices]	 = 777;
+			k[totalIndices + 1] = 777;
+			k[totalIndices + 2] = 777;
 
+			k[totalIndices + 3] = 777;
+			k[totalIndices + 4] = 777;
+			k[totalIndices + 5] = 777;
+			totalIndices += 6;
+			
 		}
 		currentVertIndex += (mZ_Resolution + 1) * 2 + (mY_Resolution - 1) * 2;
-	} while (currentVertIndex <= m_VertexCount - leftFaceVertSize);
+	} while (totalIndices < m_IndexCount - leftFaceIndexSize);
 
 	//Generate Right Face
 	//hard coded end
