@@ -94,6 +94,7 @@
     <ClCompile Include="3DClasses\DodecahedronObject3D.cpp" />
     <ClCompile Include="3DClasses\DoubleConeObject3D.cpp" />
     <ClCompile Include="3DClasses\IcoSphereObject3D.cpp" />
+    <ClCompile Include="3DClasses\PlainObject3D.cpp" />
     <ClCompile Include="3DClasses\TrapezohedronObject3D.cpp" />
     <ClCompile Include="3DClasses\UVSphereObject3D.cpp" />
     <ClCompile Include="3DClasses\Vertex.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="3DClasses\DodecahedronObject3D.h" />
     <ClInclude Include="3DClasses\DoubleConeObject3D.h" />
     <ClInclude Include="3DClasses\IcoSphereObject3D.h" />
+    <ClInclude Include="3DClasses\PlainObject3D.h" />
     <ClInclude Include="3DClasses\TrapezohedronObject3D.h" />
     <ClInclude Include="3DClasses\UVSphereObject3D.h" />
     <ClInclude Include="3DClasses\Vertex.h" />
