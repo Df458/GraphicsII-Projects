@@ -16,7 +16,7 @@ Scene::~Scene()
 
 void Scene::Update(float deltatime)
 {
-    for(auto i : m_Nodes)
+    for(SceneNode* i : m_Nodes)
     {
         i->Update(deltatime);
     }

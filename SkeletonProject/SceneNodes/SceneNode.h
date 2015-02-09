@@ -12,6 +12,10 @@ public:
     virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice) {};
     virtual void renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice);
 
+    void Translate(float x, float y, float z, bool relative = false);
+    void Rotate(float yaw, float pitch, float roll, bool relative = false);
+    void Scale(float x, float y, float z, bool relative = false);
+
     friend class Scene;
 protected:
     virtual void addChild(SceneNode* child);
