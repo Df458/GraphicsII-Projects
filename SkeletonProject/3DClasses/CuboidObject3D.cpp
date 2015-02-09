@@ -140,12 +140,12 @@ void CuboidObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 		{
 			//Bottom
 			k[totalIndices] = currentVertIndex - Ringleft + i;
-			k[totalIndices + 1] = currentVertIndex + 1 + i;
-			k[totalIndices + 2] = currentVertIndex + i;
+			k[totalIndices + 2] = currentVertIndex + 1 + i;
+			k[totalIndices + 1] = currentVertIndex + i;
 
 			k[totalIndices + 3] = currentVertIndex - Ringleft + i;
-			k[totalIndices + 5] = currentVertIndex + 1 + i;
-			k[totalIndices + 4] = currentVertIndex - Ringleft + 1 + i;
+			k[totalIndices + 4] = currentVertIndex + 1 + i;
+			k[totalIndices + 5] = currentVertIndex - Ringleft + 1 + i;
 
 			totalIndices += 6;
 
@@ -167,57 +167,112 @@ void CuboidObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 
 		for (int i = 0; i < mY_Resolution; i++)
 		{		
+
+			//back end
+			if (i == 0)
+			{
+				k[totalIndices] = currentVertIndex;
+				k[totalIndices + 2] = currentVertIndex + mZ_Resolution + 1;
+				k[totalIndices + 1] = currentVertIndex - Ringleft + mZ_Resolution +1;
+				
+				k[totalIndices + 3] = currentVertIndex - Ringleft;
+				k[totalIndices + 5] = currentVertIndex;
+				k[totalIndices + 4] = currentVertIndex - Ringleft + mZ_Resolution + 1;
+			}
+			else
+			{
+				k[totalIndices] = currentVertIndex + mZ_Resolution + 1 + (i - 1) * rightsideUp;
+				k[totalIndices + 2] = currentVertIndex + mZ_Resolution + 1 + (i) * rightsideUp;
+				k[totalIndices + 1] = currentVertIndex - Ringleft + mZ_Resolution + 1 + (i)* leftsideUp;
+				
+				k[totalIndices + 3] = currentVertIndex - Ringleft + mZ_Resolution + 1 + (i)* leftsideUp;
+				k[totalIndices + 4] = currentVertIndex + mZ_Resolution + 1 + (i - 1) * rightsideUp;
+
+				//edge block. traverse down by zdepth + 1
+				if (currentVertIndex == leftFaceVertSize)
+				{
+					k[totalIndices + 5] = currentVertIndex - Ringleft + mZ_Resolution + 1 + (i)* leftsideUp - (mZ_Resolution + 1);
+				}
+				else
+				{
+					k[totalIndices + 5] = currentVertIndex - Ringleft + mZ_Resolution + 1 + (i)* leftsideUp -2;
+				}
+			}
 			
-			//front end
-			k[totalIndices] = currentVertIndex + (i * rightsideUp );
-			k[totalIndices + 1] = 0;
-			k[totalIndices + 2] = 6;
-
-			k[totalIndices + 3] = 666;
-			k[totalIndices + 4] = 666;
-			k[totalIndices + 5] = 666;
 			totalIndices += 6;
 
 			//front end
-			/*
-			k[totalIndices] = currentVertIndex - Ringleft + mZ_Resolution + (i * rightsideUp);						//vertex on bottom right of front face
-			k[totalIndices + 1] = currentVertIndex - Ringleft + mZ_Resolution + rightsideUp + (i * rightsideUp);				//vertex on bottom left of front face
-			k[totalIndices + 2] = currentVertIndex + mZ_Resolution + (i * rightsideUp);			//vertex on top right*/
-			k[totalIndices]	 = 777;
-			k[totalIndices + 1] = 777;
-			k[totalIndices + 2] = 777;
+			if (i == 0)
+			{
+				k[totalIndices] = currentVertIndex + mZ_Resolution;
+				k[totalIndices + 2] = currentVertIndex + mZ_Resolution - Ringleft;
+				k[totalIndices + 1] = currentVertIndex + mZ_Resolution + rightsideUp;
 
-			k[totalIndices + 3] = 777;
-			k[totalIndices + 4] = 777;
-			k[totalIndices + 5] = 777;
+				k[totalIndices + 3] = currentVertIndex + mZ_Resolution - Ringleft + leftsideUp;
+				k[totalIndices + 5] = currentVertIndex + mZ_Resolution + rightsideUp;
+				k[totalIndices + 4] = currentVertIndex + mZ_Resolution - Ringleft;
+			}
+			else
+			{
+				k[totalIndices] = currentVertIndex + mZ_Resolution + rightsideUp * i; //13 @ 2,2,2
+				k[totalIndices + 2] = currentVertIndex - Ringleft + mZ_Resolution + leftsideUp * i;//evil one
+				k[totalIndices + 1] = currentVertIndex + mZ_Resolution + rightsideUp * i + (rightsideUp);
+
+
+				k[totalIndices + 4] = currentVertIndex - Ringleft + mZ_Resolution + leftsideUp * i;
+				k[totalIndices + 5] = currentVertIndex + mZ_Resolution + rightsideUp * i + (rightsideUp);
+				k[totalIndices + 3] = k[totalIndices + 4] + leftsideUp;
+
+				if (i == mY_Resolution - 1)
+				{
+					k[totalIndices + 1] = currentVertIndex + mZ_Resolution + rightsideUp * i + (mZ_Resolution + 1);
+					k[totalIndices + 5] = currentVertIndex + mZ_Resolution + rightsideUp * i + (mZ_Resolution + 1);
+					k[totalIndices + 3] = k[totalIndices + 4] + (mZ_Resolution + 1);
+				}
+			}
+
 			totalIndices += 6;
+
+			//front end
+			/*if (i == 0)
+			{
+				k[totalIndices] = currentVertIndex + mZ_Resolution;
+				k[totalIndices + 1] = currentVertIndex + mZ_Resolution + rightsideUp;
+				k[totalIndices + 2] = currentVertIndex + mZ_Resolution - Ringleft;
+
+				
+				/*k[totalIndices + 3] = currentVertIndex + mZ_Resolution - Ringleft + leftsideUp;
+				k[totalIndices + 5] = currentVertIndex + mZ_Resolution + rightsideUp;
+				k[totalIndices + 4] = currentVertIndex + mZ_Resolution - Ringleft;*//*
+			}
+			else
+			{
+				k[totalIndices] = currentVertIndex + mZ_Resolution + 1 + (i - 1) * rightsideUp;;
+				k[totalIndices + 1] = currentVertIndex + mZ_Resolution - Ringleft + 1 + (i - 1) * rightsideUp;
+				k[totalIndices + 2] = 0 + mZ_Resolution;
+
+
+				/*k[totalIndices + 3] = currentVertIndex + mZ_Resolution - Ringleft + leftsideUp;
+				k[totalIndices + 5] = currentVertIndex + mZ_Resolution + rightsideUp + 1 + (i - 1) * rightsideUp;
+				k[totalIndices + 4] = currentVertIndex + mZ_Resolution - Ringleft;
+
+				//edge block. traverse down by zdepth + 1
+				if (currentVertIndex == leftFaceVertSize)
+				{
+					k[totalIndices + 1] = currentVertIndex + mZ_Resolution + rightsideUp * (i) + (mZ_Resolution + 1);
+				}
+				else
+				{
+					k[totalIndices + 1] = currentVertIndex + mZ_Resolution + rightsideUp * (i) + 2;
+
+					}*//*
+			}
+
+			totalIndices += 6;*/
 			
 		}
 		currentVertIndex += (mZ_Resolution + 1) * 2 + (mY_Resolution - 1) * 2;
 	} while (totalIndices < m_IndexCount - leftFaceIndexSize);
-
-	//Generate Right Face
-	//hard coded end
-	/*
-	currentVertIndex = m_VertexCount - leftFaceVertSize;
-	totalIndices = m_IndexCount - leftFaceIndexSize;
-	for (int tris = 0; tris < mZ_Resolution * mY_Resolution * 2; tris += 2)
-	{
-		k[totalIndices] = currentVertIndex;
-		k[totalIndices + 2] = currentVertIndex + 1 + yUp;
-		k[totalIndices + 1] = currentVertIndex + yUp;
-
-		k[totalIndices + 3] = currentVertIndex + 1;
-		k[totalIndices + 5] = currentVertIndex + 1 + yUp;
-		k[totalIndices + 4] = currentVertIndex;
-		totalIndices += 6;
-
-		currentVertIndex += 1;//to go next sub box
-		if ((currentVertIndex + 1) % yUp == 0)//if its the end 
-		{
-			currentVertIndex++;//go up a row
-		}
-	}*/
 
 	HR(m_IndexBuffer->Unlock());
 }
