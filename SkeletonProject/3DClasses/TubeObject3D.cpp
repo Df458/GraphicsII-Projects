@@ -65,47 +65,47 @@ void TubeObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 
 		// Inner Ring
 		k[(i * 24) + 6] = i + m_RadialSegments * 2;
-        k[(i * 24) + 7] = i + m_RadialSegments * 2 + 1;
-        k[(i * 24) + 8] = i + m_RadialSegments * 3;
+        k[(i * 24) + 7] = i + m_RadialSegments * 3;
+        k[(i * 24) + 8] = i + m_RadialSegments * 2 + 1;
 
         k[(i * 24) + 9] = i + m_RadialSegments * 3 + 1;
-        k[(i * 24) + 10] = i + m_RadialSegments * 3;
-        k[(i * 24) + 11] = i + m_RadialSegments * 2 + 1;
+        k[(i * 24) + 10] = i + m_RadialSegments * 2 + 1;
+        k[(i * 24) + 11] = i + m_RadialSegments * 3;
 		
 		// Bottom Cap
         k[(i * 24) + 12] = i;
-        k[(i * 24) + 13] = i + 1;
-        k[(i * 24) + 14] = i + m_RadialSegments * 2;
+        k[(i * 24) + 13] = i + m_RadialSegments * 2;
+        k[(i * 24) + 14] = i + 1;
 
         k[(i * 24) + 15] = i + m_RadialSegments * 2 + 1;
-        k[(i * 24) + 16] = i + m_RadialSegments * 2;
-        k[(i * 24) + 17] = i + 1;
+        k[(i * 24) + 16] = i + 1;
+        k[(i * 24) + 17] = i + m_RadialSegments * 2;
 		
 		// Top Cap
         k[(i * 24) + 18] = i + m_RadialSegments * 3;
-        k[(i * 24) + 19] = i + m_RadialSegments * 3 + 1;
-        k[(i * 24) + 20] = i + m_RadialSegments;
+        k[(i * 24) + 19] = i + m_RadialSegments;
+        k[(i * 24) + 20] = i + m_RadialSegments * 3 + 1;
 
         k[(i * 24) + 21] = i + m_RadialSegments + 1;
-        k[(i * 24) + 22] = i + m_RadialSegments;
-        k[(i * 24) + 23] = i + m_RadialSegments * 3 + 1;
+        k[(i * 24) + 22] = i + m_RadialSegments * 3 + 1;
+        k[(i * 24) + 23] = i + m_RadialSegments;
 		
         if( i == m_RadialSegments - 1) {
             k[(i * 24) + 1] = 0;
             k[(i * 24) + 3] = m_RadialSegments;
             k[(i * 24) + 5] = 0;
 			
-			k[(i * 24) + 7] = m_RadialSegments * 2;
+			k[(i * 24) + 8] = m_RadialSegments * 2;
             k[(i * 24) + 9] = m_RadialSegments * 3;
-            k[(i * 24) + 11] = m_RadialSegments * 2;
+            k[(i * 24) + 10] = m_RadialSegments * 2;
 			
-			k[(i * 24) + 13] = 0;
+			k[(i * 24) + 14] = 0;
             k[(i * 24) + 15] = m_RadialSegments * 2;
-            k[(i * 24) + 17] = 0;
+            k[(i * 24) + 16] = 0;
 			
-			k[(i * 24) + 19] = m_RadialSegments * 3;
+			k[(i * 24) + 20] = m_RadialSegments * 3;
             k[(i * 24) + 21] = m_RadialSegments;
-            k[(i * 24) + 23] = m_RadialSegments * 3;
+            k[(i * 24) + 22] = m_RadialSegments * 3;
         }
 	}
 

@@ -28,6 +28,7 @@
 #include "3DClasses/CylinderObject3D.h"
 #include "3DClasses/DoubleConeObject3D.h"
 #include "3DClasses/PlainObject3D.h"
+#include "3DClasses/TubeObject3D.h"
 #include "3DClasses/UVSphereObject3D.h"
 #include "3DClasses/Vertex.h"
 //=============================================================================
@@ -64,9 +65,12 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     m_Camera = new CameraSceneNode();
     m_Scene = new Scene();
     m_Scene->setActiveCamera(m_Camera);
-    PlainObject3D* plane = new PlainObject3D(15, 15, 15, 15);
-    plane->Create(gd3dDevice);
-    m_Scene->addNode(new ModelSceneNode(plane));
+    //PlainObject3D* plane = new PlainObject3D(15, 15, 15, 15);
+    //plane->Create(gd3dDevice);
+    //m_Scene->addNode(new ModelSceneNode(plane));
+    TubeObject3D* tube = new TubeObject3D(3, 1, 16, 4);
+    tube->Create(gd3dDevice);
+    m_Scene->addNode(new ModelSceneNode(tube));
 
     // replace or add to the following object creation
     //m_Objects.push_back( new PlainObject3D(15, 15, 15, 15));

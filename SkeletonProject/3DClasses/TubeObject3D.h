@@ -7,10 +7,10 @@ public:
 	TubeObject3D(float radius, float width, unsigned radialSegments, float height);
 	virtual ~TubeObject3D(){};
 protected:
-	float m_Height;
 	float m_Radius;
 	float m_Width;
 	unsigned m_RadialSegments;
+	float m_Height;
 
 	//Implementation of pure virtual generation functions
 	virtual void buildVertexBuffer(IDirect3DDevice9* gd3dDevice);
