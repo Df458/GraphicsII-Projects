@@ -158,7 +158,7 @@ void SkeletonClass::updateScene(float dt)
 	m_Camera->Rotate(gDInput->mouseDX()  * dt * 12, 0, 0.0f, true);
 	m_Camera->Rotate(0, gDInput->mouseDY()  * dt * 12, 0.0f, true);
 
-	
+	m_Camera->SetRotationLimits(0, M_PI, -M_PI / 2, M_PI / 2, 0, 0);
 
 	if (gDInput->keyDown(DIK_W))
 		m_Camera->Translate(0, 0, 25.0f * dt, true);
@@ -178,7 +178,6 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_E))
 		m_Camera->Translate(0, 25.0f * dt, 0, true);
 
-	m_Camera->SetRotationLimits(0, M_PI, -M_PI / 2, M_PI / 2, 0, 0);
     m_Scene->Update(dt);
 }
 

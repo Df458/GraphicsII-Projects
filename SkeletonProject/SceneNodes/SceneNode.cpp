@@ -70,6 +70,7 @@ void SceneNode::SetRotationLimits(float YawMin, float YawMax, float PitchMin, fl
 	}
 
 	D3DXMatrixRotationYawPitchRoll(&m_World, m_Yaw, m_Pitch, m_Roll);
+	D3DXMatrixRotationYawPitchRoll(&m_Rotation, m_Yaw, m_Pitch, m_Roll);
 }
 
 float SceneNode::clamp(float num, float min, float max)

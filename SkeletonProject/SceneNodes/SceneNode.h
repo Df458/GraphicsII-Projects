@@ -31,7 +31,7 @@ protected:
 		m_Roll = 0;
 
     D3DXMATRIX m_World;
-
+	D3DXMATRIX m_Rotation;
 	//move to utils
 	float clamp(float num, float min, float max);
 };
