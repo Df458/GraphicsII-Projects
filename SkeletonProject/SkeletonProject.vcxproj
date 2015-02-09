@@ -96,11 +96,16 @@
     <ClCompile Include="3DClasses\IcoSphereObject3D.cpp" />
     <ClCompile Include="3DClasses\PlainObject3D.cpp" />
     <ClCompile Include="3DClasses\TrapezohedronObject3D.cpp" />
+    <ClCompile Include="3DClasses\TubeObject3D.cpp" />
     <ClCompile Include="3DClasses\UVSphereObject3D.cpp" />
     <ClCompile Include="3DClasses\Vertex.cpp" />
     <ClCompile Include="d3dApp.cpp" />
     <ClCompile Include="DirectInput.cpp" />
     <ClCompile Include="GfxStats.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneNodes\CameraSceneNode.cpp" />
+    <ClCompile Include="SceneNodes\ModelSceneNode.cpp" />
+    <ClCompile Include="SceneNodes\SceneNode.cpp" />
     <ClCompile Include="SkeletonClass.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -113,12 +118,17 @@
     <ClInclude Include="3DClasses\IcoSphereObject3D.h" />
     <ClInclude Include="3DClasses\PlainObject3D.h" />
     <ClInclude Include="3DClasses\TrapezohedronObject3D.h" />
+    <ClInclude Include="3DClasses\TubeObject3D.h" />
     <ClInclude Include="3DClasses\UVSphereObject3D.h" />
     <ClInclude Include="3DClasses\Vertex.h" />
     <ClInclude Include="d3dApp.h" />
     <ClInclude Include="d3dUtil.h" />
     <ClInclude Include="DirectInput.h" />
     <ClInclude Include="GfxStats.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneNodes\CameraSceneNode.h" />
+    <ClInclude Include="SceneNodes\ModelSceneNode.h" />
+    <ClInclude Include="SceneNodes\SceneNode.h" />
     <ClInclude Include="SkeletonClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
