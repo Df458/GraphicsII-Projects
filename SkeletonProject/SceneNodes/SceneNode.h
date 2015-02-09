@@ -31,10 +31,15 @@ protected:
 		m_Roll = 0,
 		m_X = 0,
 		m_Y = 0,
-		m_Z = 0;
+		m_Z = 0,
+		m_sX = 1,
+		m_sY = 1,
+		m_sZ = 1;
 
     D3DXMATRIX m_World;
+	D3DXMATRIX m_Translation;
 	D3DXMATRIX m_Rotation;
+	D3DXMATRIX m_Scale;
 	//move to utils
 	float clamp(float num, float min, float max);
 };

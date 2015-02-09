@@ -6,6 +6,9 @@ SceneNode::SceneNode()
 {
     m_Parent = NULL;
     D3DXMatrixIdentity(&m_World);
+	D3DXMatrixIdentity(&m_Translation);
+	D3DXMatrixIdentity(&m_Rotation);
+	D3DXMatrixIdentity(&m_Scale);
 }
 
 void SceneNode::addChild(SceneNode* child)
@@ -32,6 +35,7 @@ void SceneNode::removeChild(SceneNode* child)
 
 void SceneNode::renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
 {
+	m_World = m_Scale * m_Rotation * m_Translation;
     activeScene->pushMatrix(m_World);
     for(auto i : m_Children)
     {
@@ -44,7 +48,7 @@ void SceneNode::renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
 void SceneNode::Translate(float x, float y, float z, bool relative, bool rotation_relative)
 {
 	if (!relative) {
-		D3DXMatrixTranslation(&m_World, x, y, z);
+		D3DXMatrixTranslation(&m_Translation, x, y, z);
 	}
 	else
     {
@@ -55,10 +59,14 @@ void SceneNode::Translate(float x, float y, float z, bool relative, bool rotatio
 		if (rotation_relative)
 		{
 			trans *= m_Rotation;
-			D3DXMatrixRotationYawPitchRoll(&m_World, 0, 0, 0);
+			D3DXQUATERNION r;
+			D3DXVECTOR3 s, t;
+			D3DXMatrixDecompose(&s,&r,&t, &trans);
+			D3DXMatrixIdentity(&trans);
+			D3DXMatrixTranslation(&trans, t.x, t.y, t.z);
 		}
 		
-		m_World *= trans;
+		m_Translation *= trans;
     }
 }
 
@@ -77,7 +85,7 @@ void SceneNode::SetRotationLimits(float YawMin, float YawMax, float PitchMin, fl
 		m_Yaw -= YawMax;
 	}
 
-	D3DXMatrixRotationYawPitchRoll(&m_World, m_Yaw, m_Pitch, m_Roll);
+	//D3DXMatrixRotationYawPitchRoll(&m_World, m_Yaw, m_Pitch, m_Roll);
 	D3DXMatrixRotationYawPitchRoll(&m_Rotation, m_Yaw, m_Pitch, m_Roll);
 }
 
@@ -95,7 +103,7 @@ void SceneNode::Rotate(float yaw, float pitch, float roll, bool relative)
 {
 	if (!relative)
 	{
-		D3DXMatrixRotationYawPitchRoll(&m_World, yaw, pitch, roll);
+		D3DXMatrixRotationYawPitchRoll(&m_Rotation, yaw, pitch, roll);
 		m_Yaw = yaw;
 		m_Pitch = pitch;
 		m_Roll = roll;
@@ -106,19 +114,19 @@ void SceneNode::Rotate(float yaw, float pitch, float roll, bool relative)
 		m_Pitch += pitch;
 		m_Roll += roll;
 
-		D3DXMatrixRotationYawPitchRoll(&m_World, m_Yaw, m_Pitch, m_Roll);
+		D3DXMatrixRotationYawPitchRoll(&m_Rotation, m_Yaw, m_Pitch, m_Roll);
     }
 }
 
 void SceneNode::Scale(float x, float y, float z, bool relative)
 {
     if(!relative)
-        D3DXMatrixScaling(&m_World, x, y, z);
+        D3DXMatrixScaling(&m_Scale, x, y, z);
     else
     {
         D3DXMATRIX trans;
 
         D3DXMatrixScaling(&trans, x, y, z);
-        m_World *= trans;
+        m_Scale *= trans;
     }
 }
