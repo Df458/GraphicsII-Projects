@@ -16,6 +16,8 @@ public:
     void Rotate(float yaw, float pitch, float roll, bool relative = false);
     void Scale(float x, float y, float z, bool relative = false);
 
+	void SetRotationLimits(float YawMin, float YawMax, float PitchMin, float PitchMax, float RollMin, float RollMax);
+
     friend class Scene;
 protected:
     virtual void addChild(SceneNode* child);
@@ -23,6 +25,14 @@ protected:
 
     SceneNode* m_Parent = NULL;
     std::vector<SceneNode*> m_Children;
+	float 
+		m_Yaw = 0,		 
+		m_Pitch = 0, 
+		m_Roll = 0;
+
     D3DXMATRIX m_World;
+
+	//move to utils
+	float clamp(float num, float min, float max);
 };
 #endif

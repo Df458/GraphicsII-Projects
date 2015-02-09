@@ -53,6 +53,7 @@ private:
     //std::vector<BaseObject3D*>      m_Objects;
     Scene* m_Scene;
     CameraSceneNode* m_Camera;
+
 };
 //=============================================================================
 #endif // _SKELETON_CLASS_H_

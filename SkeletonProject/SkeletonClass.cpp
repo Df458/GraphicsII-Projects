@@ -69,8 +69,11 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     //plane->Create(gd3dDevice);
     //m_Scene->addNode(new ModelSceneNode(plane));
     TubeObject3D* tube = new TubeObject3D(3, 1, 16, 4);
+	PlainObject3D* floor = new PlainObject3D(200.0f, 200.0f, 100, 100);
     tube->Create(gd3dDevice);
+	//floor->Create(gd3dDevice);
     m_Scene->addNode(new ModelSceneNode(tube));
+	m_Scene->addNode(new ModelSceneNode(floor));
 
     // replace or add to the following object creation
     //m_Objects.push_back( new PlainObject3D(15, 15, 15, 15));
@@ -118,6 +121,7 @@ void SkeletonClass::onResetDevice()
 
 void SkeletonClass::updateScene(float dt)
 {
+
 	// Reset the statistics for the scene - each object will add to it.
 	GfxStats::GetInstance()->setVertexCount(0);
 	GfxStats::GetInstance()->setTriCount(0);
@@ -126,6 +130,7 @@ void SkeletonClass::updateScene(float dt)
 	// Get snapshot of input devices.
 	gDInput->poll();
 
+	/******OLD CAMERA*****/
 	// Check input.
 	if( gDInput->keyDown(DIK_W) )	 
 		mCameraHeight   += 25.0f * dt;
@@ -148,6 +153,32 @@ void SkeletonClass::updateScene(float dt)
 	// change every frame based on input, so we need to rebuild the
 	// view matrix every frame with the latest changes.
 	buildViewMtx();
+	/******OLD CAMERA*****/
+
+	m_Camera->Rotate(gDInput->mouseDX()  * dt * 12, 0, 0.0f, true);
+	m_Camera->Rotate(0, gDInput->mouseDY()  * dt * 12, 0.0f, true);
+
+	
+
+	if (gDInput->keyDown(DIK_W))
+		m_Camera->Translate(0, 0, 25.0f * dt, true);
+
+	if (gDInput->keyDown(DIK_S))
+		m_Camera->Translate(0, 0, -25.0f * dt, true);
+
+	if (gDInput->keyDown(DIK_A))
+		m_Camera->Translate(-25.0f * dt, 0, 0, true);
+
+	if (gDInput->keyDown(DIK_D))
+		m_Camera->Translate(25.0f * dt, 0, 0, true);
+	
+	if (gDInput->keyDown(DIK_Q))
+		m_Camera->Translate(0, -25.0f * dt, 0, true);
+
+	if (gDInput->keyDown(DIK_E))
+		m_Camera->Translate(0, 25.0f * dt, 0, true);
+
+	m_Camera->SetRotationLimits(0, M_PI, -M_PI / 2, M_PI / 2, 0, 0);
     m_Scene->Update(dt);
 }
 

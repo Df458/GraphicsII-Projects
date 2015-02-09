@@ -54,16 +54,58 @@ void SceneNode::Translate(float x, float y, float z, bool relative)
     }
 }
 
+void SceneNode::SetRotationLimits(float YawMin, float YawMax, float PitchMin, float PitchMax, float RollMin, float RollMax)
+{
+	m_Pitch = clamp(m_Pitch, PitchMin, PitchMax);
+	m_Roll = clamp(m_Roll, RollMin, RollMax);
+
+	if (m_Yaw < YawMin)
+	{
+		m_Yaw += YawMax;
+	}
+
+	if (m_Yaw > YawMax)
+	{
+		m_Yaw -= YawMax;
+	}
+
+	if (m_Pitch > PitchMax)
+	{
+		printf("gjdhfgiZ");
+	}
+	
+	D3DXMatrixRotationYawPitchRoll(&m_World, m_Yaw, m_Pitch, m_Roll);
+}
+
+float SceneNode::clamp(float num, float min, float max)
+{
+	if (num < min)
+		return min;
+	if (num > max)
+		return max;
+
+	return num;
+}
+
 void SceneNode::Rotate(float yaw, float pitch, float roll, bool relative)
 {
-    if(!relative)
-        D3DXMatrixRotationYawPitchRoll(&m_World, yaw, pitch, roll);
+	if (!relative)
+	{
+		D3DXMatrixRotationYawPitchRoll(&m_World, yaw, pitch, roll);
+		m_Yaw = yaw;
+		m_Pitch = pitch;
+		m_Roll = roll;
+	}
     else
     {
         D3DXMATRIX trans;
 
         D3DXMatrixRotationYawPitchRoll(&trans, yaw, pitch, roll);
         m_World *= trans;
+
+		m_Yaw += yaw;
+		m_Pitch += pitch;
+		m_Roll =+ roll;
     }
 }
 

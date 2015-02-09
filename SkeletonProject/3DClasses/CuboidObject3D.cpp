@@ -231,45 +231,7 @@ void CuboidObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 				}
 			}
 
-			totalIndices += 6;
-
-			//front end
-			/*if (i == 0)
-			{
-				k[totalIndices] = currentVertIndex + mZ_Resolution;
-				k[totalIndices + 1] = currentVertIndex + mZ_Resolution + rightsideUp;
-				k[totalIndices + 2] = currentVertIndex + mZ_Resolution - Ringleft;
-
-				
-				/*k[totalIndices + 3] = currentVertIndex + mZ_Resolution - Ringleft + leftsideUp;
-				k[totalIndices + 5] = currentVertIndex + mZ_Resolution + rightsideUp;
-				k[totalIndices + 4] = currentVertIndex + mZ_Resolution - Ringleft;*//*
-			}
-			else
-			{
-				k[totalIndices] = currentVertIndex + mZ_Resolution + 1 + (i - 1) * rightsideUp;;
-				k[totalIndices + 1] = currentVertIndex + mZ_Resolution - Ringleft + 1 + (i - 1) * rightsideUp;
-				k[totalIndices + 2] = 0 + mZ_Resolution;
-
-
-				/*k[totalIndices + 3] = currentVertIndex + mZ_Resolution - Ringleft + leftsideUp;
-				k[totalIndices + 5] = currentVertIndex + mZ_Resolution + rightsideUp + 1 + (i - 1) * rightsideUp;
-				k[totalIndices + 4] = currentVertIndex + mZ_Resolution - Ringleft;
-
-				//edge block. traverse down by zdepth + 1
-				if (currentVertIndex == leftFaceVertSize)
-				{
-					k[totalIndices + 1] = currentVertIndex + mZ_Resolution + rightsideUp * (i) + (mZ_Resolution + 1);
-				}
-				else
-				{
-					k[totalIndices + 1] = currentVertIndex + mZ_Resolution + rightsideUp * (i) + 2;
-
-					}*//*
-			}
-
-			totalIndices += 6;*/
-			
+			totalIndices += 6;			
 		}
 		currentVertIndex += (mZ_Resolution + 1) * 2 + (mY_Resolution - 1) * 2;
 	} while (totalIndices < m_IndexCount - leftFaceIndexSize);
