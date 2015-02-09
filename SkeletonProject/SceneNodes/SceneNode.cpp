@@ -69,11 +69,6 @@ void SceneNode::SetRotationLimits(float YawMin, float YawMax, float PitchMin, fl
 		m_Yaw -= YawMax;
 	}
 
-	if (m_Pitch > PitchMax)
-	{
-		printf("gjdhfgiZ");
-	}
-	
 	D3DXMatrixRotationYawPitchRoll(&m_World, m_Yaw, m_Pitch, m_Roll);
 }
 
