@@ -7,7 +7,7 @@
 
 
 TubeObject3D::TubeObject3D(float radius, float width, unsigned radialSegments, float height)
-	:BaseObject3D(),m_Radius(radius), m_Width(width) m_RadialSegments(radialSegments), m_Height(height)
+	:BaseObject3D(),m_Radius(radius), m_Width(width), m_RadialSegments(radialSegments), m_Height(height)
 {
 	// Determine vertex count;
 	m_VertexCount = (m_RadialSegments * 4);
