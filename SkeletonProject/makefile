@@ -1,5 +1,5 @@
 CXX=i686-w64-mingw32-g++
-SRC=$(wildcard *.cpp) $(wildcard 3DClasses/*.cpp)
+SRC=$(wildcard *.cpp) $(wildcard 3DClasses/*.cpp) $(wildcard SceneNodes/*.cpp)
 OBJ=$(patsubst %.cpp,obj/%.o,$(SRC))
 DEP=$(patsubst %.cpp,obj/%.depend,$(SRC))
 CXXFLAGS=-g -std=c++11 -Wall -Wno-comment -static-libgcc

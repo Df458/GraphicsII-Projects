@@ -4,6 +4,7 @@ CameraSceneNode::CameraSceneNode()
 {
     m_Parent = NULL;
     D3DXMatrixIdentity(&m_World);
+    D3DXMatrixTranslation(&m_World, 0, 1.0f, -15.0f);
 }
 
 void CameraSceneNode::setProjection(D3DXMATRIX projection)

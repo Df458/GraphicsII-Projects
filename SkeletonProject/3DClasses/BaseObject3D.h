@@ -21,8 +21,6 @@ struct IDirect3DIndexBuffer9;
 class BaseObject3D
 {
 protected:	
-    D3DXMATRIX                  m_World;
-
 	IDirect3DVertexBuffer9*     m_VertexBuffer;
 	IDirect3DIndexBuffer9*      m_IndexBuffer;
     unsigned                    m_VertexCount;
@@ -41,7 +39,7 @@ public:
 
     // Replace or add to the following code as you progress with the material
 	virtual void Create(IDirect3DDevice9* gd3dDevice);
-	void Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& view, D3DXMATRIX& projection);
+	void Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection);
 	void Update(float deltaTime);
 };
 //=============================================================================

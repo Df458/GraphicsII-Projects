@@ -23,6 +23,8 @@
 #include <vector>
 //=============================================================================
 class BaseObject3D;
+class Scene;
+class CameraSceneNode;
 //=============================================================================
 class SkeletonClass : public D3DApp
 {
@@ -41,14 +43,16 @@ public:
 	void buildProjMtx();
 
 private:
-	float mCameraRotationY;
-	float mCameraRadius;
-	float mCameraHeight;
+    float mCameraRotationY;
+    float mCameraRadius;
+    float mCameraHeight;
 
-	D3DXMATRIX mView;
-	D3DXMATRIX mProj;
+	//D3DXMATRIX mView;
+	//D3DXMATRIX mProj;
 
-    std::vector<BaseObject3D*>      m_Objects;
+    //std::vector<BaseObject3D*>      m_Objects;
+    Scene* m_Scene;
+    CameraSceneNode* m_Camera;
 };
 //=============================================================================
 #endif // _SKELETON_CLASS_H_

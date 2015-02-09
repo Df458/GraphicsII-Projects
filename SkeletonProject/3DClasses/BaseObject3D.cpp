@@ -14,8 +14,6 @@ BaseObject3D::BaseObject3D(void)
 {
     m_VertexBuffer = NULL;
     m_IndexBuffer = NULL;
-
-    D3DXMatrixIdentity(&m_World);
 }
 
 //-----------------------------------------------------------------------------
@@ -33,7 +31,7 @@ void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice)
 
 //-----------------------------------------------------------------------------
 void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
-    D3DXMATRIX& view, D3DXMATRIX& projection )
+    D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection )
 {
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
@@ -45,7 +43,7 @@ void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
 	HR(gd3dDevice->SetVertexDeclaration(VertexPos::Decl));
 
     // Set matrices and model relevant render date
-	HR(gd3dDevice->SetTransform(D3DTS_WORLD, &m_World));
+	HR(gd3dDevice->SetTransform(D3DTS_WORLD, &world));
 	HR(gd3dDevice->SetTransform(D3DTS_VIEW, &view));
 	HR(gd3dDevice->SetTransform(D3DTS_PROJECTION, &projection));	
     

@@ -18,12 +18,16 @@
 #include "GfxStats.h"
 #include <list>
 
+#include "Scene.h"
+#include "SceneNodes/CameraSceneNode.h"
+#include "SceneNodes/ModelSceneNode.h"
 #include "SkeletonClass.h"
 #include "3DClasses/BaseObject3D.h"
 #include "3DClasses/ConeObject3D.h"
 #include "3DClasses/CuboidObject3D.h"
 #include "3DClasses/CylinderObject3D.h"
 #include "3DClasses/DoubleConeObject3D.h"
+#include "3DClasses/PlainObject3D.h"
 #include "3DClasses/UVSphereObject3D.h"
 #include "3DClasses/Vertex.h"
 //=============================================================================
@@ -57,11 +61,20 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	mCameraRotationY = 1.2 * D3DX_PI;
 	mCameraHeight    = 5.0f;
 
+    m_Camera = new CameraSceneNode();
+    m_Scene = new Scene();
+    m_Scene->setActiveCamera(m_Camera);
+    PlainObject3D* plane = new PlainObject3D(15, 15, 15, 15);
+    plane->Create(gd3dDevice);
+    m_Scene->addNode(new ModelSceneNode(plane));
+
     // replace or add to the following object creation
-    m_Objects.push_back( new UVSphereObject3D(4.0f, 16, 32));
+    //m_Objects.push_back( new PlainObject3D(15, 15, 15, 15));
+    //m_Objects.push_back( new UVSphereObject3D(4.0f, 16, 32));
 	//m_Objects.push_back(new CuboidObject3D(1,1,1,2,2,2));
 	
-    m_Objects[0]->Create( gd3dDevice );
+    //m_Objects[0]->Create( gd3dDevice );
+    //m_Objects[1]->Create( gd3dDevice );
 
 	onResetDevice();
 
@@ -72,9 +85,10 @@ SkeletonClass::~SkeletonClass()
 {
     GfxStats::DeleteInstance();
 
-    for ( unsigned int obj=0 ; obj<m_Objects.size() ; obj++ )
-        delete m_Objects[obj];
-    m_Objects.clear();
+    //for ( unsigned int obj=0 ; obj<m_Objects.size() ; obj++ )
+        //delete m_Objects[obj];
+    //m_Objects.clear();
+    delete m_Scene;
 
 	DestroyAllVertexDeclarations();
 }
@@ -130,48 +144,55 @@ void SkeletonClass::updateScene(float dt)
 	// change every frame based on input, so we need to rebuild the
 	// view matrix every frame with the latest changes.
 	buildViewMtx();
+    m_Scene->Update(dt);
 }
-
 
 void SkeletonClass::drawScene()
 {
-	// Clear the backbuffer and depth buffer.
-	HR(gd3dDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xffffffff, 1.0f, 0));
+    m_Scene->Render(gd3dDevice);
 
-	HR(gd3dDevice->BeginScene());
+     //Clear the backbuffer and depth buffer.
+    //HR(gd3dDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xffffffff, 1.0f, 0));
 
-    // Set render statws for the entire scene here:
-//	HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID));
-	HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME));
+    //HR(gd3dDevice->BeginScene());
 
-    // Render all the objects
-    for ( unsigned int obj=0 ; obj<m_Objects.size() ; obj++ )
-    {
-        m_Objects[obj]->Render( gd3dDevice, mView, mProj );
-    }
+     //Set render statws for the entire scene here:
+    //HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID));
+    //HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME));
 
-    // display the render statistics
-    GfxStats::GetInstance()->display();
+     //Render all the objects
+    //for ( unsigned int obj=0 ; obj<m_Objects.size() ; obj++ )
+    //{
+        //m_Objects[obj]->Render( gd3dDevice, mView, mProj );
+    //}
 
-	HR(gd3dDevice->EndScene());
+     //display the render statistics
+    //GfxStats::GetInstance()->display();
 
-	// Present the backbuffer.
-	HR(gd3dDevice->Present(0, 0, 0, 0));
+    //HR(gd3dDevice->EndScene());
+
+     //Present the backbuffer.
+    //HR(gd3dDevice->Present(0, 0, 0, 0));
 }
 
 void SkeletonClass::buildViewMtx()
 {
-	float x = mCameraRadius * cosf(mCameraRotationY);
-	float z = mCameraRadius * sinf(mCameraRotationY);
-	D3DXVECTOR3 pos(x, mCameraHeight, z);
-	D3DXVECTOR3 target(0.0f, 0.0f, 0.0f);
-	D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
-	D3DXMatrixLookAtLH(&mView, &pos, &target, &up);
+    //D3DXMATRIX view;
+    //float x = mCameraRadius * cosf(mCameraRotationY);
+    //float z = mCameraRadius * sinf(mCameraRotationY);
+    //D3DXVECTOR3 pos(x, mCameraHeight, z);
+    //D3DXVECTOR3 target(0.0f, 0.0f, 0.0f);
+    //D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
+    //D3DXMatrixLookAtLH(&view, &pos, &target, &up);
+    //m_Camera->setView(view);
 }
 
 void SkeletonClass::buildProjMtx()
 {
 	float w = (float)md3dPP.BackBufferWidth;
 	float h = (float)md3dPP.BackBufferHeight;
-	D3DXMatrixPerspectiveFovLH(&mProj, D3DX_PI * 0.25f, w/h, 1.0f, 5000.0f);
+    D3DXMATRIX proj;
+	D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI * 0.25f, w/h, 1.0f, 5000.0f);
+    m_Camera->setProjection(proj);
+    printf("done.\n");
 }
