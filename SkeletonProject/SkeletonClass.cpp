@@ -119,7 +119,7 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	UVSphereObject3D* sp5 = new UVSphereObject3D(10, 6, 9);
 	UVSphereObject3D* sp6 = new UVSphereObject3D(10, 50, 50);
 
-	TubeObject3D* tube1 = new TubeObject3D(3, 5, 16, 4);
+	TubeObject3D* tube1 = new TubeObject3D(3, 2, 16, 4);
 	TubeObject3D* tube2 = new TubeObject3D(5, 1, 4, 10);
 	TubeObject3D* tube3 = new TubeObject3D(9, 2, 14, 3);
 	TubeObject3D* tube4 = new TubeObject3D(4, 3, 30, 8);
