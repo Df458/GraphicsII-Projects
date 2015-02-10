@@ -2,10 +2,6 @@
 #include "Vertex.h"
 #include "../GfxStats.h"
 
-#define _USE_MATH_DEFINES 
-#include <math.h>
-
-
 TubeObject3D::TubeObject3D(float radius, float width, unsigned radialSegments, float height)
 	:BaseObject3D(),m_Radius(radius), m_Width(width), m_RadialSegments(radialSegments), m_Height(height)
 {

@@ -71,6 +71,8 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     TubeObject3D* tube = new TubeObject3D(3, 1, 16, 4);
 	PlainObject3D* floor = new PlainObject3D(200.0f, 200.0f, 100, 100);
     tube->Create(gd3dDevice);
+	floor->Create(gd3dDevice);
+
 	//floor->Create(gd3dDevice);
     m_Scene->addNode(new ModelSceneNode(tube));
 	m_Scene->addNode(new ModelSceneNode(floor));
@@ -158,7 +160,7 @@ void SkeletonClass::updateScene(float dt)
 	m_Camera->Rotate(gDInput->mouseDX()  * dt * 12, 0, 0.0f, true);
 	m_Camera->Rotate(0, gDInput->mouseDY()  * dt * 12, 0.0f, true);
 
-	m_Camera->SetRotationLimits(0, M_PI, -M_PI / 2, M_PI / 2, 0, 0);
+	m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
 
 	if (gDInput->keyDown(DIK_W))
 		m_Camera->Translate(0, 0, 25.0f * dt, true, true);

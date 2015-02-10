@@ -2,9 +2,6 @@
 #include "Vertex.h"
 #include "../GfxStats.h"
 
-#define _USE_MATH_DEFINES 
-#include <math.h>
-
 
 UVSphereObject3D::UVSphereObject3D(float radius, unsigned rings, unsigned radialSegments)
 {
@@ -37,13 +34,13 @@ void UVSphereObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice)
     for(unsigned i = 0; i < m_Rings; ++i)
     {
 		float angle1 = 2.0f * (float)M_PI * ((float)(i + 1) / (float)(m_Rings));
-        float ringRadius = sin(angle1 * 0.5) * m_Radius;
+        float ringRadius = (float)sin(angle1 * 0.5) * m_Radius;
         for(unsigned j = 0; j < m_RadialSegments; ++j)
         {
             float angle2 = 2.0f * (float)M_PI * ((float)j / (float)m_RadialSegments);
             v[(i * m_RadialSegments) + j + 2] = VertexPos(sin(angle2) * ringRadius,
-                                                     m_Radius * cos(angle1 * 0.5),
-                                                     cos(angle2) * ringRadius);
+                                                     m_Radius * (float)cos(angle1 * 0.5),
+													 (float)cos(angle2) * ringRadius);
         }
     }
 	HR(m_VertexBuffer->Unlock());

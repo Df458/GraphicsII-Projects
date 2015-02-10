@@ -72,13 +72,12 @@ void CuboidObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 
 	//do stuff
 	
-	int yUp = mZ_Resolution + 1;
-	int currentDepth = 0;
-	int totalIndices = 0;
-	int currentVertIndex = 0;
+	unsigned yUp = mZ_Resolution + 1;
+	unsigned totalIndices = 0;
+	unsigned currentVertIndex = 0;
 
 	//Generate Left/Right Face
-	for (int tris = 0; tris < mZ_Resolution * mY_Resolution * 2; tris += 2)
+	for (unsigned tris = 0; tris < mZ_Resolution * mY_Resolution * 2; tris += 2)
 	{
 		k[totalIndices] = currentVertIndex;
 		k[totalIndices + 1] = currentVertIndex + 1 + yUp;
@@ -136,7 +135,7 @@ void CuboidObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 			rightsideUp = mZ_Resolution + 1; //traversing up is 3
 
 		//Make Top/Bottom side
-		for (int i = 0; i < mZ_Resolution; i++)
+		for (unsigned i = 0; i < mZ_Resolution; i++)
 		{
 			//Bottom
 			k[totalIndices] = currentVertIndex - Ringleft + i;
@@ -165,7 +164,7 @@ void CuboidObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 		//default for nonend ring
 		int forwardUp = 2;
 
-		for (int i = 0; i < mY_Resolution; i++)
+		for (unsigned i = 0; i < mY_Resolution; i++)
 		{		
 
 			//back end

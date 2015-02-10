@@ -2,9 +2,6 @@
 #include "Vertex.h"
 #include "../GfxStats.h"
 
-#define _USE_MATH_DEFINES 
-#include <math.h>
-
 
 CylinderObject3D::CylinderObject3D(float radius, unsigned radialSegments, float height)
 	:BaseObject3D(),m_Radius(radius), m_RadialSegments(radialSegments), m_Height(height)

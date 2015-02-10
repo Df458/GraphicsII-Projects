@@ -66,7 +66,7 @@ void PlainObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
 	int currentDepth = 0;
 	int totalIndices = 0;
 	int currentVertIndex = 0;
-	for (int tris = 0; tris < mX_Resolution * mZ_Resolution * 2; tris += 2)
+	for (unsigned tris = 0; tris < mX_Resolution * mZ_Resolution * 2; tris += 2)
 	{
 		k[totalIndices] = currentVertIndex;
 		k[totalIndices + 1] = currentVertIndex + 1 + xUp;
