@@ -92,6 +92,21 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     //m_Objects[1]->Create( gd3dDevice );
     
     // Hugues Scene Stuff
+    ConeObject3D* hcone = new ConeObject3D(5, 16, 1);
+    TubeObject3D* htube = new TubeObject3D(5, 1, 16, 8);
+    CylinderObject3D* hcyl = new CylinderObject3D(3, 16, 10);
+    UVSphereObject3D* hsph = new UVSphereObject3D(7, 8, 32);
+
+    hcone->Create(gd3dDevice);
+    htube->Create(gd3dDevice);
+    hcyl->Create(gd3dDevice);
+    hsph->Create(gd3dDevice);
+
+    auto node = new ModelSceneNode(hcone, 200, 0, 0);
+    m_Scene->addNode(node);
+    m_Scene->addNode(new ModelSceneNode(htube, 200, 0, 0));
+    m_Scene->addNode(new ModelSceneNode(hcyl, 200, 1, 0));
+    m_Scene->addNode(new ModelSceneNode(hsph, 200, 16, 0));
 
 	onResetDevice();
 
