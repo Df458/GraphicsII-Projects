@@ -162,8 +162,13 @@ void SkeletonClass::updateScene(float dt)
 
 	if (gDInput->mouseButtonDown(0))
 	{
+#ifdef __GNUC__
+		m_Camera->Rotate((gDInput->mouseDX() / md3dPP.BackBufferWidth)  * dt * 400, 0, 0.0f, true);
+		m_Camera->Rotate(0, (gDInput->mouseDY() / md3dPP.BackBufferHeight)  * dt * 100, 0.0f, true);
+#else
 		m_Camera->Rotate(gDInput->mouseDX()  * dt * 12, 0, 0.0f, true);
 		m_Camera->Rotate(0, gDInput->mouseDY()  * dt * 12, 0.0f, true);
+#endif
 
 		m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
 	}
