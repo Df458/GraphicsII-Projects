@@ -22,6 +22,8 @@ ModelSceneNode::ModelSceneNode(BaseObject3D* model, float x, float y, float z, f
 	m_Yaw = yaw;
 	m_Pitch = pitch;
 	m_Roll = roll;
+
+	UpdateMatricies();
 }
 
 void ModelSceneNode::Update(float deltatime)

@@ -45,6 +45,12 @@ void SceneNode::renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     activeScene->popMatrix();
 }
 
+void SceneNode::UpdateMatricies()
+{
+	D3DXMatrixTranslation(&m_Translation, m_X, m_Y, m_Z);
+	D3DXMatrixRotationYawPitchRoll(&m_Rotation, m_Yaw, m_Pitch, m_Roll);
+	D3DXMatrixScaling(&m_Scale, m_sX, m_sY, m_sZ);
+}
 void SceneNode::Translate(float x, float y, float z, bool relative, bool rotation_relative)
 {
 	if (!relative) {

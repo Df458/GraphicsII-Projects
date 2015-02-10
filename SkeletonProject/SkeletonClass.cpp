@@ -70,14 +70,18 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     //m_Scene->addNode(new ModelSceneNode(plane));
     TubeObject3D* tube = new TubeObject3D(3, 1, 16, 4);
 	PlainObject3D* floor = new PlainObject3D(200.0f, 200.0f, 100, 100);
-	CuboidObject3D* stand1 = new CuboidObject3D(50.0f, 100.0f, 50.0f);
+	CuboidObject3D* stand1 = new CuboidObject3D(50.0f, 50.0f, 70.0f, 20, 20, 20);
+
+	CuboidObject3D* cuboid1 = new CuboidObject3D(1.0f, 1.0f, 1.0f, 1, 1, 1);
     tube->Create(gd3dDevice);
 	floor->Create(gd3dDevice);
 	stand1->Create((gd3dDevice));
 
 	//floor->Create(gd3dDevice);
-    m_Scene->addNode(new ModelSceneNode(tube));
-	m_Scene->addNode(new ModelSceneNode(floor));
+    m_Scene->addNode(new ModelSceneNode(tube, 20, 0, -10));
+	m_Scene->addNode(new ModelSceneNode(floor,0,-10,0));
+	m_Scene->addNode(new ModelSceneNode(stand1, -75, 25, 0));
+	m_Scene->addNode(new ModelSceneNode(cuboid1, 20,20,20));
 
     // replace or add to the following object creation
     //m_Objects.push_back( new PlainObject3D(15, 15, 15, 15));
