@@ -32,8 +32,8 @@ void CylinderObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice)
 		float x = sin(angle);
 		float y = cos(angle);
 
-		v[i+2] = VertexPos(x, 0.0f, y);
-		v[m_RadialSegments+i+2] = VertexPos(x, (float)m_Height, y);
+		v[i + 2] = VertexPos(x * m_Radius, 0.0f, y * m_Radius);
+		v[m_RadialSegments+i+2] = VertexPos(x * m_Radius, (float)m_Height, y *  m_Radius);
 	}
 
 	
