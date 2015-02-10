@@ -116,7 +116,9 @@ void GfxStats::display()
 	sprintf(buffer, "Frames Per Second = %.2f\n"
 		"Milliseconds Per Frame = %.4f\n"
 		"Triangle Count = %d\n"
-		"Vertex Count = %d", mFPS, mMilliSecPerFrame, mNumTris, mNumVertices);
+		"Vertex Count = %d\n\n"
+		"WASDQE to move, with mouse to look\n"
+		"Press F for Fullscreen\n", mFPS, mMilliSecPerFrame, mNumTris, mNumVertices);
 
 	RECT R = {5, 5, 0, 0};
 	HR(mFont->DrawText(0, buffer, -1, &R, DT_NOCLIP, D3DCOLOR_XRGB(0,0,0)));
