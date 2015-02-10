@@ -9,6 +9,21 @@ ModelSceneNode::ModelSceneNode(BaseObject3D* model)
     m_Model = model;
 }
 
+ModelSceneNode::ModelSceneNode(BaseObject3D* model, float x, float y, float z, float yaw, float pitch, float roll)
+{
+	m_Parent = NULL;
+	D3DXMatrixIdentity(&m_World);
+	m_Model = model;
+
+	m_X = x;
+	m_Y = y;
+	m_Z = z;
+
+	m_Yaw = yaw;
+	m_Pitch = pitch;
+	m_Roll = roll;
+}
+
 void ModelSceneNode::Update(float deltatime)
 {
 	m_World = m_Scale * m_Rotation * m_Translation;

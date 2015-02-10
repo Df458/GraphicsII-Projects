@@ -70,8 +70,10 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     //m_Scene->addNode(new ModelSceneNode(plane));
     TubeObject3D* tube = new TubeObject3D(3, 1, 16, 4);
 	PlainObject3D* floor = new PlainObject3D(200.0f, 200.0f, 100, 100);
+	CuboidObject3D* stand1 = new CuboidObject3D(50.0f, 100.0f, 50.0f);
     tube->Create(gd3dDevice);
 	floor->Create(gd3dDevice);
+	stand1->Create((gd3dDevice));
 
 	//floor->Create(gd3dDevice);
     m_Scene->addNode(new ModelSceneNode(tube));
