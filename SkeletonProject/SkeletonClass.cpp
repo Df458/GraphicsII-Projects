@@ -86,6 +86,8 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	
     //m_Objects[0]->Create( gd3dDevice );
     //m_Objects[1]->Create( gd3dDevice );
+    
+    // Hugues Scene Stuff
 
 	onResetDevice();
 
