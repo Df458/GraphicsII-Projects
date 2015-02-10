@@ -22,6 +22,7 @@ public:
 protected:
     virtual void addChild(SceneNode* child);
     virtual void removeChild(SceneNode* child);
+	virtual void UpdateMatricies();
 
     SceneNode* m_Parent = NULL;
     std::vector<SceneNode*> m_Children;
