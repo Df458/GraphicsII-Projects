@@ -17,7 +17,8 @@ In addition, we made some more shapes that weren't required:
 -Cuboid (Rectangular pprism with arbitrary face counts on each axis)
 
 For proof of the required shapes, look closely at the 'potted plant' floating
-in the sky, as it contains all of them + a tube.
+in the sky, as it contains all of them + a tube. Then look below at the horror 
+of shapes everywhere.
 
 -------------------------------------------------------------------------------
 
