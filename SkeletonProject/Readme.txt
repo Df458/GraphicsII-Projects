@@ -1,6 +1,6 @@
 Assignment II - Intro to 3D & Procedural Geometry
 
-By: Hugues Ross -and- Johnathan Omalia
+By: Hugues Ross -and- Johnathan O'Malia
 
 -------------------------------------------------------------------------------
 
