@@ -49,6 +49,9 @@ private:
 
 	//D3DXMATRIX mView;
 	//D3DXMATRIX mProj;
+	
+	//Input
+	float X, Y, prevX, prevY;
 
     //std::vector<BaseObject3D*>      m_Objects;
     Scene* m_Scene;

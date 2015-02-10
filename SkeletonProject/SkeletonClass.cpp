@@ -157,10 +157,14 @@ void SkeletonClass::updateScene(float dt)
 	buildViewMtx();
 	/******OLD CAMERA*****/
 
-	m_Camera->Rotate(gDInput->mouseDX()  * dt * 12, 0, 0.0f, true);
-	m_Camera->Rotate(0, gDInput->mouseDY()  * dt * 12, 0.0f, true);
 
-	m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
+	if (gDInput->mouseButtonDown(0))
+	{
+		m_Camera->Rotate(gDInput->mouseDX()  * dt * 12, 0, 0.0f, true);
+		m_Camera->Rotate(0, gDInput->mouseDY()  * dt * 12, 0.0f, true);
+
+		m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
+	}
 
 	if (gDInput->keyDown(DIK_W))
 		m_Camera->Translate(0, 0, 25.0f * dt, true, true);
@@ -175,10 +179,10 @@ void SkeletonClass::updateScene(float dt)
 		m_Camera->Translate(25.0f * dt, 0, 0, true, true);
 	
 	if (gDInput->keyDown(DIK_Q))
-		m_Camera->Translate(0, -25.0f * dt, 0, true, true);
+		m_Camera->Translate(0, -25.0f * dt, 0, true);
 
 	if (gDInput->keyDown(DIK_E))
-		m_Camera->Translate(0, 25.0f * dt, 0, true, true);
+		m_Camera->Translate(0, 25.0f * dt, 0, true);
 
     m_Scene->Update(dt);
 }
