@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseObject3D.h"
 class CylinderObject3D :
-	public BaseObject3D
+	public MeshObject3D
 {
 public:
 	CylinderObject3D(float radius, unsigned radialSegments, float height);

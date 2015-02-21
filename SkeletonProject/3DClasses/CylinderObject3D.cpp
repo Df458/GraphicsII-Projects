@@ -1,3 +1,4 @@
+#include <d3dx9shape.h>
 #include "CylinderObject3D.h"
 #include "Vertex.h"
 #include "../GfxStats.h"
@@ -16,28 +17,29 @@ CylinderObject3D::CylinderObject3D(float radius, unsigned radialSegments, float 
 void CylinderObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice)
 {
 	// Obtain a pointer to a new vertex buffer.
-	HR(gd3dDevice->CreateVertexBuffer(m_VertexCount * sizeof(VertexPos), D3DUSAGE_WRITEONLY,
-		0, D3DPOOL_MANAGED, &m_VertexBuffer, 0));
+	//HR(gd3dDevice->CreateVertexBuffer(m_VertexCount * sizeof(VertexPos), D3DUSAGE_WRITEONLY,
+		//0, D3DPOOL_MANAGED, &m_VertexBuffer, 0));
 
 
-	VertexPos* v = 0;
-	HR(m_VertexBuffer->Lock(0, 0, (void**)&v, 0));
+	//VertexPos* v = 0;
+	//HR(m_VertexBuffer->Lock(0, 0, (void**)&v, 0));
 
-	v[0] = VertexPos(0.0f, 0.0f, 0.0f);
-	v[1] = VertexPos(0,(float)m_Height,0);
+	//v[0] = VertexPos(0.0f, 0.0f, 0.0f);
+	//v[1] = VertexPos(0,(float)m_Height,0);
 
-	for (unsigned i = 0; i < m_RadialSegments; i++)
-	{
-		float angle = 2.0f * (float)M_PI * ((float)i / (float)m_RadialSegments);
-		float x = sin(angle);
-		float y = cos(angle);
+	//for (unsigned i = 0; i < m_RadialSegments; i++)
+	//{
+		//float angle = 2.0f * (float)M_PI * ((float)i / (float)m_RadialSegments);
+		//float x = sin(angle);
+		//float y = cos(angle);
 
-		v[i + 2] = VertexPos(x * m_Radius, 0.0f, y * m_Radius);
-		v[m_RadialSegments+i+2] = VertexPos(x * m_Radius, (float)m_Height, y *  m_Radius);
-	}
+		//v[i + 2] = VertexPos(x * m_Radius, 0.0f, y * m_Radius);
+		//v[m_RadialSegments+i+2] = VertexPos(x * m_Radius, (float)m_Height, y *  m_Radius);
+	//}
 
 	
-	HR(m_VertexBuffer->Unlock());
+	//HR(m_VertexBuffer->Unlock());
+    HR(D3DXCreateCylinder(gd3dDevice, m_Radius, m_Radius, m_Radius * 2, m_Height, m_RadialSegments, &m_Mesh, &m_Buffer));
 }
 
 void CylinderObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice)
