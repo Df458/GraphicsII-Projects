@@ -1,8 +1,8 @@
 #pragma once
-#include "BaseObject3D.h"
+#include "MeshObject3D.h"
 
 class ConeObject3D :
-	public BaseObject3D
+	public MeshObject3D
 {
 public:
 	ConeObject3D(float radius, unsigned radialSegments, float height);

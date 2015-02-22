@@ -4,7 +4,7 @@
 
 
 ConeObject3D::ConeObject3D(float radius, unsigned radialSegments, float height)
-	:BaseObject3D(),m_Radius(radius), m_RadialSegments(radialSegments), m_Height(height)
+	:MeshObject3D(),m_Radius(radius), m_RadialSegments(radialSegments), m_Height(height)
 {
 	m_VertexCount = m_RadialSegments + 2;
 	m_TriCount = m_RadialSegments * 2;
@@ -13,29 +13,7 @@ ConeObject3D::ConeObject3D(float radius, unsigned radialSegments, float height)
 
 void ConeObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice) 
 {
-	// Obtain a pointer to a new vertex buffer.
-	HR(gd3dDevice->CreateVertexBuffer(m_VertexCount * sizeof(VertexPos), D3DUSAGE_WRITEONLY,
-		0, D3DPOOL_MANAGED, &m_VertexBuffer, 0));
-
-
-	VertexPos* v = 0;
-	HR(m_VertexBuffer->Lock(0, 0, (void**)&v, 0));
-
-	//Bottom Center Vertex
-	v[0] = VertexPos(0.0f, -m_Negative_Height, 0.0f);
-	//Generate base vertices
-	for (unsigned i = 0; i < m_RadialSegments; i++)
-	{
-		float angle = 2.0f * (float)M_PI * ((float)i / (float)m_RadialSegments);
-		float x = sin(angle);
-		float y = cos(angle);
-
-		v[i + 1] = VertexPos(x * m_Radius, 0.0f, y * m_Radius);	
-	}
-	//Top vertex
-	v[m_RadialSegments+1] = VertexPos(0,(float)m_Height,0);
-
-	HR(m_VertexBuffer->Unlock());
+    HR(D3DXCreateCylinder(gd3dDevice, m_Radius, 0, m_Height, m_RadialSegments, 1, &m_Mesh, NULL));
 }
 
 void ConeObject3D::buildIndexBuffer(IDirect3DDevice9* gd3dDevice) 

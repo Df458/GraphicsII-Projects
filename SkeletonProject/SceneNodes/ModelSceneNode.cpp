@@ -1,15 +1,15 @@
 #include "../d3dUtil.h"
 #include "ModelSceneNode.h"
-#include "../3DClasses/BaseObject3D.h"
+#include "../3DClasses/MeshObject3D.h"
 
-ModelSceneNode::ModelSceneNode(BaseObject3D* model)
+ModelSceneNode::ModelSceneNode(MeshObject3D* model)
 {
     m_Parent = NULL;
     D3DXMatrixIdentity(&m_World);
     m_Model = model;
 }
 
-ModelSceneNode::ModelSceneNode(BaseObject3D* model, float x, float y, float z, float yaw, float pitch, float roll)
+ModelSceneNode::ModelSceneNode(MeshObject3D* model, float x, float y, float z, float yaw, float pitch, float roll)
 {
 	m_Parent = NULL;
 	D3DXMatrixIdentity(&m_World);

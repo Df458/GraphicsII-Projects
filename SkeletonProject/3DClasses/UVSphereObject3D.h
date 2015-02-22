@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseObject3D.h"
+#include "MeshObject3D.h"
 class UVSphereObject3D :
-	public BaseObject3D
+	public MeshObject3D
 {
 public:
 	UVSphereObject3D(float radius, unsigned rings, unsigned radialSegments);

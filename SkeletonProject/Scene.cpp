@@ -30,8 +30,8 @@ void Scene::Render(IDirect3DDevice9* gd3dDevice)
 	HR(gd3dDevice->BeginScene());
 
     // Set render statws for the entire scene here:
-//	HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID));
-	HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME));
+    //HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID));
+    HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME));
 
     // Render all the objects
     m_RootNode->renderChildren(this, gd3dDevice);
