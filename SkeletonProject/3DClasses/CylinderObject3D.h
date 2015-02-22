@@ -1,5 +1,5 @@
 #pragma once
-#include "BaseObject3D.h"
+#include "MeshObject3D.h"
 class CylinderObject3D :
 	public MeshObject3D
 {

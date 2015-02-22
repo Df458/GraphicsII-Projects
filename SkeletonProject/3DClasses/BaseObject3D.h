@@ -23,6 +23,7 @@ class BaseObject3D
 protected:	
 	IDirect3DVertexBuffer9*     m_VertexBuffer;
 	IDirect3DIndexBuffer9*      m_IndexBuffer;
+    D3DMATERIAL9*               m_Material;
     unsigned                    m_VertexCount;
     unsigned                    m_IndexCount;
     unsigned                    m_TriCount;
