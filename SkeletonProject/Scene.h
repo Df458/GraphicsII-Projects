@@ -30,5 +30,6 @@ protected:
     CameraSceneNode* m_ActiveCamera;
     std::set<SceneNode*> m_Nodes;
     std::stack<D3DXMATRIX> m_MatrixStack;
+    LPD3DXEFFECT m_Effect;
 };
 #endif

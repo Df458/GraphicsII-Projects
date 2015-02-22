@@ -8,6 +8,10 @@
 Scene::Scene()
 {
     m_RootNode = new SceneNode();
+    LPD3DXBUFFER error_buf;
+    HR(D3DXCreateEffectFromFile(gd3dDevice, "testShader.fx", NULL, NULL, 0, NULL, &m_Effect, &error_buf))
+    if(error_buf)
+        fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
 }
 
 Scene::~Scene()
@@ -29,6 +33,10 @@ void Scene::Render(IDirect3DDevice9* gd3dDevice)
 
 	HR(gd3dDevice->BeginScene());
 
+    UINT passes;
+    HR(m_Effect->Begin(&passes, 0));
+    HR(m_Effect->BeginPass(0));
+
     // Set render statws for the entire scene here:
     //HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID));
     HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME));
@@ -38,6 +46,9 @@ void Scene::Render(IDirect3DDevice9* gd3dDevice)
 
     // display the render statistics
     GfxStats::GetInstance()->display();
+
+    HR(m_Effect->EndPass());
+    HR(m_Effect->End());
 
 	HR(gd3dDevice->EndScene());
 
