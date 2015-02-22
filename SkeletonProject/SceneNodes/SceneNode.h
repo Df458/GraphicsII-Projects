@@ -9,8 +9,8 @@ class SceneNode
 public:
     SceneNode();
     virtual void Update(float deltatime) {};
-    virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice) {};
-    virtual void renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice);
+    virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice, LPD3DXEFFECT effect = NULL) {};
+    virtual void renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice, LPD3DXEFFECT effect = NULL);
 
     void Translate(float x, float y, float z, bool relative = false, bool rotation_relative = false);
     void Rotate(float yaw, float pitch, float roll, bool relative = false);

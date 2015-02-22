@@ -31,7 +31,7 @@ void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice)
 
 //-----------------------------------------------------------------------------
 void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
-    D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection )
+    D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LPD3DXEFFECT effect )
 {
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);

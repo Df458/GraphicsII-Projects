@@ -33,6 +33,8 @@ void Scene::Render(IDirect3DDevice9* gd3dDevice)
 
 	HR(gd3dDevice->BeginScene());
 
+    D3DXHANDLE tech = m_Effect->GetTechniqueByName("TestTechnique");
+    HR(m_Effect->SetTechnique(tech));
     UINT passes;
     HR(m_Effect->Begin(&passes, 0));
     HR(m_Effect->BeginPass(0));
@@ -42,7 +44,7 @@ void Scene::Render(IDirect3DDevice9* gd3dDevice)
     HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME));
 
     // Render all the objects
-    m_RootNode->renderChildren(this, gd3dDevice);
+    m_RootNode->renderChildren(this, gd3dDevice, m_Effect);
 
     // display the render statistics
     GfxStats::GetInstance()->display();
