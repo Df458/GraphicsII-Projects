@@ -8,10 +8,10 @@
 Scene::Scene()
 {
     m_RootNode = new SceneNode();
-    LPD3DXBUFFER error_buf;
-    HR(D3DXCreateEffectFromFile(gd3dDevice, "testShader.fx", NULL, NULL, 0, NULL, &m_Effect, &error_buf))
-    if(error_buf)
-        fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
+    //LPD3DXBUFFER error_buf;
+    //HR(D3DXCreateEffectFromFile(gd3dDevice, "testShader.fx", NULL, NULL, 0, NULL, &m_Effect, &error_buf))
+    //if(error_buf)
+        //fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
 }
 
 Scene::~Scene()
@@ -33,23 +33,17 @@ void Scene::Render(IDirect3DDevice9* gd3dDevice)
 
 	HR(gd3dDevice->BeginScene());
 
-    D3DXHANDLE tech = m_Effect->GetTechniqueByName("TestTechnique");
-    HR(m_Effect->SetTechnique(tech));
-    UINT passes;
-    HR(m_Effect->Begin(&passes, 0));
+    //D3DXHANDLE tech = m_Effect->GetTechniqueByName("TestTechnique");
+    //HR(m_Effect->SetTechnique(tech));
+    //UINT passes;
+    //HR(m_Effect->Begin(&passes, 0));
     for(unsigned i = 0; i < passes; ++i) {
-        HR(m_Effect->BeginPass(i));
-
-        // Set render statws for the entire scene here:
-        //HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID));
-        //HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME));
 
         // Render all the objects
         m_RootNode->renderChildren(this, gd3dDevice, m_Effect);
 
-        HR(m_Effect->EndPass());
     }
-    HR(m_Effect->End());
+    //HR(m_Effect->End());
     // display the render statistics
     GfxStats::GetInstance()->display();
 

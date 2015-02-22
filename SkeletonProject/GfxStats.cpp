@@ -115,8 +115,8 @@ void GfxStats::display()
 
 	sprintf(buffer, "Frames Per Second = %.2f\n"
 		"Milliseconds Per Frame = %.4f\n"
-		"Triangle Count = %d\n"
-		"Vertex Count = %d\n\n"
+		"Triangle Count = %lu\n"
+		"Vertex Count = %lu\n\n"
 		"WASDQE to move, with mouse to look\n"
 		"Press F for Fullscreen\n", mFPS, mMilliSecPerFrame, mNumTris, mNumVertices);
 

@@ -9,6 +9,7 @@
 #include "BaseObject3D.h"
 #include "Vertex.h"
 #include "../GfxStats.h"
+#include "../Materials/BaseMaterial.h"
 //=============================================================================
 BaseObject3D::BaseObject3D(void)
 {
@@ -33,6 +34,8 @@ void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice)
 void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
     D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LPD3DXEFFECT effect )
 {
+    D3DXMATRIX vp = view * projection;
+    m_Material->Render(world, vp);
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
     GfxStats::GetInstance()->addTriangles(m_TriCount);
@@ -41,14 +44,10 @@ void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
     HR(gd3dDevice->SetStreamSource(0, m_VertexBuffer, 0, sizeof(VertexPos)));
 	HR(gd3dDevice->SetIndices(m_IndexBuffer));
 	HR(gd3dDevice->SetVertexDeclaration(VertexPos::Decl));
-
-    // Set matrices and model relevant render date
-	HR(gd3dDevice->SetTransform(D3DTS_WORLD, &world));
-	HR(gd3dDevice->SetTransform(D3DTS_VIEW, &view));
-	HR(gd3dDevice->SetTransform(D3DTS_PROJECTION, &projection));	
     
     // Send to render
     HR(gd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_VertexCount, 0, m_TriCount));
+    m_Material->PostRender();
 }
 //-----------------------------------------------------------------------------
 void BaseObject3D::Update(float deltaTime)
