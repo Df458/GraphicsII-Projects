@@ -20,7 +20,7 @@ void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXM
     //HR(gd3dDevice->SetMaterial(m_Material));
     D3DXHANDLE matHandle;
     effect->GetParameterByName(matHandle, "gTransform");
-    D3DXMATRIX transform_matrix = projection * view * world;
+    D3DXMATRIX transform_matrix = world * view * projection;
     HR(effect->SetMatrix(matHandle, (const D3DXMATRIX*) &transform_matrix));
     HR(effect->CommitChanges());
 

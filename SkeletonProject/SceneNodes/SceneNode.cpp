@@ -13,14 +13,12 @@ SceneNode::SceneNode()
 
 void SceneNode::addChild(SceneNode* child)
 {
-    printf("Checking parent...\n");
     if(child->m_Parent != NULL)
     {
         printf("Parent found.\n");
         child->m_Parent->removeChild(child);
     }
 
-    printf("Adding child...\n");
     m_Children.push_back(child);
 }
 

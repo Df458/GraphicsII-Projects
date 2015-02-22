@@ -37,20 +37,22 @@ void Scene::Render(IDirect3DDevice9* gd3dDevice)
     HR(m_Effect->SetTechnique(tech));
     UINT passes;
     HR(m_Effect->Begin(&passes, 0));
-    HR(m_Effect->BeginPass(0));
+    for(unsigned i = 0; i < passes; ++i) {
+        HR(m_Effect->BeginPass(i));
 
-    // Set render statws for the entire scene here:
-    //HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID));
-    HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME));
+        // Set render statws for the entire scene here:
+        //HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID));
+        //HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME));
 
-    // Render all the objects
-    m_RootNode->renderChildren(this, gd3dDevice, m_Effect);
+        // Render all the objects
+        m_RootNode->renderChildren(this, gd3dDevice, m_Effect);
 
+        HR(m_Effect->EndPass());
+    }
+    HR(m_Effect->End());
     // display the render statistics
     GfxStats::GetInstance()->display();
 
-    HR(m_Effect->EndPass());
-    HR(m_Effect->End());
 
 	HR(gd3dDevice->EndScene());
 
