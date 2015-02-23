@@ -62,8 +62,12 @@ void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigne
     HR(m_Effect->BeginPass(pass));
 }
 
-void BaseMaterial::PostRender(void)
+void BaseMaterial::PostPass(void)
 {
     HR(m_Effect->EndPass());
+}
+
+void BaseMaterial::PostRender(void)
+{
     HR(m_Effect->End());
 }

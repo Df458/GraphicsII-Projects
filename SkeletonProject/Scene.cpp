@@ -8,10 +8,6 @@
 Scene::Scene()
 {
     m_RootNode = new SceneNode();
-    //LPD3DXBUFFER error_buf;
-    //HR(D3DXCreateEffectFromFile(gd3dDevice, "testShader.fx", NULL, NULL, 0, NULL, &m_Effect, &error_buf))
-    //if(error_buf)
-        //fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
 }
 
 Scene::~Scene()

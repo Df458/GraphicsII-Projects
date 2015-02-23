@@ -43,7 +43,7 @@ public:
 
     // Replace or add to the following code as you progress with the material
 	virtual void Create(IDirect3DDevice9* gd3dDevice);
-	virtual void Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LPD3DXEFFECT effect = NULL);
+	virtual void Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection);
 	void Update(float deltaTime);
 };
 //=============================================================================

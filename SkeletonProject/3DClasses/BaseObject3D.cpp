@@ -40,7 +40,7 @@ void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice)
 
 //-----------------------------------------------------------------------------
 void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
-    D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LPD3DXEFFECT effect )
+    D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection)
 {
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
@@ -58,6 +58,7 @@ void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
         
         // Send to render
         HR(gd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_VertexCount, 0, m_TriCount));
+        m_Material->PostPass();
     }
     m_Material->PostRender();
 }

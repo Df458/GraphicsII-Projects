@@ -19,6 +19,7 @@ void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXM
         m_Material->Render(world, vp, i);
 
         HR(m_Mesh->DrawSubset(0));
+        m_Material->PostPass();
     }
     m_Material->PostRender();
 }

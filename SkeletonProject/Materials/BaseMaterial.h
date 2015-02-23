@@ -48,6 +48,7 @@ public:
     void ConnectToEffect( ID3DXEffect* effect );
     unsigned PreRender(void);
     void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigned pass ); 
+    void PostPass(void);
     void PostRender(void);
 };
 //=============================================================================
