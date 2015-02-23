@@ -96,14 +96,14 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	//CuboidObject3D* cuboid15 = new CuboidObject3D(10.0f, 7.0f, 7.0f, 19, 20, 21);
 	//CuboidObject3D* cuboid16 = new CuboidObject3D(8.0f, 21.0f, 11.0f, 23, 23, 22);
 
-    ConeObject3D* d4 = new ConeObject3D(4, 3, 6, new BaseMaterial(), m_DefaultEffect);
+    ConeObject3D* d4 = new ConeObject3D(4, 3, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
 
-    ConeObject3D* cone1 = new ConeObject3D(4, 4, 6, new BaseMaterial(), m_DefaultEffect);
-    ConeObject3D* cone2 = new ConeObject3D(4, 5, 6, new BaseMaterial(), m_DefaultEffect);
-    ConeObject3D* cone3 = new ConeObject3D(4, 6, 8, new BaseMaterial(), m_DefaultEffect);
-    ConeObject3D* cone4 = new ConeObject3D(4, 7, 12, new BaseMaterial(), m_DefaultEffect);
-    ConeObject3D* cone5 = new ConeObject3D(4, 8, 15, new BaseMaterial(), m_DefaultEffect);
-    ConeObject3D* cone6 = new ConeObject3D(4, 40, 6, new BaseMaterial(), m_DefaultEffect);
+    ConeObject3D* cone1 = new ConeObject3D(4, 4, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    ConeObject3D* cone2 = new ConeObject3D(4, 5, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    ConeObject3D* cone3 = new ConeObject3D(4, 6, 8, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    ConeObject3D* cone4 = new ConeObject3D(4, 7, 12, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    ConeObject3D* cone5 = new ConeObject3D(4, 8, 15, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    ConeObject3D* cone6 = new ConeObject3D(4, 40, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
 
 	//DoubleConeObject3D* dcone1 = new DoubleConeObject3D(4, 4, 6, 6);
 	//DoubleConeObject3D* dcone2 = new DoubleConeObject3D(4, 5, 6, 6);
