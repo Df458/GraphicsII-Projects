@@ -1,6 +1,14 @@
 uniform extern float4x4 matWorld;
 uniform extern float4x4 matVP;
 
+uniform extern float4   vLightPos;
+uniform extern float4   vViewPos;
+
+uniform extern float4   colAmbient;
+uniform extern float4   colDiffuse;
+uniform extern float4   colSpecular;
+uniform extern float    valShininess;
+
 struct OutputVS
 {
     float4 pos : POSITION0;
@@ -16,7 +24,7 @@ OutputVS Vert(float3 position : POSITION0)
 
 float4 GouraudPix() : COLOR
 {
-    return float4(1.0f, 0.0f, 1.0f, 1.0f);
+    return colAmbient;
 }
 
 float4 PhongPix() : COLOR

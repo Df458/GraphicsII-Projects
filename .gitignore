@@ -1,5 +1,6 @@
-# Ignore vim undo files
+# Ignore vim undo/temp files
 *.un~
+*.swp
 
 # Ignore object files
 **/obj
