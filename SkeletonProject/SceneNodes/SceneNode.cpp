@@ -31,14 +31,14 @@ void SceneNode::removeChild(SceneNode* child)
     }
 }
 
-void SceneNode::renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice, LPD3DXEFFECT effect)
+void SceneNode::renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
 {
 	m_World = m_Scale * m_Rotation * m_Translation;
     activeScene->pushMatrix(m_World);
     for(auto i : m_Children)
     {
-        i->Render(activeScene, gd3dDevice, effect);
-        i->renderChildren(activeScene, gd3dDevice, effect);
+        i->Render(activeScene, gd3dDevice);
+        i->renderChildren(activeScene, gd3dDevice);
     }
     activeScene->popMatrix();
 }

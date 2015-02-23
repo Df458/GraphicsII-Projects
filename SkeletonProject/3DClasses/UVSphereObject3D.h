@@ -4,7 +4,7 @@ class UVSphereObject3D :
 	public MeshObject3D
 {
 public:
-	UVSphereObject3D(float radius, unsigned rings, unsigned radialSegments);
+	UVSphereObject3D(float radius, unsigned rings, unsigned radialSegments, BaseMaterial* mat, ID3DXEffect* effect = NULL);
 	~UVSphereObject3D();
 protected:
     float m_Radius;

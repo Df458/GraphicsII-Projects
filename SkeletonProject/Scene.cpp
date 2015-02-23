@@ -37,12 +37,12 @@ void Scene::Render(IDirect3DDevice9* gd3dDevice)
     //HR(m_Effect->SetTechnique(tech));
     //UINT passes;
     //HR(m_Effect->Begin(&passes, 0));
-    for(unsigned i = 0; i < passes; ++i) {
+    //for(unsigned i = 0; i < passes; ++i) {
 
         // Render all the objects
-        m_RootNode->renderChildren(this, gd3dDevice, m_Effect);
+        m_RootNode->renderChildren(this, gd3dDevice);
 
-    }
+    //}
     //HR(m_Effect->End());
     // display the render statistics
     GfxStats::GetInstance()->display();

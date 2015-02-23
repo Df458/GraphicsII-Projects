@@ -4,7 +4,7 @@ class CylinderObject3D :
 	public MeshObject3D
 {
 public:
-	CylinderObject3D(float radius, unsigned radialSegments, float height);
+	CylinderObject3D(float radius, unsigned radialSegments, float height, BaseMaterial* mat, ID3DXEffect* effect = NULL);
 	virtual ~CylinderObject3D(){};
 protected:
 	float m_Height;

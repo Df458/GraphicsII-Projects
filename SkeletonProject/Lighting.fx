@@ -3,7 +3,7 @@ uniform extern float4x4 matVP;
 
 struct OutputVS
 {
-    float4 pos : POSITION0
+    float4 pos : POSITION0;
 };
 
 OutputVS Vert(float3 position : POSITION0)
@@ -54,7 +54,7 @@ technique PhongWire
     }
 }
 
-technique GouraudSolid
+technique PhongSolid
 {
     pass P0
     {

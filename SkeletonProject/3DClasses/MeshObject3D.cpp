@@ -1,23 +1,24 @@
 #include "MeshObject3D.h"
+#include "../Materials/BaseMaterial.h"
 #include "../GfxStats.h"
 
-MeshObject3D::MeshObject3D() : BaseObject3D()
+MeshObject3D::MeshObject3D(BaseMaterial* mat, ID3DXEffect* effect) : BaseObject3D(mat, effect)
 {
-    m_Material = new D3DMATERIAL9;
-    m_Material->Ambient = {1, 0, 1, 1};
-    m_Material->Diffuse = {0, 0, 0, 1};
-    m_Material->Specular = {1, 1, 1, 1};
 }
 
 void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection) {
-    // Set matrices and model relevant render date
-    D3DXMATRIX vp = view * projection;
-    m_Material->Render(world, vp);
-
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
     GfxStats::GetInstance()->addTriangles(m_TriCount);
+    
+    // Set matrices and model relevant render date
+    D3DXMATRIX vp = view * projection;
+    unsigned passes = m_Material->PreRender();
+    for(unsigned i = 0; i < passes; ++i)
+    {
+        m_Material->Render(world, vp, i);
 
-    HR(m_Mesh->DrawSubset(0));
+        HR(m_Mesh->DrawSubset(0));
+    }
     m_Material->PostRender();
 }

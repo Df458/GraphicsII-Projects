@@ -3,7 +3,7 @@
 #include "../GfxStats.h"
 
 
-UVSphereObject3D::UVSphereObject3D(float radius, unsigned rings, unsigned radialSegments)
+UVSphereObject3D::UVSphereObject3D(float radius, unsigned rings, unsigned radialSegments, BaseMaterial* mat, ID3DXEffect* effect) : MeshObject3D(mat, effect)
 {
     m_Radius = radius;
     m_Rings = rings;

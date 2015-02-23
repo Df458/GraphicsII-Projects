@@ -31,6 +31,7 @@
 #include "3DClasses/TubeObject3D.h"
 #include "3DClasses/UVSphereObject3D.h"
 #include "3DClasses/Vertex.h"
+#include "Materials/BaseMaterial.h"
 //=============================================================================
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 				   PSTR cmdLine, int showCmd)
@@ -65,6 +66,12 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     m_Camera = new CameraSceneNode();
     m_Scene = new Scene();
     m_Scene->setActiveCamera(m_Camera);
+
+    LPD3DXBUFFER error_buf;
+    HR(D3DXCreateEffectFromFile(gd3dDevice, "Lighting.fx", NULL, NULL, 0, NULL, &m_DefaultEffect, &error_buf))
+    if(error_buf)
+        fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
+
     //PlainObject3D* plane = new PlainObject3D(15, 15, 15, 15);
     //plane->Create(gd3dDevice);
     //m_Scene->addNode(new ModelSceneNode(plane));
@@ -89,14 +96,14 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	//CuboidObject3D* cuboid15 = new CuboidObject3D(10.0f, 7.0f, 7.0f, 19, 20, 21);
 	//CuboidObject3D* cuboid16 = new CuboidObject3D(8.0f, 21.0f, 11.0f, 23, 23, 22);
 
-    ConeObject3D* d4 = new ConeObject3D(4, 3, 6);
+    ConeObject3D* d4 = new ConeObject3D(4, 3, 6, new BaseMaterial(), m_DefaultEffect);
 
-    ConeObject3D* cone1 = new ConeObject3D(4, 4, 6);
-    ConeObject3D* cone2 = new ConeObject3D(4, 5, 6);
-    ConeObject3D* cone3 = new ConeObject3D(4, 6, 8);
-    ConeObject3D* cone4 = new ConeObject3D(4, 7, 12);
-    ConeObject3D* cone5 = new ConeObject3D(4, 8, 15);
-    ConeObject3D* cone6 = new ConeObject3D(4, 40, 6);
+    ConeObject3D* cone1 = new ConeObject3D(4, 4, 6, new BaseMaterial(), m_DefaultEffect);
+    ConeObject3D* cone2 = new ConeObject3D(4, 5, 6, new BaseMaterial(), m_DefaultEffect);
+    ConeObject3D* cone3 = new ConeObject3D(4, 6, 8, new BaseMaterial(), m_DefaultEffect);
+    ConeObject3D* cone4 = new ConeObject3D(4, 7, 12, new BaseMaterial(), m_DefaultEffect);
+    ConeObject3D* cone5 = new ConeObject3D(4, 8, 15, new BaseMaterial(), m_DefaultEffect);
+    ConeObject3D* cone6 = new ConeObject3D(4, 40, 6, new BaseMaterial(), m_DefaultEffect);
 
 	//DoubleConeObject3D* dcone1 = new DoubleConeObject3D(4, 4, 6, 6);
 	//DoubleConeObject3D* dcone2 = new DoubleConeObject3D(4, 5, 6, 6);
@@ -105,19 +112,19 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	//DoubleConeObject3D* dcone5 = new DoubleConeObject3D(4, 8, 15, 2);
 	//DoubleConeObject3D* dcone6 = new DoubleConeObject3D(4, 40, 6, 1);
 
-    CylinderObject3D* c1 = new CylinderObject3D(8, 4, 6);
-    CylinderObject3D* c2 = new CylinderObject3D(4, 5, 6);
-    CylinderObject3D* c3 = new CylinderObject3D(8, 6, 8);
-    CylinderObject3D* c4 = new CylinderObject3D(9, 7, 12);
-    CylinderObject3D* c5 = new CylinderObject3D(10, 8, 15);
-    CylinderObject3D* c6 = new CylinderObject3D(11, 40, 6);
+    CylinderObject3D* c1 = new CylinderObject3D(8, 4, 6, new BaseMaterial(), m_DefaultEffect);
+    CylinderObject3D* c2 = new CylinderObject3D(4, 5, 6, new BaseMaterial(), m_DefaultEffect);
+    CylinderObject3D* c3 = new CylinderObject3D(8, 6, 8, new BaseMaterial(), m_DefaultEffect);
+    CylinderObject3D* c4 = new CylinderObject3D(9, 7, 12, new BaseMaterial(), m_DefaultEffect);
+    CylinderObject3D* c5 = new CylinderObject3D(10, 8, 15, new BaseMaterial(), m_DefaultEffect);
+    CylinderObject3D* c6 = new CylinderObject3D(11, 40, 6, new BaseMaterial(), m_DefaultEffect);
 
-    UVSphereObject3D* sp1 = new UVSphereObject3D(6, 6, 6);
-    UVSphereObject3D* sp2 = new UVSphereObject3D(4, 4, 6);
-    UVSphereObject3D* sp3 = new UVSphereObject3D(5, 10, 9);
-    UVSphereObject3D* sp4 = new UVSphereObject3D(9, 12, 6);
-    UVSphereObject3D* sp5 = new UVSphereObject3D(10, 6, 9);
-    UVSphereObject3D* sp6 = new UVSphereObject3D(10, 50, 50);
+    UVSphereObject3D* sp1 = new UVSphereObject3D(6, 6, 6, new BaseMaterial(), m_DefaultEffect);
+    UVSphereObject3D* sp2 = new UVSphereObject3D(4, 4, 6, new BaseMaterial(), m_DefaultEffect);
+    UVSphereObject3D* sp3 = new UVSphereObject3D(5, 10, 9, new BaseMaterial(), m_DefaultEffect);
+    UVSphereObject3D* sp4 = new UVSphereObject3D(9, 12, 6, new BaseMaterial(), m_DefaultEffect);
+    UVSphereObject3D* sp5 = new UVSphereObject3D(10, 6, 9, new BaseMaterial(), m_DefaultEffect);
+    UVSphereObject3D* sp6 = new UVSphereObject3D(10, 50, 50, new BaseMaterial(), m_DefaultEffect);
 
 	//TubeObject3D* tube1 = new TubeObject3D(3, 2, 16, 4);
 	//TubeObject3D* tube2 = new TubeObject3D(5, 1, 4, 10);

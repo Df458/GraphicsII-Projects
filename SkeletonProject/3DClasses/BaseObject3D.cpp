@@ -11,10 +11,12 @@
 #include "../GfxStats.h"
 #include "../Materials/BaseMaterial.h"
 //=============================================================================
-BaseObject3D::BaseObject3D(void)
+BaseObject3D::BaseObject3D(BaseMaterial* mat, ID3DXEffect* effect) : m_Material(mat)
 {
     m_VertexBuffer = NULL;
     m_IndexBuffer = NULL;
+    if(effect)
+        mat->ConnectToEffect(effect);
 }
 
 //-----------------------------------------------------------------------------
@@ -22,6 +24,12 @@ BaseObject3D::~BaseObject3D(void)
 {
     ReleaseCOM(m_VertexBuffer);
 	ReleaseCOM(m_IndexBuffer);
+    delete m_Material;
+}
+
+void BaseObject3D::attachShader(ID3DXEffect* effect)
+{
+    m_Material->ConnectToEffect(effect);
 }
 
 void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice)
@@ -34,19 +42,23 @@ void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice)
 void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
     D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LPD3DXEFFECT effect )
 {
-    D3DXMATRIX vp = view * projection;
-    m_Material->Render(world, vp);
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
     GfxStats::GetInstance()->addTriangles(m_TriCount);
+    unsigned passes = m_Material->PreRender();
+    D3DXMATRIX vp = view * projection;
+    for(unsigned i = 0; i < passes; ++i)
+    {
+        m_Material->Render(world, vp, i);
 
-    // Set the buffers and format
-    HR(gd3dDevice->SetStreamSource(0, m_VertexBuffer, 0, sizeof(VertexPos)));
-	HR(gd3dDevice->SetIndices(m_IndexBuffer));
-	HR(gd3dDevice->SetVertexDeclaration(VertexPos::Decl));
-    
-    // Send to render
-    HR(gd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_VertexCount, 0, m_TriCount));
+        // Set the buffers and format
+        HR(gd3dDevice->SetStreamSource(0, m_VertexBuffer, 0, sizeof(VertexPos)));
+        HR(gd3dDevice->SetIndices(m_IndexBuffer));
+        HR(gd3dDevice->SetVertexDeclaration(VertexPos::Decl));
+        
+        // Send to render
+        HR(gd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_VertexCount, 0, m_TriCount));
+    }
     m_Material->PostRender();
 }
 //-----------------------------------------------------------------------------

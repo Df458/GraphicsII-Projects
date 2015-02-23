@@ -5,8 +5,8 @@ class CuboidObject3D :
 	public BaseObject3D
 {
 public:
-	CuboidObject3D(float length, float width, float height, unsigned X_Resolution = 1, unsigned Y_Resolution = 1, unsigned Z_Resolution = 1);
-	CuboidObject3D(float size, unsigned X_Resolution = 1, unsigned Y_Resolution = 1, unsigned Z_Resolution = 1);
+	CuboidObject3D(float length, float width, float height, BaseMaterial* mat, ID3DXEffect* effect = NULL, unsigned X_Resolution = 1, unsigned Y_Resolution = 1, unsigned Z_Resolution = 1);
+	CuboidObject3D(float size, BaseMaterial* mat, ID3DXEffect* effect = NULL, unsigned X_Resolution = 1, unsigned Y_Resolution = 1, unsigned Z_Resolution = 1);
 	virtual ~CuboidObject3D(){};
 protected:
 	float m_Length; //X length

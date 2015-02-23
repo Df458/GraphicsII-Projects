@@ -5,8 +5,8 @@ class PlainObject3D :
 	public BaseObject3D
 {
 public:
-	PlainObject3D(float length, float width, unsigned X_Resolution = 1, unsigned Z_Resolution = 1);
-	PlainObject3D(float size, unsigned X_Resolution = 1, unsigned Z_Resolution = 1);
+	PlainObject3D(float length, float width, BaseMaterial* mat, ID3DXEffect* effect = NULL, unsigned X_Resolution = 1, unsigned Z_Resolution = 1);
+	PlainObject3D(float size, BaseMaterial* mat, ID3DXEffect* effect = NULL, unsigned X_Resolution = 1, unsigned Z_Resolution = 1);
 	virtual ~PlainObject3D(){};
 protected:
 	float m_Length; //X length

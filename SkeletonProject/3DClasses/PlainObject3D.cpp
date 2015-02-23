@@ -2,8 +2,8 @@
 #include "Vertex.h"
 #include "../GfxStats.h"
 
-PlainObject3D::PlainObject3D(float length, float width, unsigned X_Resolution, unsigned Z_Resolution)
-	:BaseObject3D(),m_Length(length), m_Width(width), mX_Resolution(X_Resolution),  mZ_Resolution(Z_Resolution)
+PlainObject3D::PlainObject3D(float length, float width, BaseMaterial* mat, ID3DXEffect* effect, unsigned X_Resolution, unsigned Z_Resolution)
+	:BaseObject3D(mat, effect),m_Length(length), m_Width(width), mX_Resolution(X_Resolution),  mZ_Resolution(Z_Resolution)
 {
 	//Calculate Vertex Count
 	m_VertexCount =
@@ -17,8 +17,8 @@ PlainObject3D::PlainObject3D(float length, float width, unsigned X_Resolution, u
 	m_IndexCount = m_TriCount * 3;
 }
 
-PlainObject3D::PlainObject3D(float size, unsigned X_Resolution, unsigned Z_Resolution)
-	:PlainObject3D(size, size, X_Resolution, Z_Resolution)
+PlainObject3D::PlainObject3D(float size, BaseMaterial* mat, ID3DXEffect* effect, unsigned X_Resolution, unsigned Z_Resolution)
+	:PlainObject3D(size, size, mat, effect, X_Resolution, Z_Resolution)
 {
 
 }

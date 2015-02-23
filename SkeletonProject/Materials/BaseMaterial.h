@@ -19,9 +19,9 @@ protected:
     D3DXMATRIX          m_WorldMat;
     D3DXMATRIX          m_ViewProjectionMat;
 
-    D3DXVECTOR3         m_AmbientColor;
-    D3DXVECTOR3         m_DiffuseColor;
-    D3DXVECTOR3         m_SpecularColor;
+    D3DXVECTOR4         m_AmbientColor;
+    D3DXVECTOR4         m_DiffuseColor;
+    D3DXVECTOR4         m_SpecularColor;
     float               m_Shininess;            // specular power
 
 
@@ -39,14 +39,16 @@ protected:
     D3DXHANDLE          m_SpecularColHandle;
     D3DXHANDLE          m_ShininessHandle;
 
+    D3DXHANDLE          m_Technique;
 
 public:
-    BaseMaterial(void);
+    BaseMaterial(D3DXVECTOR3 amb = D3DXVECTOR3(0.1f, 0.1f, 0.1f), D3DXVECTOR3 diff = D3DXVECTOR3(0.9f, 0.9f, 0.9f), D3DXVECTOR3 spec = D3DXVECTOR3(1.0f, 1.0f, 1.0f), float shine = 0.1f);
     virtual ~BaseMaterial(void);
 
     void ConnectToEffect( ID3DXEffect* effect );
-    void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat ); 
-    void PostRender();
+    unsigned PreRender(void);
+    void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigned pass ); 
+    void PostRender(void);
 };
 //=============================================================================
 

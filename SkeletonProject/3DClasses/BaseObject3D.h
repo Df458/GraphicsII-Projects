@@ -36,8 +36,10 @@ protected:
 	virtual void buildIndexBuffer(IDirect3DDevice9* gd3dDevice) = 0;
 
 public:
-    BaseObject3D(void);
+    BaseObject3D(BaseMaterial* mat, ID3DXEffect* effect = NULL);
     virtual ~BaseObject3D(void);
+
+    virtual void attachShader(ID3DXEffect* effect);
 
     // Replace or add to the following code as you progress with the material
 	virtual void Create(IDirect3DDevice9* gd3dDevice);

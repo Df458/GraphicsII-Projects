@@ -2,8 +2,8 @@
 #include "Vertex.h"
 #include "../GfxStats.h"
 
-CuboidObject3D::CuboidObject3D(float length, float width, float height, unsigned X_Resolution, unsigned Y_Resolution, unsigned Z_Resolution)
-	:BaseObject3D(),m_Length(length), m_Width(width), m_Height(height), mX_Resolution(X_Resolution), mY_Resolution(Y_Resolution), mZ_Resolution(Z_Resolution)
+CuboidObject3D::CuboidObject3D(float length, float width, float height, BaseMaterial* mat, ID3DXEffect* effect, unsigned X_Resolution, unsigned Y_Resolution, unsigned Z_Resolution)
+	:BaseObject3D(mat, effect),m_Length(length), m_Width(width), m_Height(height), mX_Resolution(X_Resolution), mY_Resolution(Y_Resolution), mZ_Resolution(Z_Resolution)
 {
 	//Calculate Vertex Count
 	m_VertexCount = 
@@ -22,8 +22,8 @@ CuboidObject3D::CuboidObject3D(float length, float width, float height, unsigned
 	m_IndexCount = m_TriCount * 3;
 }
 
-CuboidObject3D::CuboidObject3D(float size, unsigned X_Resolution, unsigned Y_Resolution, unsigned Z_Resolution)
-	:CuboidObject3D(size, size, size, X_Resolution, Y_Resolution, Z_Resolution)
+CuboidObject3D::CuboidObject3D(float size, BaseMaterial* mat, ID3DXEffect* effect, unsigned X_Resolution, unsigned Y_Resolution, unsigned Z_Resolution)
+	:CuboidObject3D(size, size, size, mat, effect, X_Resolution, Y_Resolution, Z_Resolution)
 {
 
 }

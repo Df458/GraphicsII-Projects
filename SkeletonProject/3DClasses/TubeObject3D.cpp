@@ -2,8 +2,8 @@
 #include "Vertex.h"
 #include "../GfxStats.h"
 
-TubeObject3D::TubeObject3D(float radius, float width, unsigned radialSegments, float height)
-	:BaseObject3D(),m_Radius(radius), m_Width(width), m_RadialSegments(radialSegments), m_Height(height)
+TubeObject3D::TubeObject3D(float radius, float width, unsigned radialSegments, float height, BaseMaterial* mat, ID3DXEffect* effect)
+	:BaseObject3D(mat, effect),m_Radius(radius), m_Width(width), m_RadialSegments(radialSegments), m_Height(height)
 {
 	// Determine vertex count;
 	m_VertexCount = (m_RadialSegments * 4);

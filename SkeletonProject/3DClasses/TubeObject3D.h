@@ -4,7 +4,7 @@ class TubeObject3D :
 	public BaseObject3D
 {
 public:
-	TubeObject3D(float radius, float width, unsigned radialSegments, float height);
+	TubeObject3D(float radius, float width, unsigned radialSegments, float height, BaseMaterial* mat, ID3DXEffect* effect = NULL);
 	virtual ~TubeObject3D(){};
 protected:
 	float m_Radius;
