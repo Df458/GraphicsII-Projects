@@ -2,7 +2,7 @@ CXX=i686-w64-mingw32-g++
 SRC=$(wildcard *.cpp) $(wildcard 3DClasses/*.cpp) $(wildcard SceneNodes/*.cpp) $(wildcard Materials/*.cpp)
 OBJ=$(patsubst %.cpp,obj/%.o,$(SRC))
 DEP=$(patsubst %.cpp,obj/%.depend,$(SRC))
-CXXFLAGS=-g -std=c++11 -Wall -Wno-comment -static-libgcc
+CXXFLAGS=-g -std=c++11 -Wall -Wno-comment -static-libgcc -I ../includes/rapidxml
 CXXLIBS=-static -lm -ldinput8 -ldxguid -ld3d9 -ld3dx9 -lgdi32 -luser32
 obj/%.depend: $(SRCPATH)%.cpp
 	@echo -e "Building dependecies for \e[1;35m$<\e[0m..."

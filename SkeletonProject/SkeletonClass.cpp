@@ -64,7 +64,7 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	mCameraHeight    = 5.0f;
 
     m_Camera = new CameraSceneNode();
-    m_Scene = new Scene();
+    m_Scene = new Scene("TestLevel.xml");
     m_Scene->setActiveCamera(m_Camera);
 
     LPD3DXBUFFER error_buf;

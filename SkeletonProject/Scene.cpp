@@ -1,13 +1,21 @@
 #include <d3dx9.h>
+#include <rapidxml.hpp>
 #include "GfxStats.h"
 #include "d3dUtil.h"
 #include "Scene.h"
 #include "SceneNodes/SceneNode.h"
 #include "SceneNodes/CameraSceneNode.h"
+#include "Utils.h"
 
-Scene::Scene()
+using namespace rapidxml;
+
+Scene::Scene(const char* filepath)
 {
     m_RootNode = new SceneNode();
+    if(!loadLevel(filepath))
+        fprintf(stderr, "Failed to load level: %s\n", filepath);
+    else
+        printf("Successfully loaded level: %s\n", filepath);
 }
 
 Scene::~Scene()
@@ -20,6 +28,22 @@ void Scene::Update(float deltatime)
     {
         i->Update(deltatime);
     }
+}
+
+bool Scene::loadLevel(const char* filepath)
+{
+    char* text_buffer = loadFileContents(filepath);
+    if(!text_buffer)
+        return false;
+
+    xml_document<> document;
+    document.parse<0>(text_buffer);
+
+//:TODO: 22.02.15 20:19:27, df458
+// parse level data here
+
+    delete[] text_buffer;
+    return true;
 }
 
 void Scene::Render(IDirect3DDevice9* gd3dDevice)
