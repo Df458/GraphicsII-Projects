@@ -9,6 +9,7 @@
 //=============================================================================
 #pragma once
 #include "../d3dApp.h"
+#include <rapidxml.hpp>
 //=============================================================================
 class BaseMaterial
 {
@@ -43,6 +44,7 @@ protected:
 
 public:
     BaseMaterial(D3DXVECTOR3 amb = D3DXVECTOR3(0.1f, 0.1f, 0.1f), D3DXVECTOR3 diff = D3DXVECTOR3(0.9f, 0.9f, 0.9f), D3DXVECTOR3 spec = D3DXVECTOR3(1.0f, 1.0f, 1.0f), float shine = 0.1f);
+    BaseMaterial(rapidxml::xml_node<>* node);
     virtual ~BaseMaterial(void);
 
     void ConnectToEffect( ID3DXEffect* effect );

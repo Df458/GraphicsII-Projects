@@ -14,6 +14,9 @@ BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, 
 {
     m_Effect = NULL;
 }
+BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node)
+{
+}
 
 //-----------------------------------------------------------------------------
 // Release shader, blah...
