@@ -80,7 +80,6 @@ void Scene::Render(IDirect3DDevice9* gd3dDevice)
 
 bool Scene::addNode(SceneNode* node, SceneNode* parent)
 {
-    printf("Adding node\n");
     if(parent && !containsNode(parent))
     {
         return false;

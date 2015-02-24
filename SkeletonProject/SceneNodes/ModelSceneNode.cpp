@@ -80,11 +80,10 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node, BaseM
         unsigned rings = 8;
         if(xml_attribute<>* atn = node->first_attribute("rings", 5, false))
             rings = atoi(atn->value());
-        unsigned radials = 1.0f;
+        unsigned radials = 8;
         if(xml_attribute<>* atl = node->first_attribute("radials", 7, false))
             radials = atoi(atl->value());
         m_Model = new UVSphereObject3D(radius, rings, radials, mat, effect);
-        printf("Created sphere\n");
     }
     else
     {
@@ -94,6 +93,5 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node, BaseM
     if(m_Model)
     {
         m_Model->Create(gd3dDevice);
-        printf("Created primitive\n");
     }
 }
