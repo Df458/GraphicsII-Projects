@@ -32,6 +32,15 @@ void Scene::Update(float deltatime)
     }
 }
 
+void Scene::updateSize(float w, float h)
+{
+    m_LastWidth = w;
+    m_LastHeight = h;
+
+    if(m_ActiveCamera)
+        m_ActiveCamera->rebuildProjection(w, h);
+}
+
 bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
 {
     char* text_buffer = loadFileContents(filepath);
@@ -118,6 +127,7 @@ bool Scene::setActiveCamera(CameraSceneNode* camera)
     if(!containsNode(camera) && !addNode(camera))
         return false;
     m_ActiveCamera = camera;
+    m_ActiveCamera->rebuildProjection(m_LastWidth, m_LastHeight);
     return true;
 }
 

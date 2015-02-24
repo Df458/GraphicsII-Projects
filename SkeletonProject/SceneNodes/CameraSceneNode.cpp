@@ -1,4 +1,5 @@
 #include "CameraSceneNode.h"
+#include "../d3dUtil.h"
 
 using namespace rapidxml;
 
@@ -30,6 +31,19 @@ CameraSceneNode::CameraSceneNode(xml_node<>* node) : SceneNode(node)
         setView(mlookat);
     }
 
+    m_Near = 0.1f;
+    m_Far = 1000.0f;
+    m_Angle = 90;
+
+    if(xml_node<>* nproj = node->first_node("projection", 10, false))
+    {
+        if(xml_attribute<>* anear = nproj->first_attribute("near", 4, false))
+            m_Near = atof(anear->value());
+        if(xml_attribute<>* afar = nproj->first_attribute("far", 3, false))
+            m_Far = atof(afar->value());
+        if(xml_attribute<>* angle = nproj->first_attribute("angle", 5, false))
+            m_Angle = atof(angle->value());
+    }
 }
 
 void CameraSceneNode::setProjection(D3DXMATRIX projection)
@@ -51,4 +65,9 @@ D3DXMATRIX CameraSceneNode::getView(void) const
 D3DXMATRIX CameraSceneNode::getProjection(void) const
 {
     return m_Projection;
+}
+
+void CameraSceneNode::rebuildProjection(float w, float h)
+{
+    D3DXMatrixPerspectiveFovLH(&m_Projection, m_Angle * DEGTORAD, w/h, m_Near, m_Far);
 }

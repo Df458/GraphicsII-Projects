@@ -68,9 +68,8 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	mCameraRotationY = 1.2 * D3DX_PI;
 	mCameraHeight    = 5.0f;
 
-    m_Camera = new CameraSceneNode();
     m_Scene = new Scene("TestLevel.xml", m_DefaultEffect);
-    m_Scene->setActiveCamera(m_Camera);
+    m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 
     //PlainObject3D* plane = new PlainObject3D(15, 15, 15, 15);
     //plane->Create(gd3dDevice);
@@ -307,7 +306,8 @@ void SkeletonClass::onResetDevice()
 
 	// The aspect ratio depends on the backbuffer dimensions, which can 
 	// possibly change after a reset.  So rebuild the projection matrix.
-	buildProjMtx();
+	//buildProjMtx();
+    m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 }
 
 void SkeletonClass::updateScene(float dt)

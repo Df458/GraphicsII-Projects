@@ -17,8 +17,12 @@ public:
     D3DXMATRIX getProjection(void) const;
     void setView(D3DXMATRIX);
     void setProjection(D3DXMATRIX);
+    void rebuildProjection(float w, float h);
 protected:
     D3DXMATRIX m_Projection;
+    float m_Near;
+    float m_Far;
+    float m_Angle;
 };
 
 #endif

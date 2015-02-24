@@ -24,6 +24,7 @@ public:
 
     void pushMatrix(D3DXMATRIX matrix);
     void popMatrix();
+    void updateSize(float w, float h);
     D3DXMATRIX getTopMatrix();
     D3DXMATRIX getView();
     D3DXMATRIX getProjection();
@@ -32,5 +33,7 @@ protected:
     CameraSceneNode* m_ActiveCamera;
     std::set<SceneNode*> m_Nodes;
     std::stack<D3DXMATRIX> m_MatrixStack;
+    float m_LastWidth = 1;
+    float m_LastHeight = 1;
 };
 #endif
