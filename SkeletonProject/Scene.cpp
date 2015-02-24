@@ -43,7 +43,11 @@ bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
     xml_node<>* node = document.first_node("level", 5, false);
 
     for(xml_node<>* camera = node->first_node("camera", 6, false); camera; camera = camera->next_sibling("camera", 6, false)) {
-        addNode(new CameraSceneNode(camera));
+        CameraSceneNode* cam_node = new CameraSceneNode(camera);
+        addNode(cam_node);
+        if(xml_attribute<>* active = camera->first_attribute("active", 6, false))
+            if(!strcmp(active->value(), "true"))
+                setActiveCamera(cam_node);
     }
 
     for(xml_node<>* light = node->first_node("light", 5, false); light; light = light->next_sibling("light", 5, false)) {
