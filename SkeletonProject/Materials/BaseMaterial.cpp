@@ -9,13 +9,56 @@
 //=============================================================================
 #include "BaseMaterial.h"
 //=============================================================================
+using namespace rapidxml;
+
 BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, float shine)
 : m_AmbientColor(amb), m_DiffuseColor(diff), m_SpecularColor(spec), m_Shininess(shine)
 {
     m_Effect = NULL;
 }
+
 BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node)
 {
+    m_Effect = NULL;
+
+    if(xml_attribute<>* shine = node->first_attribute("shine", 5, false))
+        m_Shininess = atof(shine->value());
+
+    if(xml_node<>* color = node->first_node("ambient", 7, false))
+    {
+        if(xml_attribute<>* ar = color->first_attribute("r", 1, false))
+            m_AmbientColor.x = atof(ar->value());
+        if(xml_attribute<>* ag = color->first_attribute("g", 1, false))
+            m_AmbientColor.y = atof(ag->value());
+        if(xml_attribute<>* ab = color->first_attribute("b", 1, false))
+            m_AmbientColor.z = atof(ab->value());
+        if(xml_attribute<>* aa = color->first_attribute("a", 1, false))
+            m_AmbientColor.w = atof(aa->value());
+    }
+
+    if(xml_node<>* color = node->first_node("diffuse", 7, false))
+    {
+        if(xml_attribute<>* ar = color->first_attribute("r", 1, false))
+            m_DiffuseColor.x = atof(ar->value());
+        if(xml_attribute<>* ag = color->first_attribute("g", 1, false))
+            m_DiffuseColor.y = atof(ag->value());
+        if(xml_attribute<>* ab = color->first_attribute("b", 1, false))
+            m_DiffuseColor.z = atof(ab->value());
+        if(xml_attribute<>* aa = color->first_attribute("a", 1, false))
+            m_DiffuseColor.w = atof(aa->value());
+    }
+
+    if(xml_node<>* color = node->first_node("specular", 8, false))
+    {
+        if(xml_attribute<>* ar = color->first_attribute("r", 1, false))
+            m_SpecularColor.x = atof(ar->value());
+        if(xml_attribute<>* ag = color->first_attribute("g", 1, false))
+            m_SpecularColor.y = atof(ag->value());
+        if(xml_attribute<>* ab = color->first_attribute("b", 1, false))
+            m_SpecularColor.z = atof(ab->value());
+        if(xml_attribute<>* aa = color->first_attribute("a", 1, false))
+            m_SpecularColor.w = atof(aa->value());
+    }
 }
 
 //-----------------------------------------------------------------------------
