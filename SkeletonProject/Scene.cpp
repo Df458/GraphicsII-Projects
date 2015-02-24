@@ -5,14 +5,16 @@
 #include "Scene.h"
 #include "SceneNodes/SceneNode.h"
 #include "SceneNodes/CameraSceneNode.h"
+#include "SceneNodes/LightSceneNode.h"
+#include "SceneNodes/ModelSceneNode.h"
 #include "Utils.h"
 
 using namespace rapidxml;
 
-Scene::Scene(const char* filepath)
+Scene::Scene(const char* filepath, ID3DXEffect* effect)
 {
     m_RootNode = new SceneNode();
-    if(!loadLevel(filepath))
+    if(!loadLevel(filepath, effect))
         fprintf(stderr, "Failed to load level: %s\n", filepath);
     else
         printf("Successfully loaded level: %s\n", filepath);
@@ -30,7 +32,7 @@ void Scene::Update(float deltatime)
     }
 }
 
-bool Scene::loadLevel(const char* filepath)
+bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
 {
     char* text_buffer = loadFileContents(filepath);
     if(!text_buffer)
@@ -38,9 +40,21 @@ bool Scene::loadLevel(const char* filepath)
 
     xml_document<> document;
     document.parse<0>(text_buffer);
+    xml_node<>* node = document.first_node("level", 5, false);
 
-//:TODO: 22.02.15 20:19:27, df458
-// parse level data here
+    for(xml_node<>* camera = node->first_node("camera", 6, false); camera; camera = camera->next_sibling("camera", 6, false)) {
+        addNode(new CameraSceneNode(camera));
+    }
+
+    for(xml_node<>* light = node->first_node("light", 5, false); light; light = light->next_sibling("light", 5, false)) {
+        addNode(new LightSceneNode(light));
+    }
+
+    for(xml_node<>* model = node->first_node("model", 5, false); model; model = model->next_sibling("model", 5, false)) {
+        addNode(new ModelSceneNode(model, effect));
+    }
+//:TODO: 23.02.15 19:17:20, df458
+// Add support for children
 
     delete[] text_buffer;
     return true;
@@ -48,22 +62,12 @@ bool Scene::loadLevel(const char* filepath)
 
 void Scene::Render(IDirect3DDevice9* gd3dDevice)
 {
-	// Clear the backbuffer and depth buffer.
 	HR(gd3dDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xffffffff, 1.0f, 0));
 
 	HR(gd3dDevice->BeginScene());
 
-    //D3DXHANDLE tech = m_Effect->GetTechniqueByName("TestTechnique");
-    //HR(m_Effect->SetTechnique(tech));
-    //UINT passes;
-    //HR(m_Effect->Begin(&passes, 0));
-    //for(unsigned i = 0; i < passes; ++i) {
+    m_RootNode->renderChildren(this, gd3dDevice);
 
-        // Render all the objects
-        m_RootNode->renderChildren(this, gd3dDevice);
-
-    //}
-    //HR(m_Effect->End());
     // display the render statistics
     GfxStats::GetInstance()->display();
 
@@ -76,6 +80,7 @@ void Scene::Render(IDirect3DDevice9* gd3dDevice)
 
 bool Scene::addNode(SceneNode* node, SceneNode* parent)
 {
+    printf("Adding node\n");
     if(parent && !containsNode(parent))
     {
         return false;

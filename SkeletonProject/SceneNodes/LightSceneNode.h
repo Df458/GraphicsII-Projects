@@ -11,6 +11,8 @@ enum class LightType {
 class LightSceneNode : public SceneNode
 {
 public:
+    LightSceneNode();
+    LightSceneNode(rapidxml::xml_node<>* node);
     virtual void Update(float deltatime);
     virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice) {}
 protected:

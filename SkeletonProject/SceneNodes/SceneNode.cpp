@@ -2,6 +2,8 @@
 #include "../Scene.h"
 #include <cstdio>
 
+using namespace rapidxml;
+
 SceneNode::SceneNode()
 {
     m_Parent = NULL;
@@ -9,6 +11,40 @@ SceneNode::SceneNode()
 	D3DXMatrixIdentity(&m_Translation);
 	D3DXMatrixIdentity(&m_Rotation);
 	D3DXMatrixIdentity(&m_Scale);
+}
+
+SceneNode::SceneNode(xml_node<>* node)
+{
+    m_Parent = NULL;
+    D3DXMatrixIdentity(&m_World);
+	D3DXMatrixIdentity(&m_Translation);
+	D3DXMatrixIdentity(&m_Rotation);
+	D3DXMatrixIdentity(&m_Scale);
+    if(xml_node<>* translate = node->first_node("translate", 9, false)) {
+        if(xml_attribute<>* atx = translate->first_attribute("x", 1, false))
+            m_X = atof(atx->value());
+        if(xml_attribute<>* aty = translate->first_attribute("y", 1, false))
+            m_Y = atof(aty->value());
+        if(xml_attribute<>* atz = translate->first_attribute("z", 1, false))
+            m_Z = atof(atz->value());
+    }
+    if(xml_node<>* rotate = node->first_node("translate", 6, false)) {
+        if(xml_attribute<>* atx = rotate->first_attribute("x", 1, false))
+            m_Yaw = atof(atx->value());
+        if(xml_attribute<>* aty = rotate->first_attribute("y", 1, false))
+            m_Pitch = atof(aty->value());
+        if(xml_attribute<>* atz = rotate->first_attribute("z", 1, false))
+            m_Roll = atof(atz->value());
+    }
+    if(xml_node<>* scale = node->first_node("scale", 5, false)) {
+        if(xml_attribute<>* atx = scale->first_attribute("x", 1, false))
+            m_X = atof(atx->value());
+        if(xml_attribute<>* aty = scale->first_attribute("y", 1, false))
+            m_Y = atof(aty->value());
+        if(xml_attribute<>* atz = scale->first_attribute("z", 1, false))
+            m_Z = atof(atz->value());
+    }
+    UpdateMatricies();
 }
 
 void SceneNode::addChild(SceneNode* child)

@@ -9,12 +9,12 @@ class CameraSceneNode;
 
 class Scene {
 public:
-    Scene(const char* filepath);
+    Scene(const char* filepath, ID3DXEffect* effect);
     ~Scene();
     void Update(float deltatime);
     void Render(IDirect3DDevice9* gd3dDevice);
 
-    bool loadLevel(const char* filepath);
+    bool loadLevel(const char* filepath, ID3DXEffect* effect);
 
     bool addNode(SceneNode* node, SceneNode* parent = 0);
     bool removeNode(SceneNode* node);

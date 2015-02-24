@@ -59,18 +59,18 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 		PostQuitMessage(0);
 	}
 
+    LPD3DXBUFFER error_buf;
+    HR(D3DXCreateEffectFromFile(gd3dDevice, "Lighting.fx", NULL, NULL, 0, NULL, &m_DefaultEffect, &error_buf))
+    if(error_buf)
+        fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
+
 	mCameraRadius    = 10.0f;
 	mCameraRotationY = 1.2 * D3DX_PI;
 	mCameraHeight    = 5.0f;
 
     m_Camera = new CameraSceneNode();
-    m_Scene = new Scene("TestLevel.xml");
+    m_Scene = new Scene("TestLevel.xml", m_DefaultEffect);
     m_Scene->setActiveCamera(m_Camera);
-
-    LPD3DXBUFFER error_buf;
-    HR(D3DXCreateEffectFromFile(gd3dDevice, "Lighting.fx", NULL, NULL, 0, NULL, &m_DefaultEffect, &error_buf))
-    if(error_buf)
-        fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
 
     //PlainObject3D* plane = new PlainObject3D(15, 15, 15, 15);
     //plane->Create(gd3dDevice);
@@ -96,14 +96,14 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	//CuboidObject3D* cuboid15 = new CuboidObject3D(10.0f, 7.0f, 7.0f, 19, 20, 21);
 	//CuboidObject3D* cuboid16 = new CuboidObject3D(8.0f, 21.0f, 11.0f, 23, 23, 22);
 
-    ConeObject3D* d4 = new ConeObject3D(4, 3, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    //ConeObject3D* d4 = new ConeObject3D(4, 3, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
 
-    ConeObject3D* cone1 = new ConeObject3D(4, 4, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
-    ConeObject3D* cone2 = new ConeObject3D(4, 5, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
-    ConeObject3D* cone3 = new ConeObject3D(4, 6, 8, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
-    ConeObject3D* cone4 = new ConeObject3D(4, 7, 12, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
-    ConeObject3D* cone5 = new ConeObject3D(4, 8, 15, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
-    ConeObject3D* cone6 = new ConeObject3D(4, 40, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    //ConeObject3D* cone1 = new ConeObject3D(4, 4, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    //ConeObject3D* cone2 = new ConeObject3D(4, 5, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    //ConeObject3D* cone3 = new ConeObject3D(4, 6, 8, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    //ConeObject3D* cone4 = new ConeObject3D(4, 7, 12, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    //ConeObject3D* cone5 = new ConeObject3D(4, 8, 15, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
+    //ConeObject3D* cone6 = new ConeObject3D(4, 40, 6, new BaseMaterial(D3DXVECTOR3(1.0f, 0.0f, 0.0f)), m_DefaultEffect);
 
 	//DoubleConeObject3D* dcone1 = new DoubleConeObject3D(4, 4, 6, 6);
 	//DoubleConeObject3D* dcone2 = new DoubleConeObject3D(4, 5, 6, 6);
@@ -112,19 +112,19 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	//DoubleConeObject3D* dcone5 = new DoubleConeObject3D(4, 8, 15, 2);
 	//DoubleConeObject3D* dcone6 = new DoubleConeObject3D(4, 40, 6, 1);
 
-    CylinderObject3D* c1 = new CylinderObject3D(8, 4, 6, new BaseMaterial(), m_DefaultEffect);
-    CylinderObject3D* c2 = new CylinderObject3D(4, 5, 6, new BaseMaterial(), m_DefaultEffect);
-    CylinderObject3D* c3 = new CylinderObject3D(8, 6, 8, new BaseMaterial(), m_DefaultEffect);
-    CylinderObject3D* c4 = new CylinderObject3D(9, 7, 12, new BaseMaterial(), m_DefaultEffect);
-    CylinderObject3D* c5 = new CylinderObject3D(10, 8, 15, new BaseMaterial(), m_DefaultEffect);
-    CylinderObject3D* c6 = new CylinderObject3D(11, 40, 6, new BaseMaterial(), m_DefaultEffect);
+    //CylinderObject3D* c1 = new CylinderObject3D(8, 4, 6, new BaseMaterial(), m_DefaultEffect);
+    //CylinderObject3D* c2 = new CylinderObject3D(4, 5, 6, new BaseMaterial(), m_DefaultEffect);
+    //CylinderObject3D* c3 = new CylinderObject3D(8, 6, 8, new BaseMaterial(), m_DefaultEffect);
+    //CylinderObject3D* c4 = new CylinderObject3D(9, 7, 12, new BaseMaterial(), m_DefaultEffect);
+    //CylinderObject3D* c5 = new CylinderObject3D(10, 8, 15, new BaseMaterial(), m_DefaultEffect);
+    //CylinderObject3D* c6 = new CylinderObject3D(11, 40, 6, new BaseMaterial(), m_DefaultEffect);
 
-    UVSphereObject3D* sp1 = new UVSphereObject3D(6, 6, 6, new BaseMaterial(), m_DefaultEffect);
-    UVSphereObject3D* sp2 = new UVSphereObject3D(4, 4, 6, new BaseMaterial(), m_DefaultEffect);
-    UVSphereObject3D* sp3 = new UVSphereObject3D(5, 10, 9, new BaseMaterial(), m_DefaultEffect);
-    UVSphereObject3D* sp4 = new UVSphereObject3D(9, 12, 6, new BaseMaterial(), m_DefaultEffect);
-    UVSphereObject3D* sp5 = new UVSphereObject3D(10, 6, 9, new BaseMaterial(), m_DefaultEffect);
-    UVSphereObject3D* sp6 = new UVSphereObject3D(10, 50, 50, new BaseMaterial(), m_DefaultEffect);
+    //UVSphereObject3D* sp1 = new UVSphereObject3D(6, 6, 6, new BaseMaterial(), m_DefaultEffect);
+    //UVSphereObject3D* sp2 = new UVSphereObject3D(4, 4, 6, new BaseMaterial(), m_DefaultEffect);
+    //UVSphereObject3D* sp3 = new UVSphereObject3D(5, 10, 9, new BaseMaterial(), m_DefaultEffect);
+    //UVSphereObject3D* sp4 = new UVSphereObject3D(9, 12, 6, new BaseMaterial(), m_DefaultEffect);
+    //UVSphereObject3D* sp5 = new UVSphereObject3D(10, 6, 9, new BaseMaterial(), m_DefaultEffect);
+    //UVSphereObject3D* sp6 = new UVSphereObject3D(10, 50, 50, new BaseMaterial(), m_DefaultEffect);
 
 	//TubeObject3D* tube1 = new TubeObject3D(3, 2, 16, 4);
 	//TubeObject3D* tube2 = new TubeObject3D(5, 1, 4, 10);
@@ -162,14 +162,14 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	//cuboid15->Create((gd3dDevice));
 	//cuboid16->Create((gd3dDevice));
 
-    d4->Create((gd3dDevice));
+    //d4->Create((gd3dDevice));
 
-    cone1->Create((gd3dDevice));
-    cone2->Create((gd3dDevice));
-    cone3->Create((gd3dDevice));
-    cone4->Create((gd3dDevice));
-    cone5->Create((gd3dDevice));
-    cone6->Create((gd3dDevice));
+    //cone1->Create((gd3dDevice));
+    //cone2->Create((gd3dDevice));
+    //cone3->Create((gd3dDevice));
+    //cone4->Create((gd3dDevice));
+    //cone5->Create((gd3dDevice));
+    //cone6->Create((gd3dDevice));
 
 	//dcone1->Create((gd3dDevice));
 	//dcone2->Create((gd3dDevice));
@@ -178,19 +178,19 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	//dcone5->Create((gd3dDevice));
 	//dcone6->Create((gd3dDevice));
 
-    c1->Create((gd3dDevice));
-    c2->Create((gd3dDevice));
-    c3->Create((gd3dDevice));
-    c4->Create((gd3dDevice));
-    c5->Create((gd3dDevice));
-    c6->Create((gd3dDevice));
+    //c1->Create((gd3dDevice));
+    //c2->Create((gd3dDevice));
+    //c3->Create((gd3dDevice));
+    //c4->Create((gd3dDevice));
+    //c5->Create((gd3dDevice));
+    //c6->Create((gd3dDevice));
 
-    sp1->Create((gd3dDevice));
-    sp2->Create((gd3dDevice));
-    sp3->Create((gd3dDevice));
-    sp4->Create((gd3dDevice));
-    sp5->Create((gd3dDevice));
-    sp6->Create((gd3dDevice));
+    //sp1->Create((gd3dDevice));
+    //sp2->Create((gd3dDevice));
+    //sp3->Create((gd3dDevice));
+    //sp4->Create((gd3dDevice));
+    //sp5->Create((gd3dDevice));
+    //sp6->Create((gd3dDevice));
 
     //m_Scene->addNode(new ModelSceneNode(tube, 20, 0, -10));
 	//m_Scene->addNode(new ModelSceneNode(floor,0,-100,0));
@@ -213,13 +213,13 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	//m_Scene->addNode(new ModelSceneNode(cuboid15, 30, -60, 0));
 	//m_Scene->addNode(new ModelSceneNode(cuboid16, 0, -79, 40));
 
-    m_Scene->addNode(new ModelSceneNode(d4, 20, 0, 20));
-    m_Scene->addNode(new ModelSceneNode(cone1, 30, 0, 20));
-    m_Scene->addNode(new ModelSceneNode(cone2, 40, 0, 20));
-    m_Scene->addNode(new ModelSceneNode(cone3, 50, 0, 20));
-    m_Scene->addNode(new ModelSceneNode(cone4, 60, 0, 20));
-    m_Scene->addNode(new ModelSceneNode(cone5, 70, 0, 20));
-    m_Scene->addNode(new ModelSceneNode(cone6, 80, 0, 20));
+    //m_Scene->addNode(new ModelSceneNode(d4, 20, 0, 20));
+    //m_Scene->addNode(new ModelSceneNode(cone1, 30, 0, 20));
+    //m_Scene->addNode(new ModelSceneNode(cone2, 40, 0, 20));
+    //m_Scene->addNode(new ModelSceneNode(cone3, 50, 0, 20));
+    //m_Scene->addNode(new ModelSceneNode(cone4, 60, 0, 20));
+    //m_Scene->addNode(new ModelSceneNode(cone5, 70, 0, 20));
+    //m_Scene->addNode(new ModelSceneNode(cone6, 80, 0, 20));
 
 	//m_Scene->addNode(new ModelSceneNode(dcone1, 20, 0, 30));
 	//m_Scene->addNode(new ModelSceneNode(dcone2, 20, 0, 40));
@@ -228,19 +228,19 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	//m_Scene->addNode(new ModelSceneNode(dcone5, 20, 0, 70));
 	//m_Scene->addNode(new ModelSceneNode(dcone6, 20, 0, 80));
 
-    m_Scene->addNode(new ModelSceneNode(c1, 0, 0, 20));
-    m_Scene->addNode(new ModelSceneNode(c2, 45, 0, -20));
-    m_Scene->addNode(new ModelSceneNode(c3, 60, 0, -20));
-    m_Scene->addNode(new ModelSceneNode(c4, 80, 0, -20));
-    m_Scene->addNode(new ModelSceneNode(c5, 100, 0, -20));
-    m_Scene->addNode(new ModelSceneNode(c6, 130, 0, -20));
+    //m_Scene->addNode(new ModelSceneNode(c1, 0, 0, 20));
+    //m_Scene->addNode(new ModelSceneNode(c2, 45, 0, -20));
+    //m_Scene->addNode(new ModelSceneNode(c3, 60, 0, -20));
+    //m_Scene->addNode(new ModelSceneNode(c4, 80, 0, -20));
+    //m_Scene->addNode(new ModelSceneNode(c5, 100, 0, -20));
+    //m_Scene->addNode(new ModelSceneNode(c6, 130, 0, -20));
 
-    m_Scene->addNode(new ModelSceneNode(sp1, -20, 0, 30));
-    m_Scene->addNode(new ModelSceneNode(sp2, -20, 0, 50));
-    m_Scene->addNode(new ModelSceneNode(sp3, -20, 0, 70));
-    m_Scene->addNode(new ModelSceneNode(sp4, -20, 0, 90));
-    m_Scene->addNode(new ModelSceneNode(sp5, -20, 0, 110));
-    m_Scene->addNode(new ModelSceneNode(sp6, -20, 0, 130));
+    //m_Scene->addNode(new ModelSceneNode(sp1, -20, 0, 30));
+    //m_Scene->addNode(new ModelSceneNode(sp2, -20, 0, 50));
+    //m_Scene->addNode(new ModelSceneNode(sp3, -20, 0, 70));
+    //m_Scene->addNode(new ModelSceneNode(sp4, -20, 0, 90));
+    //m_Scene->addNode(new ModelSceneNode(sp5, -20, 0, 110));
+    //m_Scene->addNode(new ModelSceneNode(sp6, -20, 0, 130));
 
 	//m_Scene->addNode(new ModelSceneNode(tube1, -20, -25, 30));
 	//m_Scene->addNode(new ModelSceneNode(tube2, -20, -25, 50));

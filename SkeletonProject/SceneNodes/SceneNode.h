@@ -2,12 +2,14 @@
 #define SCENE_NODE_H
 
 #include "../Scene.h"
+#include <rapidxml.hpp>
 #include <vector>
 
 class SceneNode
 {
 public:
     SceneNode();
+    SceneNode(rapidxml::xml_node<>* node);
     virtual void Update(float deltatime) {};
     virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice) {};
     virtual void renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice);
@@ -17,7 +19,7 @@ public:
     void Scale(float x, float y, float z, bool relative = false);
 
 	void SetRotationLimits(float YawMin, float YawMax, float PitchMin, float PitchMax, float RollMin, float RollMax);
-
+    
     friend class Scene;
 protected:
     virtual void addChild(SceneNode* child);

@@ -1,12 +1,14 @@
 #ifndef CAMERA_SCENE_NODE
 #define CAMERA_SCENE_NODE
 #include <d3dx9.h>
+#include <rapidxml.hpp>
 #include "SceneNode.h"
 
 class CameraSceneNode : public SceneNode
 {
 public:
     CameraSceneNode();
+    CameraSceneNode(rapidxml::xml_node<>* node);
 
     virtual void Update(float deltatime){}
     virtual void Render(){}

@@ -1,11 +1,11 @@
 <level>
     <sky color="ffffff"/>
-    <sphere radius="1.2">
-    </sphere>
+    <model type="primitive" shape="sphere" radius="1.2"/>
     <light type="point">
+        <translate x="-0.25" y="0.75" z="-1.5"/>
     </light>
     <camera>
-        <translate y="0.75 "z="-3"/>
+        <translate y="0.75" z="-3"/>
         <lookat/>
     </camera>
 </level>

@@ -11,6 +11,10 @@ void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXM
     GfxStats::GetInstance()->addVertices(m_VertexCount);
     GfxStats::GetInstance()->addTriangles(m_TriCount);
     
+    if(!m_Mesh)
+        printf("Error: no mesh\n");
+    if(!m_Material)
+        printf("Error: no material\n");
     // Set matrices and model relevant render date
     D3DXMATRIX vp = view * projection;
     unsigned passes = m_Material->PreRender();
