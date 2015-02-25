@@ -12,19 +12,22 @@ uniform extern float    valShininess;
 struct OutputVS
 {
     float4 pos : POSITION0;
+    float4 color : COLOR0;
 };
 
-OutputVS Vert(float3 position : POSITION0)
+OutputVS Vert(float3 position : POSITION0, float3 normal : NORMAL0)
 {
     float4x4 matFinal = mul(matWorld, matVP);
     OutputVS outv = (OutputVS)0;
     outv.pos = mul(float4(position, 1.0f), matFinal);
+    outv.color = abs(float4(normal, 1.0f));
     return outv;
 }
 
-float4 GouraudPix() : COLOR
+float4 GouraudPix(OutputVS input) : COLOR
 {
-    return colAmbient;
+    return input.color;
+    //return colAmbient;
 }
 
 float4 PhongPix() : COLOR

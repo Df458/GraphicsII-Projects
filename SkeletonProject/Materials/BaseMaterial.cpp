@@ -84,7 +84,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_SpecularColHandle = effect->GetParameterByName(0, "colSpecular");
     m_ShininessHandle = effect->GetParameterByName(0, "valShininess");
 
-    m_Technique = m_Effect->GetTechniqueByName("GouraudWire");
+    m_Technique = m_Effect->GetTechniqueByName("GouraudSolid");
 }
 
 //=============================================================================

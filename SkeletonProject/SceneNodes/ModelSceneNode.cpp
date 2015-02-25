@@ -1,6 +1,7 @@
 #include "../d3dUtil.h"
 #include "ModelSceneNode.h"
 #include "../3DClasses/MeshObject3D.h"
+#include "../3DClasses/CylinderObject3D.h"
 #include "../3DClasses/UVSphereObject3D.h"
 #include "../Materials/BaseMaterial.h"
 
@@ -88,6 +89,19 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node, BaseM
         if(xml_attribute<>* atl = node->first_attribute("radials", 7, false))
             radials = atoi(atl->value());
         m_Model = new UVSphereObject3D(radius, rings, radials, mat, effect);
+    }
+    else if(!strcmp(name, "cylinder"))
+    {
+        float height = 1.0f;
+        if(xml_attribute<>* ath = node->first_attribute("height", 6, false))
+            height = atof(ath->value());
+        float radius = 1.0f;
+        if(xml_attribute<>* atr = node->first_attribute("radius", 6, false))
+            radius = atof(atr->value());
+        unsigned radials = 8;
+        if(xml_attribute<>* atl = node->first_attribute("radials", 7, false))
+            radials = atoi(atl->value());
+        m_Model = new CylinderObject3D(radius, radials, height, mat, effect);
     }
     else
     {
