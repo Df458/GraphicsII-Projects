@@ -17,10 +17,8 @@ BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, 
     m_Effect = NULL;
 }
 
-BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node)
+BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 {
-    m_Effect = NULL;
-
     if(xml_attribute<>* shine = node->first_attribute("shine", 5, false))
         m_Shininess = atof(shine->value());
 
@@ -85,7 +83,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_SpecularColHandle = effect->GetParameterByName(0, "colSpecular");
     m_ShininessHandle = effect->GetParameterByName(0, "valShininess");
 
-    m_Technique = m_Effect->GetTechniqueByName("GouraudWire");
+    m_Technique = m_Effect->GetTechniqueByName("GouraudSolid");
 }
 
 //=============================================================================

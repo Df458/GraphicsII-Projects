@@ -2,8 +2,8 @@ uniform extern float4x4 matWorld;
 uniform extern float4x4 matITWorld;
 uniform extern float4x4 matVP;
 
-uniform extern float4   vLightPos;
-uniform extern float4   vViewPos;
+uniform extern float3   vLightPos;
+uniform extern float3   vViewPos;
 
 uniform extern float4   colAmbient;
 uniform extern float4   colDiffuse;
@@ -25,12 +25,18 @@ OutputVS GouraudVert(float3 position : POSITION0, float3 normal : NORMAL0)
     float3 wvpos = mul(float4(position, 1.0f), matWorld).xyz;
     float3 wnorm = normalize(mul(float4(normal, 0.0f), matITWorld).xyz);
     float3 wli   = normalize(vLightPos - wvpos);
+    float3 wvtvi = normalize(vViewPos - wvpos);
 
     float3 amb  = colAmbient.rgb * colAmbient.a;
+
     float s = max(dot(wnorm, wli), 0.0f);
     float3 diff = s * colDiffuse.rgb;
 
-    outv.color = float4(amb + diff, 1.0f);
+    float3 reflected =  reflect(-wvtvi, wnorm);
+    float t = pow(max(dot(reflected, wvtvi), 0.0f), valShininess);
+    float3 spec = t * colSpecular.rgb;
+
+    outv.color = float4(amb + diff + spec, 1.0f);
     return outv;
 }
 

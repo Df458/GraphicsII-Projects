@@ -38,8 +38,6 @@ ModelSceneNode::ModelSceneNode(xml_node<>* node, ID3DXEffect* effect) : SceneNod
          mat = new BaseMaterial(nmat);
     else
         mat = new BaseMaterial();
-//:TODO: 23.02.15 20:00:58, df458
-// Load material data here
     xml_attribute<>* type = node->first_attribute("type", 4, false);
     if(!type)
     {
