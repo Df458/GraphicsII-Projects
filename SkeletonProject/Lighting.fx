@@ -1,4 +1,5 @@
 uniform extern float4x4 matWorld;
+uniform extern float4x4 matITWorld;
 uniform extern float4x4 matVP;
 
 uniform extern float4   vLightPos;
@@ -15,7 +16,25 @@ struct OutputVS
     float4 color : COLOR0;
 };
 
-OutputVS Vert(float3 position : POSITION0, float3 normal : NORMAL0)
+OutputVS GouraudVert(float3 position : POSITION0, float3 normal : NORMAL0)
+{
+    float4x4 matFinal = mul(matWorld, matVP);
+    OutputVS outv = (OutputVS)0;
+    outv.pos = mul(float4(position, 1.0f), matFinal);
+
+    float3 wvpos = mul(float4(position, 1.0f), matWorld).xyz;
+    float3 wnorm = normalize(mul(float4(normal, 0.0f), matITWorld).xyz);
+    float3 wli   = normalize(vLightPos - wvpos);
+
+    float3 amb  = colAmbient.rgb * colAmbient.a;
+    float s = max(dot(wnorm, wli), 0.0f);
+    float3 diff = s * colDiffuse.rgb;
+
+    outv.color = float4(amb + diff, 1.0f);
+    return outv;
+}
+
+OutputVS PhongVert(float3 position : POSITION0, float3 normal : NORMAL0)
 {
     float4x4 matFinal = mul(matWorld, matVP);
     OutputVS outv = (OutputVS)0;
@@ -27,7 +46,6 @@ OutputVS Vert(float3 position : POSITION0, float3 normal : NORMAL0)
 float4 GouraudPix(OutputVS input) : COLOR
 {
     return input.color;
-    //return colAmbient;
 }
 
 float4 PhongPix() : COLOR
@@ -39,7 +57,7 @@ technique GouraudWire
 {
     pass P0
     {
-        vertexShader = compile vs_2_0 Vert();
+        vertexShader = compile vs_2_0 GouraudVert();
         pixelShader = compile ps_2_0 GouraudPix();
         FillMode = Wireframe;
     }
@@ -49,7 +67,7 @@ technique GouraudSolid
 {
     pass P0
     {
-        vertexShader = compile vs_2_0 Vert();
+        vertexShader = compile vs_2_0 GouraudVert();
         pixelShader = compile ps_2_0 GouraudPix();
         FillMode = Solid;
     }
@@ -59,7 +77,7 @@ technique PhongWire
 {
     pass P0
     {
-        vertexShader = compile vs_2_0 Vert();
+        vertexShader = compile vs_2_0 PhongVert();
         pixelShader = compile ps_2_0 PhongPix();
         FillMode = Wireframe;
     }
@@ -69,7 +87,7 @@ technique PhongSolid
 {
     pass P0
     {
-        vertexShader = compile vs_2_0 Vert();
+        vertexShader = compile vs_2_0 PhongVert();
         pixelShader = compile ps_2_0 PhongPix();
         FillMode = Solid;
     }

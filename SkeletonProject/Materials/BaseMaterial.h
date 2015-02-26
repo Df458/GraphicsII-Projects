@@ -18,6 +18,7 @@ protected:
 
     //-------- Material Parameters -------
     D3DXMATRIX          m_WorldMat;
+    D3DXMATRIX          m_ITWorldMat;
     D3DXMATRIX          m_ViewProjectionMat;
 
     D3DXVECTOR4         m_AmbientColor;
@@ -29,6 +30,7 @@ protected:
     //---------- Shader Handles ----------
     // Generic shader handles
     D3DXHANDLE          m_WorldMatHandle;
+    D3DXHANDLE          m_ITWorldMatHandle;
     D3DXHANDLE          m_ViewProjectionMatHandle;
 
     D3DXHANDLE          m_LightPosWHandle;       // Position (spot/point) / Direction (directional)

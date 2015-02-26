@@ -74,6 +74,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
 {
     m_Effect = effect;
     m_WorldMatHandle = effect->GetParameterByName(0, "matWorld");
+    m_ITWorldMatHandle = effect->GetParameterByName(0, "matITWorld");
     m_ViewProjectionMatHandle = effect->GetParameterByName(0, "matVP");
 
     m_LightPosWHandle = effect->GetParameterByName(0, "vLightPos");
@@ -84,7 +85,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_SpecularColHandle = effect->GetParameterByName(0, "colSpecular");
     m_ShininessHandle = effect->GetParameterByName(0, "valShininess");
 
-    m_Technique = m_Effect->GetTechniqueByName("GouraudSolid");
+    m_Technique = m_Effect->GetTechniqueByName("GouraudWire");
 }
 
 //=============================================================================
@@ -98,11 +99,16 @@ unsigned BaseMaterial::PreRender(void) {
 
 void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigned pass)
 {
+    D3DXMatrixInverse(&m_ITWorldMat, 0, &worldMat);
+    D3DXMatrixTranspose(&m_ITWorldMat, &m_ITWorldMat);
+    D3DXVECTOR4 pos = D3DXVECTOR4(0.0, 1.0, -1.2, 1.0);
     HR(m_Effect->SetMatrix(m_WorldMatHandle, &worldMat));
+    HR(m_Effect->SetMatrix(m_ITWorldMatHandle, &m_ITWorldMat));
     HR(m_Effect->SetMatrix(m_ViewProjectionMatHandle, &viewProjMat));
     HR(m_Effect->SetVector(m_AmbientColHandle, &m_AmbientColor));
     HR(m_Effect->SetVector(m_DiffuseColHandle, &m_DiffuseColor));
     HR(m_Effect->SetVector(m_SpecularColHandle, &m_SpecularColor));
+    HR(m_Effect->SetVector(m_LightPosWHandle, &pos));
     HR(m_Effect->SetFloat(m_ShininessHandle, m_Shininess));
     HR(m_Effect->CommitChanges());
     HR(m_Effect->BeginPass(pass));
