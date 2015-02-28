@@ -49,7 +49,6 @@ private:
 
 	//D3DXMATRIX mView;
 	//D3DXMATRIX mProj;
-    ID3DXEffect* m_DefaultEffect;
 	
 	//Input
 	float X, Y, prevX, prevY;

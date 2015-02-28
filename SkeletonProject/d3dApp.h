@@ -28,8 +28,8 @@ public:
 	// Framework methods.  Derived client class overrides these methods to 
 	// implement specific application requirements.
 	virtual bool checkDeviceCaps()     { return true; }
-	virtual void onLostDevice()        {}
-	virtual void onResetDevice()       {}
+	virtual void onLostDevice()        { }
+	virtual void onResetDevice()       { }
 	virtual void updateScene(float dt) {}
 	virtual void drawScene()           {}
 
@@ -57,6 +57,8 @@ protected:
 	IDirect3D9*           md3dObject;
 	bool                  mAppPaused;
 	D3DPRESENT_PARAMETERS md3dPP;
+
+	ID3DXEffect* m_DefaultEffect;
 };
 
 // Globals for convenient access.

@@ -59,11 +59,6 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 		PostQuitMessage(0);
 	}
 
-    LPD3DXBUFFER error_buf;
-    HR(D3DXCreateEffectFromFile(gd3dDevice, "Lighting.fx", NULL, NULL, 0, NULL, &m_DefaultEffect, &error_buf))
-    if(error_buf)
-        fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
-
 	mCameraRadius    = 10.0f;
 	mCameraRotationY = 1.2 * D3DX_PI;
 	mCameraHeight    = 5.0f;
@@ -299,6 +294,7 @@ bool SkeletonClass::checkDeviceCaps()
 void SkeletonClass::onLostDevice()
 {
 	GfxStats::GetInstance()->onLostDevice();
+	m_DefaultEffect->OnLostDevice();
 }
 
 void SkeletonClass::onResetDevice()
@@ -309,6 +305,7 @@ void SkeletonClass::onResetDevice()
 	// possibly change after a reset.  So rebuild the projection matrix.
 	//buildProjMtx();
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
+	m_DefaultEffect->OnResetDevice();
 }
 
 void SkeletonClass::updateScene(float dt)

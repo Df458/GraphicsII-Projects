@@ -149,6 +149,12 @@ void D3DApp::initDirect3D()
 		devBehaviorFlags,   // vertex processing
 	    &md3dPP,            // present parameters
 	    &gd3dDevice));      // return created device
+
+
+	LPD3DXBUFFER error_buf;
+	HR(D3DXCreateEffectFromFile(gd3dDevice, "Lighting.fx", NULL, NULL, 0, NULL, &m_DefaultEffect, &error_buf))
+	if (error_buf)
+		fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
 }
 
 int D3DApp::run()
