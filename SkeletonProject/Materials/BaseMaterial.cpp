@@ -84,6 +84,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_DiffuseColHandle = effect->GetParameterByName(0, "colDiffuse");
     m_SpecularColHandle = effect->GetParameterByName(0, "colSpecular");
     m_ShininessHandle = effect->GetParameterByName(0, "valShininess");
+    m_AttenuationHandle = effect->GetParameterByName(0, "vAttenuation");
 
     m_Technique = m_Effect->GetTechniqueByName("GouraudSolid");
 }
@@ -109,6 +110,7 @@ void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigne
     D3DXMatrixTranspose(&m_ITWorldMat, &m_ITWorldMat);
     D3DXVECTOR4 pos = light->getTranslation();
     D3DXVECTOR4 light_color = light->getColor();
+    D3DXVECTOR4 lightatt = light->getAttenuation();
     HR(m_Effect->SetMatrix(m_WorldMatHandle, &worldMat));
     HR(m_Effect->SetMatrix(m_ITWorldMatHandle, &m_ITWorldMat));
     HR(m_Effect->SetMatrix(m_ViewProjectionMatHandle, &viewProjMat));
@@ -117,6 +119,7 @@ void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigne
     HR(m_Effect->SetVector(m_SpecularColHandle, &m_SpecularColor));
     HR(m_Effect->SetVector(m_LightPosWHandle, &pos));
     HR(m_Effect->SetVector(m_LightColorHandle, &light_color));
+    HR(m_Effect->SetVector(m_AttenuationHandle, &lightatt));
     HR(m_Effect->SetFloat(m_ShininessHandle, m_Shininess));
     HR(m_Effect->CommitChanges());
     HR(m_Effect->BeginPass(pass));

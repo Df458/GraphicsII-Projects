@@ -45,6 +45,7 @@ protected:
     D3DXHANDLE          m_DiffuseColHandle;
     D3DXHANDLE          m_SpecularColHandle;
     D3DXHANDLE          m_ShininessHandle;
+    D3DXHANDLE          m_AttenuationHandle;
 
     D3DXHANDLE          m_Technique;
 

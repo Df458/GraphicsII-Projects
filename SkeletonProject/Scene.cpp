@@ -60,7 +60,7 @@ bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
     }
 
     for(xml_node<>* light = node->first_node("light", 5, false); light; light = light->next_sibling("light", 5, false)) {
-        LightSceneNode* lightn = new LightSceneNode(light);
+        LightSceneNode* lightn = new LightSceneNode(light, effect);
         addNode(lightn);
         m_ActiveLight = lightn;
     }
