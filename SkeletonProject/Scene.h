@@ -6,6 +6,7 @@
 
 class SceneNode;
 class CameraSceneNode;
+class LightSceneNode;
 
 class Scene {
 public:
@@ -21,6 +22,7 @@ public:
     bool containsNode(SceneNode* node) const;
 
     bool setActiveCamera(CameraSceneNode* camera);
+    LightSceneNode* getActiveLight(void);
 
     void pushMatrix(D3DXMATRIX matrix);
     void popMatrix();
@@ -31,6 +33,7 @@ public:
 protected:
     SceneNode* m_RootNode;
     CameraSceneNode* m_ActiveCamera;
+    LightSceneNode* m_ActiveLight;
     std::set<SceneNode*> m_Nodes;
     std::stack<D3DXMATRIX> m_MatrixStack;
     float m_LastWidth = 1;

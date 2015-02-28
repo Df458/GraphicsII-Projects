@@ -1,5 +1,6 @@
 #include "../d3dUtil.h"
 #include "ModelSceneNode.h"
+#include "LightSceneNode.h"
 #include "../3DClasses/MeshObject3D.h"
 #include "../3DClasses/CylinderObject3D.h"
 #include "../3DClasses/UVSphereObject3D.h"
@@ -68,7 +69,8 @@ void ModelSceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     D3DXMATRIX world = activeScene->getTopMatrix() * m_World;
     D3DXMATRIX view = activeScene->getView();
     D3DXMATRIX proj = activeScene->getProjection();
-    m_Model->Render(gd3dDevice, world, view, proj);
+    LightSceneNode* light = activeScene->getActiveLight();
+    m_Model->Render(gd3dDevice, world, view, proj, light);
 }
 
 void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node, BaseMaterial* mat, ID3DXEffect* effect)

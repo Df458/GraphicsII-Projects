@@ -11,6 +11,9 @@
 #include "../d3dApp.h"
 #include <rapidxml.hpp>
 //=============================================================================
+
+class LightSceneNode;
+
 class BaseMaterial
 {
 protected:
@@ -34,6 +37,7 @@ protected:
     D3DXHANDLE          m_ViewProjectionMatHandle;
 
     D3DXHANDLE          m_LightPosWHandle;       // Position (spot/point) / Direction (directional)
+    D3DXHANDLE          m_LightColorHandle;
     D3DXHANDLE          m_ViewerPosWHandle;
 
     // Material specific shader handles
@@ -51,7 +55,7 @@ public:
 
     void ConnectToEffect( ID3DXEffect* effect );
     unsigned PreRender(void);
-    void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigned pass ); 
+    void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigned pass, LightSceneNode* light ); 
     void PostPass(void);
     void PostRender(void);
 };

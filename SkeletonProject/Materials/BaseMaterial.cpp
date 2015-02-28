@@ -8,6 +8,7 @@
 // lighting / shaders effects.
 //=============================================================================
 #include "BaseMaterial.h"
+#include "../SceneNodes/LightSceneNode.h"
 //=============================================================================
 using namespace rapidxml;
 
@@ -78,6 +79,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_LightPosWHandle = effect->GetParameterByName(0, "vLightPos");
     m_ViewerPosWHandle = effect->GetParameterByName(0, "vViewPos");
 
+    m_LightColorHandle = effect->GetParameterByName(0, "colLight");
     m_AmbientColHandle = effect->GetParameterByName(0, "colAmbient");
     m_DiffuseColHandle = effect->GetParameterByName(0, "colDiffuse");
     m_SpecularColHandle = effect->GetParameterByName(0, "colSpecular");
@@ -95,11 +97,18 @@ unsigned BaseMaterial::PreRender(void) {
     return passes;
 }
 
-void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigned pass)
+void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigned pass, LightSceneNode* light)
 {
+    if(!light)
+    {
+        fprintf(stderr, "Warning: Trying to render with a NULL light.\n");
+        return;
+    }
+
     D3DXMatrixInverse(&m_ITWorldMat, 0, &worldMat);
     D3DXMatrixTranspose(&m_ITWorldMat, &m_ITWorldMat);
-    D3DXVECTOR4 pos = D3DXVECTOR4(0.0, 1.0, -1.2, 1.0);
+    D3DXVECTOR4 pos = light->getTranslation();
+    D3DXVECTOR4 light_color = light->getColor();
     HR(m_Effect->SetMatrix(m_WorldMatHandle, &worldMat));
     HR(m_Effect->SetMatrix(m_ITWorldMatHandle, &m_ITWorldMat));
     HR(m_Effect->SetMatrix(m_ViewProjectionMatHandle, &viewProjMat));
@@ -107,6 +116,7 @@ void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigne
     HR(m_Effect->SetVector(m_DiffuseColHandle, &m_DiffuseColor));
     HR(m_Effect->SetVector(m_SpecularColHandle, &m_SpecularColor));
     HR(m_Effect->SetVector(m_LightPosWHandle, &pos));
+    HR(m_Effect->SetVector(m_LightColorHandle, &light_color));
     HR(m_Effect->SetFloat(m_ShininessHandle, m_Shininess));
     HR(m_Effect->CommitChanges());
     HR(m_Effect->BeginPass(pass));

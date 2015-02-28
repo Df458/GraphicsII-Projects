@@ -6,7 +6,7 @@ MeshObject3D::MeshObject3D(BaseMaterial* mat, ID3DXEffect* effect) : BaseObject3
 {
 }
 
-void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection) {
+void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light) {
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
     GfxStats::GetInstance()->addTriangles(m_TriCount);
@@ -20,7 +20,7 @@ void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXM
     unsigned passes = m_Material->PreRender();
     for(unsigned i = 0; i < passes; ++i)
     {
-        m_Material->Render(world, vp, i);
+        m_Material->Render(world, vp, i, light);
 
         HR(m_Mesh->DrawSubset(0));
         m_Material->PostPass();

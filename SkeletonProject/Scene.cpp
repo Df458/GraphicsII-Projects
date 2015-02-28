@@ -60,7 +60,9 @@ bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
     }
 
     for(xml_node<>* light = node->first_node("light", 5, false); light; light = light->next_sibling("light", 5, false)) {
-        addNode(new LightSceneNode(light));
+        LightSceneNode* lightn = new LightSceneNode(light);
+        addNode(lightn);
+        m_ActiveLight = lightn;
     }
 
     for(xml_node<>* model = node->first_node("model", 5, false); model; model = model->next_sibling("model", 5, false)) {
@@ -129,6 +131,11 @@ bool Scene::setActiveCamera(CameraSceneNode* camera)
     m_ActiveCamera = camera;
     m_ActiveCamera->rebuildProjection(m_LastWidth, m_LastHeight);
     return true;
+}
+
+LightSceneNode* Scene::getActiveLight(void)
+{
+    return m_ActiveLight;
 }
 
 void Scene::pushMatrix(D3DXMATRIX matrix)
