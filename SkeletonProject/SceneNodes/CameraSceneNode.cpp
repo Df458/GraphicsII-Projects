@@ -6,6 +6,7 @@ using namespace rapidxml;
 CameraSceneNode::CameraSceneNode()
 {
     m_Parent = NULL;
+	focused = false;
     D3DXMatrixIdentity(&m_World);
     D3DXMatrixTranslation(&m_World, 0, 1.0f, -15.0f);
 }
@@ -18,12 +19,14 @@ CameraSceneNode::CameraSceneNode(xml_node<>* node) : SceneNode(node)
         float tX = 0;
         float tY = 0;
         float tZ = 0;
+
         if(xml_attribute<>* atx = nlookat->first_attribute("x", 1, false))
             tX = atof(atx->value());
         if(xml_attribute<>* aty = nlookat->first_attribute("y", 1, false))
             tY = atof(aty->value());
         if(xml_attribute<>* atz = nlookat->first_attribute("z", 1, false))
             tZ = atof(atz->value());
+
         D3DXVECTOR3 at  = D3DXVECTOR3(tX, tY, tZ);
         D3DXVECTOR3 eye = D3DXVECTOR3(m_X, m_Y, m_Z);
         D3DXVECTOR3 up  = D3DXVECTOR3(0, 1, 0);
@@ -70,4 +73,22 @@ D3DXMATRIX CameraSceneNode::getProjection(void) const
 void CameraSceneNode::rebuildProjection(float w, float h)
 {
     D3DXMatrixPerspectiveFovLH(&m_Projection, m_Angle * DEGTORAD, w/h, m_Near, m_Far);
+}
+
+void CameraSceneNode::setFocus(SceneNode* target)
+{
+	if (target)
+	{
+		focused = true;
+		focusTarget = target;
+	}
+	else
+	{
+		releaseFocus();
+	}
+}
+
+void CameraSceneNode::releaseFocus()
+{
+	focused = false;
 }

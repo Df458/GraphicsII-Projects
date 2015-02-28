@@ -18,7 +18,13 @@ public:
     void setView(D3DXMATRIX);
     void setProjection(D3DXMATRIX);
     void rebuildProjection(float w, float h);
+	void setFocus(SceneNode* target);
+	void releaseFocus();
 protected:
+	bool focused;
+	SceneNode* focusTarget;
+	float focusDistance;
+
     D3DXMATRIX m_Projection;
     float m_Near;
     float m_Far;
