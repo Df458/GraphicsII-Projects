@@ -1,0 +1,15 @@
+Hey, I'm leaving this to help you get started while I get groceries.
+
+1. The first thing you can do is look over the code in SphereObject3D and CylinderObject3D.
+   Using the same general approach, make a Teapot and Torus(donut). The Directx api should provide the necessary calls for that.
+   We're required to do this for cubes as well, but I don't know how you want to handle it. I'm leaving that to you since you wrote the cuboid code.
+   Finally, most of the othier primitives are broken atm. If you can figure out how to set them up with D3DXMESH and normals, all the better!
+2. Look in TestLevel.xml, that's what gets loaded at startup. Note that rapidxml is now a dependency, but I've included it in the repo.
+3. I've started on Gouraud shading, and it's mostly done. Since we each need to do one, that leaves you with Phong. The Lighting.fx file contains all that you need.
+4. The last major thing that needs doing is UVs/Textures, and it's a doozy. I'm pretty sure we need to write the generation code ourselves, and I
+   haven't touched it yet. We should proably start this together, for sure.
+5. Camera controls are disabled for the moment, because I've integrated the camera into the scene/made multiple cameras possible.
+   If you really need cam controls, then write a method for the Scene class that just returns a pointer to m_ActiveCamera. If not, don't bother,
+   since I'll be replacing this stuff soon. I'm planning on seeing if I can implement some super-simple lua integration, which will be much 
+   better in the long run. *NOTE* I have done this before, so don't worry about scope. Lua integration is so easy an infant could do it.
+6. If all else fails, look for TODO comments, I guess? I don't think there are too many though.
