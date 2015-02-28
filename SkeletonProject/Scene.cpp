@@ -138,6 +138,12 @@ LightSceneNode* Scene::getActiveLight(void)
     return m_ActiveLight;
 }
 
+CameraSceneNode* Scene::getActiveCamera(void)
+{
+	return m_ActiveCamera;
+}
+
+
 void Scene::pushMatrix(D3DXMATRIX matrix)
 {
     m_MatrixStack.push(getTopMatrix() * matrix);

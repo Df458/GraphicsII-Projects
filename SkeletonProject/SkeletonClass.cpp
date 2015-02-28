@@ -70,6 +70,7 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 
     m_Scene = new Scene("TestLevel.xml", m_DefaultEffect);
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
+	m_Camera = m_Scene->getActiveCamera();
 
     //PlainObject3D* plane = new PlainObject3D(15, 15, 15, 15);
     //plane->Create(gd3dDevice);

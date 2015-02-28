@@ -23,6 +23,7 @@ public:
 
     bool setActiveCamera(CameraSceneNode* camera);
     LightSceneNode* getActiveLight(void);
+	CameraSceneNode* getActiveCamera(void);
 
     void pushMatrix(D3DXMATRIX matrix);
     void popMatrix();
