@@ -14,6 +14,7 @@ CameraSceneNode::CameraSceneNode()
 CameraSceneNode::CameraSceneNode(xml_node<>* node) : SceneNode(node)
 {
     m_Parent = NULL;
+	focused = false;
     if(xml_node<>* nlookat = node->first_node("lookat", 6, false))
     {
         float tX = 0;
@@ -47,6 +48,25 @@ CameraSceneNode::CameraSceneNode(xml_node<>* node) : SceneNode(node)
         if(xml_attribute<>* angle = nproj->first_attribute("angle", 5, false))
             m_Angle = atof(angle->value());
     }
+}
+
+void CameraSceneNode::Update(float deltatime)
+{
+	if (focused)
+	{
+		if (focusTarget)//if the node hasn't been deleted since
+		{
+			D3DXVECTOR3 at = focusTarget->getPosition();
+			D3DXVECTOR3 eye = D3DXVECTOR3(m_X, m_Y, m_Z);
+			D3DXVECTOR3 up = D3DXVECTOR3(0, 1, 0);
+			D3DXMATRIX mlookat = *D3DXMatrixLookAtLH(&mlookat, &at, &eye, &up);
+			setView(mlookat);
+		}
+		else
+		{
+			focused = false;
+		}
+	}
 }
 
 void CameraSceneNode::setProjection(D3DXMATRIX projection)
@@ -91,4 +111,5 @@ void CameraSceneNode::setFocus(SceneNode* target)
 void CameraSceneNode::releaseFocus()
 {
 	focused = false;
+	focusTarget = nullptr;
 }

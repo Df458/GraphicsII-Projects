@@ -66,6 +66,8 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     m_Scene = new Scene("TestLevel.xml", m_DefaultEffect);
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 	m_Camera = m_Scene->getActiveCamera();
+	SceneNode* focusNode = new SceneNode();
+	m_Camera->setFocus(focusNode);
 
     //PlainObject3D* plane = new PlainObject3D(15, 15, 15, 15);
     //plane->Create(gd3dDevice);
@@ -319,9 +321,11 @@ void SkeletonClass::updateScene(float dt)
 	// Get snapshot of input devices.
 	gDInput->poll();
 
+
+
 	/******OLD CAMERA*****/
 	// Check input.
-	if( gDInput->keyDown(DIK_W) )	 
+	/*if( gDInput->keyDown(DIK_W) )	 
 		mCameraHeight   += 25.0f * dt;
 	if( gDInput->keyDown(DIK_S) )	 
 		mCameraHeight   -= 25.0f * dt;
@@ -343,8 +347,8 @@ void SkeletonClass::updateScene(float dt)
 	// view matrix every frame with the latest changes.
 	buildViewMtx();
 	/******OLD CAMERA*****/
-
-
+	
+	/*
 	if (gDInput->mouseButtonDown(0))
 	{
 #ifdef __GNUC__
@@ -357,7 +361,7 @@ void SkeletonClass::updateScene(float dt)
 
 		m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
 	}
-
+	*/
 	if (gDInput->keyDown(DIK_W))
 		m_Camera->Translate(0, 0, 25.0f * dt, true, true);
 

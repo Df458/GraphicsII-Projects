@@ -143,6 +143,10 @@ CameraSceneNode* Scene::getActiveCamera(void)
 	return m_ActiveCamera;
 }
 
+SceneNode* Scene::getRootNode(void)
+{
+	return m_RootNode;
+}
 
 void Scene::pushMatrix(D3DXMATRIX matrix)
 {

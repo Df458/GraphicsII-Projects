@@ -10,7 +10,7 @@ public:
     CameraSceneNode();
     CameraSceneNode(rapidxml::xml_node<>* node);
 
-    virtual void Update(float deltatime){}
+	virtual void Update(float deltatime);
     virtual void Render(){}
 
     D3DXMATRIX getView(void) const;
@@ -20,6 +20,8 @@ public:
     void rebuildProjection(float w, float h);
 	void setFocus(SceneNode* target);
 	void releaseFocus();
+
+	SceneNode* getFocusNode(){ return focusTarget; };
 protected:
 	bool focused;
 	SceneNode* focusTarget;

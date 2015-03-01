@@ -89,6 +89,9 @@ void SceneNode::Translate(float x, float y, float z, bool relative, bool rotatio
 {
 	if (!relative) {
 		D3DXMatrixTranslation(&m_Translation, x, y, z);
+		m_X = x;
+		m_Y = y;
+		m_Z = z;
 	}
 	else
     {
@@ -107,6 +110,9 @@ void SceneNode::Translate(float x, float y, float z, bool relative, bool rotatio
 		}
 		
 		m_Translation *= trans;
+		m_X += x;
+		m_Y += y;
+		m_Z += z;
     }
 }
 

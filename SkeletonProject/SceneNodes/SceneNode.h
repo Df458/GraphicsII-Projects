@@ -18,10 +18,12 @@ public:
     void Rotate(float yaw, float pitch, float roll, bool relative = false);
     void Scale(float x, float y, float z, bool relative = false);
 
-    D3DXVECTOR4 getTranslation(void) { return D3DXVECTOR4(m_X, m_Y, m_Z, 1.0f); }
+	D3DXVECTOR4 getTranslation(void) { return D3DXVECTOR4(m_X, m_Y, m_Z, 1.0f); }
+	D3DXVECTOR3 getPosition(void) { return D3DXVECTOR3(m_X, m_Y, m_Z); }
 
 	void SetRotationLimits(float YawMin, float YawMax, float PitchMin, float PitchMax, float RollMin, float RollMax);
     
+
     friend class Scene;
 protected:
     virtual void addChild(SceneNode* child);
