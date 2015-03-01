@@ -108,9 +108,11 @@ void CameraSceneNode::releaseFocus()
     D3DXMATRIX mat = m_FocusView * focusTarget->getMatrix();
     D3DXVECTOR3 scale;
     D3DXVECTOR3 trans;
-    D3DXQUATERNION rot;
-    D3DXMatrixDecompose(&scale, &rot, &trans, &mat);
+    D3DXQUATERNION qrot;
+    D3DXMatrixDecompose(&scale, &qrot, &trans, &mat);
     Translate(trans.x, trans.y, trans.z);
+    D3DXVECTOR3 rot = focusTarget->getRotation();
+    Rotate(rot.x, rot.y, rot.z);
 	focused = false;
     delete focusTarget;
 	focusTarget = nullptr;
