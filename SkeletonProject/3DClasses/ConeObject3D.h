@@ -15,6 +15,6 @@ protected:
 
 	//Implementation of pure virtual generation functions
 	virtual void buildVertexBuffer(IDirect3DDevice9* gd3dDevice);
-	virtual void buildIndexBuffer(IDirect3DDevice9* gd3dDevice);
+	virtual void buildIndexBuffer(IDirect3DDevice9* gd3dDevice) {}
 };
 
