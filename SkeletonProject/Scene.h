@@ -36,6 +36,7 @@ public:
 protected:
     SceneNode* m_RootNode;
     SceneNode* m_ActiveFocus = NULL;
+    D3DCOLOR m_Sky;
     CameraSceneNode* m_ActiveCamera;
     LightSceneNode* m_ActiveLight;
     std::set<SceneNode*> m_Nodes;

@@ -14,6 +14,7 @@ using namespace rapidxml;
 Scene::Scene(const char* filepath, ID3DXEffect* effect)
 {
     m_RootNode = new SceneNode();
+    m_Sky = 0xffffff;
     if(!loadLevel(filepath, effect))
         fprintf(stderr, "Failed to load level: %s\n", filepath);
     else
@@ -75,6 +76,19 @@ bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
             if(!strcmp(active->value(), "true"))
                 m_ActiveFocus = modeln;
     }
+    if(xml_node<>* color = node->first_node("sky", 3, false))
+    {
+        float r = 0.0f;
+        float g = 0.0f;
+        float b = 0.0f;
+        if(xml_attribute<>* ar = color->first_attribute("r", 1, false))
+            r = atof(ar->value());
+        if(xml_attribute<>* ag = color->first_attribute("g", 1, false))
+            g = atof(ag->value());
+        if(xml_attribute<>* ab = color->first_attribute("b", 1, false))
+            b = atof(ab->value());
+        m_Sky = D3DCOLOR_COLORVALUE(r, g, b, 1.0f);
+    }
 //:TODO: 23.02.15 19:17:20, df458
 // Add support for children
 
@@ -84,7 +98,7 @@ bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
 
 void Scene::Render(IDirect3DDevice9* gd3dDevice)
 {
-	HR(gd3dDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xffffffff, 1.0f, 0));
+	HR(gd3dDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, m_Sky, 1.0f, 0));
 
 	HR(gd3dDevice->BeginScene());
 
