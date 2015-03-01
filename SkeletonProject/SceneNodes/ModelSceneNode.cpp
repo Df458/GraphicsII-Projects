@@ -3,6 +3,7 @@
 #include "LightSceneNode.h"
 #include "../3DClasses/MeshObject3D.h"
 #include "../3DClasses/CylinderObject3D.h"
+#include "../3DClasses/SimpleCubeObject3D.h"
 #include "../3DClasses/ConeObject3D.h"
 #include "../3DClasses/UVSphereObject3D.h"
 #include "../Materials/BaseMaterial.h"
@@ -116,6 +117,19 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node, BaseM
         if(xml_attribute<>* atl = node->first_attribute("radials", 7, false))
             radials = atoi(atl->value());
         m_Model = new ConeObject3D(radius, radials, height, mat, effect);
+    }
+    else if(!strcmp(name, "cube"))
+    {
+        float width = 1.0f;
+        if(xml_attribute<>* atw = node->first_attribute("width", 5, false))
+            width = atof(atw->value());
+        float height = 1.0f;
+        if(xml_attribute<>* ath = node->first_attribute("height", 6, false))
+            height = atof(ath->value());
+        float depth = 1.0f;
+        if(xml_attribute<>* atd = node->first_attribute("depth", 5, false))
+            depth = atof(atd->value());
+        m_Model = new SimpleCubeObject3D(mat, width, height, depth, effect);
     }
     else
     {
