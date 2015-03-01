@@ -15,12 +15,17 @@ void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXM
         printf("Error: no mesh\n");
     if(!m_Material)
         printf("Error: no material\n");
+    D3DXVECTOR3 vpos, vscale;
+    D3DXQUATERNION quat;
+    D3DXMATRIX iview;
+    D3DXMatrixInverse(&iview, 0, &view);
+    HR(D3DXMatrixDecompose(&vscale, &quat, &vpos, &view));
     // Set matrices and model relevant render date
     D3DXMATRIX vp = view * projection;
     unsigned passes = m_Material->PreRender();
     for(unsigned i = 0; i < passes; ++i)
     {
-        m_Material->Render(world, vp, i, light);
+        m_Material->Render(world, vp, D3DXVECTOR4(vpos), i, light);
 
         HR(m_Mesh->DrawSubset(0));
         m_Material->PostPass();

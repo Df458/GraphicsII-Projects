@@ -24,18 +24,27 @@ OutputVS GouraudVert(float3 position : POSITION0, float3 normal : NORMAL0, float
     OutputVS outv = (OutputVS)0;
     outv.pos = mul(float4(position, 1.0f), matFinal);
 
-    float3 wvpos = mul(float4(position, 1.0f), matWorld).xyz;
-    float3 wnorm = normalize(mul(float4(normal, 0.0f), matITWorld).xyz);
-    float3 wli   = normalize(vLightPos - wvpos);
-    float3 wvtvi = normalize(vViewPos - wvpos);
+	// Transform normal to world space.
+    float3 wnorm = mul(float4(normal, 0.0f), matITWorld).xyz;
+    wnorm = normalize(wnorm);
 
+	// Transform vertex position to world space.
+    float3 wvpos = mul(float4(position, 1.0f), matWorld).xyz;
+
+	// Unit vector from vertex to light source.
+    float3 wli   = normalize(vLightPos - wvpos);
+
+	// Ambient Light Computation.
     float3 amb  = colAmbient.rgb;
 
+	// Diffuse Light Computation.
     float s = max(dot(wnorm, wli), 0.0f);
     float3 diff = s * colDiffuse.rgb * colLight.rgb;
 
+	// Specular Light Computation.
+    float3 wvtvi = normalize(wvpos - vViewPos); //reversed???
     float3 reflected =  reflect(-wli, wnorm);
-    float t = pow(max(dot(reflected, wvtvi), 0.0f), valShininess);
+    float t = pow(max(dot(wvtvi, reflected), 0.0f), valShininess);
     float3 spec = t * (colSpecular * colLight).rgb;
 
 	float d = distance(vLightPos, wvpos);

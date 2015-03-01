@@ -56,7 +56,7 @@ public:
 
     void ConnectToEffect( ID3DXEffect* effect );
     unsigned PreRender(void);
-    void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigned pass, LightSceneNode* light ); 
+    void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light ); 
     void PostPass(void);
     void PostRender(void);
 };

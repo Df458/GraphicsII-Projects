@@ -91,14 +91,15 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
 
 //=============================================================================
 
-unsigned BaseMaterial::PreRender(void) {
+unsigned BaseMaterial::PreRender(void)
+{
     HR(m_Effect->SetTechnique(m_Technique));
     unsigned passes;
     HR(m_Effect->Begin(&passes, 0));
     return passes;
 }
 
-void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigned pass, LightSceneNode* light)
+void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light)
 {
     if(!light)
     {
@@ -114,6 +115,7 @@ void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, unsigne
     HR(m_Effect->SetMatrix(m_WorldMatHandle, &worldMat));
     HR(m_Effect->SetMatrix(m_ITWorldMatHandle, &m_ITWorldMat));
     HR(m_Effect->SetMatrix(m_ViewProjectionMatHandle, &viewProjMat));
+    HR(m_Effect->SetVector(m_ViewerPosWHandle, &viewer_pos));
     HR(m_Effect->SetVector(m_AmbientColHandle, &m_AmbientColor));
     HR(m_Effect->SetVector(m_DiffuseColHandle, &m_DiffuseColor));
     HR(m_Effect->SetVector(m_SpecularColHandle, &m_SpecularColor));

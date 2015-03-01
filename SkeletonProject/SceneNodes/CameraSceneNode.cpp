@@ -60,7 +60,7 @@ void CameraSceneNode::Update(float deltatime)
 			D3DXVECTOR3 eye = D3DXVECTOR3(m_X, m_Y, m_Z);
 			D3DXVECTOR3 up = D3DXVECTOR3(0, 1, 0);
 			D3DXMATRIX mlookat = *D3DXMatrixLookAtLH(&mlookat, &at, &eye, &up);
-			setView(mlookat);
+            setView(mlookat);
 		}
 		else
 		{

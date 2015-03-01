@@ -45,11 +45,16 @@ void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
     GfxStats::GetInstance()->addTriangles(m_TriCount);
+    D3DXVECTOR3 vpos, vscale;
+    D3DXQUATERNION quat;
+    D3DXMATRIX iview;
+    D3DXMatrixInverse(&iview, 0, &view);
+    HR(D3DXMatrixDecompose(&vscale, &quat, &vpos, &view));
     unsigned passes = m_Material->PreRender();
     D3DXMATRIX vp = view * projection;
     for(unsigned i = 0; i < passes; ++i)
     {
-        m_Material->Render(world, vp, i, light);
+        m_Material->Render(world, vp, D3DXVECTOR4(vpos), i, light);
 
         // Set the buffers and format
         HR(gd3dDevice->SetStreamSource(0, m_VertexBuffer, 0, sizeof(VertexPos)));
