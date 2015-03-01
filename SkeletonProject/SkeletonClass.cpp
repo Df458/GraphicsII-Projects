@@ -119,33 +119,6 @@ void SkeletonClass::updateScene(float dt)
 	// Get snapshot of input devices.
 	gDInput->poll();
 
-
-
-	/******OLD CAMERA*****/
-	// Check input.
-	/*if( gDInput->keyDown(DIK_W) )	 
-		mCameraHeight   += 25.0f * dt;
-	if( gDInput->keyDown(DIK_S) )	 
-		mCameraHeight   -= 25.0f * dt;
-
-	// Divide by 50 to make mouse less sensitive. 
-	mCameraRotationY += gDInput->mouseDX() / 100.0f;
-	mCameraRadius    += gDInput->mouseDY() / 25.0f;
-
-	// If we rotate over 360 degrees, just roll back to 0
-	if( fabsf(mCameraRotationY) >= 2.0f * D3DX_PI ) 
-		mCameraRotationY = 0.0f;
-
-	// Don't let radius get too small.
-	if( mCameraRadius < 5.0f )
-		mCameraRadius = 5.0f;
-
-	// The camera position/orientation relative to world space can 
-	// change every frame based on input, so we need to rebuild the
-	// view matrix every frame with the latest changes.
-	buildViewMtx();
-	/******OLD CAMERA*****/
-	
 	if (gDInput->mouseButtonDown(0))
     {
         if(m_Camera->getFocused())
@@ -160,23 +133,10 @@ void SkeletonClass::updateScene(float dt)
     if(gDInput->mouseDZ() != 0)
         m_Camera->zoomFocus(gDInput->mouseDZ() * 0.01f);
     
-	/*
-	if (gDInput->mouseButtonDown(0))
-	{
-#ifdef __GNUC__
-		m_Camera->Rotate((gDInput->mouseDX() / md3dPP.BackBufferWidth)  * dt * 400, 0, 0.0f, true);
-		m_Camera->Rotate(0, (gDInput->mouseDY() / md3dPP.BackBufferHeight)  * dt * 100, 0.0f, true);
-#else
-		m_Camera->Rotate(gDInput->mouseDX()  * dt * 12, 0, 0.0f, true);
-		m_Camera->Rotate(0, gDInput->mouseDY()  * dt * 12, 0.0f, true);
-#endif
-
-		m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
-	}
-	*/
-    if (gDInput->keyDown(DIK_M)) {
+    if (gDInput->keyDown(DIK_M))
         m_Camera->releaseFocus();
-    }
+    if (gDInput->keyDown(DIK_N))
+        m_Camera->setFocus(m_Scene->getActiveFocus());
 
     if (gDInput->keyDown(DIK_W))
         m_Camera->Translate(0, 0, 25.0f * dt, true, true);
@@ -246,5 +206,4 @@ void SkeletonClass::buildProjMtx()
     D3DXMATRIX proj;
 	D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI * 0.25f, w/h, 1.0f, 5000.0f);
     m_Camera->setProjection(proj);
-    printf("done.\n");
 }

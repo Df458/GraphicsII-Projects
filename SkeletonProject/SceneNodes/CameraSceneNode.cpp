@@ -88,17 +88,17 @@ void CameraSceneNode::rebuildProjection(float w, float h)
 
 void CameraSceneNode::setFocus(SceneNode* target)
 {
+    focused = true;
 	if (target)
 	{
-		focused = true;
 		focusTarget = new SceneNode(target);
-        focusDistance = 10;
-        D3DXMatrixTranslation(&m_FocusView, 0, 0, -focusDistance);
 	}
 	else
 	{
-		releaseFocus();
+		focusTarget = new SceneNode();
 	}
+    focusDistance = 10;
+    D3DXMatrixTranslation(&m_FocusView, 0, 0, -focusDistance);
 }
 
 void CameraSceneNode::releaseFocus()
