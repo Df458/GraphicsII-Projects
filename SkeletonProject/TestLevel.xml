@@ -10,6 +10,13 @@
         <material shine="1.0">
         </material>
     </model>
+    <model type="primitive" shape="teapot">
+        <translate x="4" z="-7"/>
+        <material shine="0.5">
+            <ambient/>
+            <diffuse/>
+        </material>
+    </model>
     <model type="primitive" shape="sphere" radius="0.4" rings="16" radials="24" focused="true">
         <translate y="1" z="1"/>
         <material shine="2.5">

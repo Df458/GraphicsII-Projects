@@ -5,6 +5,7 @@
 #include "../3DClasses/CylinderObject3D.h"
 #include "../3DClasses/SimpleCubeObject3D.h"
 #include "../3DClasses/ConeObject3D.h"
+#include "../3DClasses/TeapotObject3D.h"
 #include "../3DClasses/UVSphereObject3D.h"
 #include "../Materials/BaseMaterial.h"
 
@@ -130,6 +131,10 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node, BaseM
         if(xml_attribute<>* atd = node->first_attribute("depth", 5, false))
             depth = atof(atd->value());
         m_Model = new SimpleCubeObject3D(mat, width, height, depth, effect);
+    }
+    else if(!strcmp(name, "teapot"))
+    {
+        m_Model = new TeapotObject3D(mat, effect);
     }
     else
     {
