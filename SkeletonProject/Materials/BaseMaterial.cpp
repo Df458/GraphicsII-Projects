@@ -15,6 +15,7 @@ using namespace rapidxml;
 BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, float shine)
 : m_AmbientColor(amb), m_DiffuseColor(diff), m_SpecularColor(spec), m_Shininess(shine)
 {
+    id = 0;
     m_Effect = NULL;
 }
 
@@ -72,6 +73,8 @@ BaseMaterial::~BaseMaterial(void)
 void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
 {
     m_Effect = effect;
+    if(!m_Effect)
+        printf("Error: trying to connect a null effect\n");
     m_WorldMatHandle = effect->GetParameterByName(0, "matWorld");
     m_ITWorldMatHandle = effect->GetParameterByName(0, "matITWorld");
     m_ViewProjectionMatHandle = effect->GetParameterByName(0, "matVP");
@@ -93,14 +96,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
 
 unsigned BaseMaterial::PreRender(void)
 {
-    printf("Test\n");
-    if(!m_Effect)
-    {
-        printf("?????\n");
-        return 0;
-    }
     HR(m_Effect->SetTechnique(m_Technique));
-    printf("Test\n");
     unsigned passes;
     HR(m_Effect->Begin(&passes, 0));
     return passes;

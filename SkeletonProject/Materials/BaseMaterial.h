@@ -18,6 +18,7 @@ class BaseMaterial
 {
 protected:
     ID3DXEffect*        m_Effect;               // the shader associate effect file
+    int id;
 
     //-------- Material Parameters -------
     D3DXMATRIX          m_WorldMat;

@@ -13,14 +13,17 @@
 using namespace rapidxml;
 
 TexturedMaterial::TexturedMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, float shine)
-: m_AmbientColor(amb), m_DiffuseColor(diff), m_SpecularColor(spec), m_Shininess(shine)
+: BaseMaterial(amb, diff, spec, shine)
 {
+    id = 1;
     m_Effect = NULL;
     HR(D3DXCreateTextureFromFile(gd3dDevice, name, &m_Texture));
 }
 
 TexturedMaterial::TexturedMaterial(rapidxml::xml_node<>* node)
 {
+    id = 1;
+    m_Effect = NULL;
     if(xml_attribute<>* shine = node->first_attribute("shine", 5, false))
         m_Shininess = atof(shine->value());
 

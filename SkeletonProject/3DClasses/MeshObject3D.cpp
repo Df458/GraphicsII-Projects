@@ -23,15 +23,13 @@ void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXM
     HR(D3DXMatrixDecompose(&vscale, &quat, &vpos, &view));
     // Set matrices and model relevant render date
     D3DXMATRIX vp = view * projection;
-    printf("...\n");
     unsigned passes = m_Material->PreRender();
-    printf("!!!\n");
-    //for(unsigned i = 0; i < passes; ++i)
-    //{
-        //m_Material->Render(world, vp, D3DXVECTOR4(vpos), i, light);
+    for(unsigned i = 0; i < passes; ++i)
+    {
+        m_Material->Render(world, vp, D3DXVECTOR4(vpos), i, light);
 
-        //HR(m_Mesh->DrawSubset(0));
-        //m_Material->PostPass();
-    //}
-    //m_Material->PostRender();
+        HR(m_Mesh->DrawSubset(0));
+        m_Material->PostPass();
+    }
+    m_Material->PostRender();
 }
