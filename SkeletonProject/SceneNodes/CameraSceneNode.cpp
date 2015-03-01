@@ -52,21 +52,21 @@ CameraSceneNode::CameraSceneNode(xml_node<>* node) : SceneNode(node)
 
 void CameraSceneNode::Update(float deltatime)
 {
-	if (focused)
-	{
-		if (focusTarget)//if the node hasn't been deleted since
-		{
-			D3DXVECTOR3 at = focusTarget->getPosition();
-			D3DXVECTOR3 eye = D3DXVECTOR3(m_X, m_Y, m_Z);
-			D3DXVECTOR3 up = D3DXVECTOR3(0, 1, 0);
-			D3DXMATRIX mlookat = *D3DXMatrixLookAtLH(&mlookat, &at, &eye, &up);
-            setView(mlookat);
-		}
-		else
-		{
-			focused = false;
-		}
-	}
+	//if (focused)
+	//{
+		//if (focusTarget)//if the node hasn't been deleted since
+		//{
+			//D3DXVECTOR3 at = focusTarget->getPosition();
+			//D3DXVECTOR3 eye = D3DXVECTOR3(m_X, m_Y, m_Z);
+			//D3DXVECTOR3 up = D3DXVECTOR3(0, 1, 0);
+			//D3DXMATRIX mlookat = *D3DXMatrixLookAtLH(&mlookat, &at, &eye, &up);
+            //setView(mlookat);
+		//}
+		//else
+		//{
+			//focused = false;
+		//}
+	//}
 }
 
 void CameraSceneNode::setProjection(D3DXMATRIX projection)
@@ -76,13 +76,17 @@ void CameraSceneNode::setProjection(D3DXMATRIX projection)
 
 void CameraSceneNode::setView(D3DXMATRIX view)
 {
-    D3DXMatrixInverse(&m_World, NULL, &view);
+    if(!focused)
+        D3DXMatrixInverse(&m_World, NULL, &view);
 }
 
 D3DXMATRIX CameraSceneNode::getView(void) const
 {
     D3DXMATRIX out;
-    return *D3DXMatrixInverse(&out, NULL, &m_World);
+    if(!focused)
+        return *D3DXMatrixInverse(&out, NULL, &m_World);
+    out = m_FocusView * focusTarget->getMatrix();
+    return *D3DXMatrixInverse(&out, NULL, &out);
 }
 
 D3DXMATRIX CameraSceneNode::getProjection(void) const
@@ -100,7 +104,8 @@ void CameraSceneNode::setFocus(SceneNode* target)
 	if (target)
 	{
 		focused = true;
-		focusTarget = target;
+		focusTarget = new SceneNode(target);
+        D3DXMatrixTranslation(&m_FocusView, 0, 0, -10); //change z to distance later
 	}
 	else
 	{
@@ -110,6 +115,17 @@ void CameraSceneNode::setFocus(SceneNode* target)
 
 void CameraSceneNode::releaseFocus()
 {
+    if(!focused)
+        return;
 	focused = false;
+    delete focusTarget;
 	focusTarget = nullptr;
+}
+
+void CameraSceneNode::turnFocus(float x, float y)
+{
+    if(!focused)
+        return;
+
+    focusTarget->Rotate(x, y, 0, true);
 }

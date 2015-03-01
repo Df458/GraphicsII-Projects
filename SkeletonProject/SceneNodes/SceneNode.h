@@ -9,7 +9,9 @@ class SceneNode
 {
 public:
     SceneNode();
+    SceneNode(SceneNode* node);
     SceneNode(rapidxml::xml_node<>* node);
+    virtual ~SceneNode() {}
     virtual void Update(float deltatime) {};
     virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice) {};
     virtual void renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice);
@@ -17,6 +19,7 @@ public:
     void Translate(float x, float y, float z, bool relative = false, bool rotation_relative = false);
     void Rotate(float yaw, float pitch, float roll, bool relative = false);
     void Scale(float x, float y, float z, bool relative = false);
+    D3DXMATRIX getMatrix(void);
 
 	D3DXVECTOR4 getTranslation(void) { return D3DXVECTOR4(m_X, m_Y, m_Z, 1.0f); }
 	D3DXVECTOR3 getPosition(void) { return D3DXVECTOR3(m_X, m_Y, m_Z); }

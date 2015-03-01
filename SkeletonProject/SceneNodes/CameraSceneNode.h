@@ -20,6 +20,7 @@ public:
     void setProjection(D3DXMATRIX);
     void rebuildProjection(float w, float h);
 	void setFocus(SceneNode* target);
+	void turnFocus(float x, float y);
 	void releaseFocus();
 
 	SceneNode* getFocusNode(){ return focusTarget; };
@@ -29,6 +30,7 @@ protected:
 	float focusDistance;
 
     D3DXMATRIX m_Projection;
+    D3DXMATRIX m_FocusView;
     float m_Near;
     float m_Far;
     float m_Angle;

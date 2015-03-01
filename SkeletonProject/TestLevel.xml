@@ -1,11 +1,12 @@
 <level>
     <sky r="0.2" g="0.7" b="0.9"/>
     <model type="primitive" shape="cylinder" radius="0.5" radials="24">
+        <translate z="1"/>
         <material shine="1.0f">
         </material>
     </model>
     <model type="primitive" shape="sphere" radius="0.4" rings="16" radials="24">
-        <translate y="1"/>
+        <translate y="1" z="1"/>
         <material shine="1.0f">
             <ambient r="0.4" g="0.1"/>
             <diffuse r="1.0" g="0.0" b="0.0"/>

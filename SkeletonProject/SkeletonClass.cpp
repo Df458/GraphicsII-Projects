@@ -67,7 +67,7 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 	m_Camera = m_Scene->getActiveCamera();
 	SceneNode* focusNode = new SceneNode();
-	m_Camera->setFocus(focusNode);
+    m_Camera->setFocus(focusNode);
 
 	onResetDevice();
 
@@ -146,6 +146,14 @@ void SkeletonClass::updateScene(float dt)
 	buildViewMtx();
 	/******OLD CAMERA*****/
 	
+	if (gDInput->mouseButtonDown(0))
+    {
+#ifdef __GNUC__
+		m_Camera->turnFocus((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD);
+#else
+		m_Camera->turnFocus((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD);
+#endif
+    }
 	/*
 	if (gDInput->mouseButtonDown(0))
 	{
@@ -160,23 +168,23 @@ void SkeletonClass::updateScene(float dt)
 		m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
 	}
 	*/
-	if (gDInput->keyDown(DIK_W))
-		m_Camera->Translate(0, 0, 25.0f * dt, true, true);
+	//if (gDInput->keyDown(DIK_W))
+		//m_Camera->Translate(0, 0, 25.0f * dt, true, true);
 
-	if (gDInput->keyDown(DIK_S))
-		m_Camera->Translate(0, 0, -25.0f * dt, true, true);
+	//if (gDInput->keyDown(DIK_S))
+		//m_Camera->Translate(0, 0, -25.0f * dt, true, true);
 
-	if (gDInput->keyDown(DIK_A))
-		m_Camera->Translate(-25.0f * dt, 0, 0, true, true);
+	//if (gDInput->keyDown(DIK_A))
+		//m_Camera->Translate(-25.0f * dt, 0, 0, true, true);
 
-	if (gDInput->keyDown(DIK_D))
-		m_Camera->Translate(25.0f * dt, 0, 0, true, true);
+	//if (gDInput->keyDown(DIK_D))
+		//m_Camera->Translate(25.0f * dt, 0, 0, true, true);
 	
-	if (gDInput->keyDown(DIK_Q))
-		m_Camera->Translate(0, -25.0f * dt, 0, true);
+	//if (gDInput->keyDown(DIK_Q))
+		//m_Camera->Translate(0, -25.0f * dt, 0, true);
 
-	if (gDInput->keyDown(DIK_E))
-		m_Camera->Translate(0, 25.0f * dt, 0, true);
+	//if (gDInput->keyDown(DIK_E))
+		//m_Camera->Translate(0, 25.0f * dt, 0, true);
 
     m_Scene->Update(dt);
 }

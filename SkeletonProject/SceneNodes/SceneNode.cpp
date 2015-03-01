@@ -13,6 +13,16 @@ SceneNode::SceneNode()
 	D3DXMatrixIdentity(&m_Scale);
 }
 
+SceneNode::SceneNode(SceneNode* node)
+{
+    m_Parent = NULL;
+    D3DXMatrixIdentity(&m_World);
+	D3DXMatrixIdentity(&m_Translation);
+	D3DXMatrixIdentity(&m_Rotation);
+	D3DXMatrixIdentity(&m_Scale);
+    m_Translation = node->m_Translation;
+}
+
 SceneNode::SceneNode(xml_node<>* node)
 {
     m_Parent = NULL;
@@ -77,6 +87,12 @@ void SceneNode::renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
         i->renderChildren(activeScene, gd3dDevice);
     }
     activeScene->popMatrix();
+}
+
+D3DXMATRIX SceneNode::getMatrix(void)
+{
+	m_World = m_Scale * m_Rotation * m_Translation;
+    return m_World;
 }
 
 void SceneNode::UpdateMatricies()
