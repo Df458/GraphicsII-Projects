@@ -17,6 +17,7 @@
             <diffuse/>
         </material>
     </model>
+    <model type="primitive" shape="torus" radiusi="0.2" radiusr="0.75" sides="16" rings="24"/>
     <model type="primitive" shape="sphere" radius="0.4" rings="16" radials="24" focused="true">
         <translate y="1" z="1"/>
         <material shine="2.5">

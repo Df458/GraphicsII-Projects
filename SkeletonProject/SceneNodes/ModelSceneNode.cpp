@@ -3,6 +3,7 @@
 #include "LightSceneNode.h"
 #include "../3DClasses/MeshObject3D.h"
 #include "../3DClasses/CylinderObject3D.h"
+#include "../3DClasses/TorusObject3D.h"
 #include "../3DClasses/SimpleCubeObject3D.h"
 #include "../3DClasses/ConeObject3D.h"
 #include "../3DClasses/TeapotObject3D.h"
@@ -135,6 +136,22 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node, BaseM
     else if(!strcmp(name, "teapot"))
     {
         m_Model = new TeapotObject3D(mat, effect);
+    }
+    else if(!strcmp(name, "torus"))
+    {
+        float radiusi = 1.0f;
+        if(xml_attribute<>* atr = node->first_attribute("radiusi", 7, false))
+            radiusi = atof(atr->value());
+        float radiusr = 1.0f;
+        if(xml_attribute<>* atr = node->first_attribute("radiusr", 7, false))
+            radiusr = atof(atr->value());
+        unsigned sides = 8;
+        if(xml_attribute<>* ats = node->first_attribute("sides", 5, false))
+            sides = atoi(ats->value());
+        unsigned rings = 8;
+        if(xml_attribute<>* atg = node->first_attribute("rings", 5, false))
+            rings = atoi(atg->value());
+        m_Model = new TorusObject3D(radiusi, radiusr, sides, rings, mat, effect);
     }
     else
     {
