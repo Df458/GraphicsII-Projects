@@ -5,7 +5,7 @@
         <material shine="1.0f">
         </material>
     </model>
-    <model type="primitive" shape="sphere" radius="0.4" rings="16" radials="24" focused="true">
+    <model type="primitive" shape="sphere" radius="0.4" rings="16" radials="24">
         <translate y="1" z="1"/>
         <material shine="1.0f">
             <ambient r="0.4" g="0.1"/>

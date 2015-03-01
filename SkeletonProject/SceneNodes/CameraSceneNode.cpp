@@ -52,21 +52,6 @@ CameraSceneNode::CameraSceneNode(xml_node<>* node) : SceneNode(node)
 
 void CameraSceneNode::Update(float deltatime)
 {
-	//if (focused)
-	//{
-		//if (focusTarget)//if the node hasn't been deleted since
-		//{
-			//D3DXVECTOR3 at = focusTarget->getPosition();
-			//D3DXVECTOR3 eye = D3DXVECTOR3(m_X, m_Y, m_Z);
-			//D3DXVECTOR3 up = D3DXVECTOR3(0, 1, 0);
-			//D3DXMATRIX mlookat = *D3DXMatrixLookAtLH(&mlookat, &at, &eye, &up);
-            //setView(mlookat);
-		//}
-		//else
-		//{
-			//focused = false;
-		//}
-	//}
 }
 
 void CameraSceneNode::setProjection(D3DXMATRIX projection)
@@ -133,6 +118,8 @@ void CameraSceneNode::turnFocus(float x, float y)
 
 void CameraSceneNode::zoomFocus(float distance)
 {
+    if(!focused)
+        return;
     focusDistance -= distance;
     if(focusDistance <= m_Near)
         focusDistance = m_Near + 0.1f;

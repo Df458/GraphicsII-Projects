@@ -66,7 +66,8 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     m_Scene = new Scene("TestLevel.xml", m_DefaultEffect);
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 	m_Camera = m_Scene->getActiveCamera();
-    m_Camera->setFocus(m_Scene->getActiveFocus());
+    if(m_Scene->getActiveFocus())
+        m_Camera->setFocus(m_Scene->getActiveFocus());
 
 	onResetDevice();
 
@@ -147,7 +148,13 @@ void SkeletonClass::updateScene(float dt)
 	
 	if (gDInput->mouseButtonDown(0))
     {
-		m_Camera->turnFocus((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD);
+        if(m_Camera->getFocused())
+            m_Camera->turnFocus((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD);
+        else
+        {
+            m_Camera->Rotate((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD, 0);
+            m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
+        }
     }
 
     if(gDInput->mouseDZ() != 0)

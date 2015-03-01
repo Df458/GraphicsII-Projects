@@ -35,7 +35,7 @@ public:
     D3DXMATRIX getProjection();
 protected:
     SceneNode* m_RootNode;
-    SceneNode* m_ActiveFocus;
+    SceneNode* m_ActiveFocus = NULL;
     CameraSceneNode* m_ActiveCamera;
     LightSceneNode* m_ActiveLight;
     std::set<SceneNode*> m_Nodes;

@@ -25,6 +25,7 @@ public:
 	void releaseFocus();
 
 	SceneNode* getFocusNode(){ return focusTarget; };
+    bool getFocused(void) { return focused; }
 protected:
 	bool focused;
 	SceneNode* focusTarget;
