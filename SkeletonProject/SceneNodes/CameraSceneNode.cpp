@@ -97,7 +97,8 @@ void CameraSceneNode::setFocus(SceneNode* target)
 	{
 		focusTarget = new SceneNode();
 	}
-    focusDistance = 10;
+    D3DXVECTOR3 diff = getPosition() - focusTarget->getPosition();
+    focusDistance = sqrt(pow(diff.x, 2) + pow(diff.y, 2) + pow(diff.z, 2));
     D3DXMatrixTranslation(&m_FocusView, 0, 0, -focusDistance);
 }
 
