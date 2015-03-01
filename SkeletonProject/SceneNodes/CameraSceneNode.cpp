@@ -105,7 +105,8 @@ void CameraSceneNode::setFocus(SceneNode* target)
 	{
 		focused = true;
 		focusTarget = new SceneNode(target);
-        D3DXMatrixTranslation(&m_FocusView, 0, 0, -10); //change z to distance later
+        focusDistance = 10;
+        D3DXMatrixTranslation(&m_FocusView, 0, 0, -focusDistance);
 	}
 	else
 	{
@@ -128,4 +129,12 @@ void CameraSceneNode::turnFocus(float x, float y)
         return;
 
     focusTarget->Rotate(x, y, 0, true);
+}
+
+void CameraSceneNode::zoomFocus(float distance)
+{
+    focusDistance -= distance;
+    if(focusDistance <= m_Near)
+        focusDistance = m_Near + 0.1f;
+    D3DXMatrixTranslation(&m_FocusView, 0, 0, -focusDistance);
 }

@@ -21,6 +21,7 @@ public:
     void rebuildProjection(float w, float h);
 	void setFocus(SceneNode* target);
 	void turnFocus(float x, float y);
+    void zoomFocus(float distance);
 	void releaseFocus();
 
 	SceneNode* getFocusNode(){ return focusTarget; };

@@ -63,10 +63,17 @@ bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
         LightSceneNode* lightn = new LightSceneNode(light, effect);
         addNode(lightn);
         m_ActiveLight = lightn;
+        if(xml_attribute<>* active = light->first_attribute("focused", 7, false))
+            if(!strcmp(active->value(), "true"))
+                m_ActiveFocus = lightn;
     }
 
     for(xml_node<>* model = node->first_node("model", 5, false); model; model = model->next_sibling("model", 5, false)) {
-        addNode(new ModelSceneNode(model, effect));
+        ModelSceneNode* modeln = new ModelSceneNode(model, effect);
+        addNode(modeln);
+        if(xml_attribute<>* active = model->first_attribute("focused", 7, false))
+            if(!strcmp(active->value(), "true"))
+                m_ActiveFocus = modeln;
     }
 //:TODO: 23.02.15 19:17:20, df458
 // Add support for children

@@ -24,6 +24,7 @@ public:
     bool setActiveCamera(CameraSceneNode* camera);
     LightSceneNode* getActiveLight(void);
 	CameraSceneNode* getActiveCamera(void);
+    SceneNode* getActiveFocus(void) { return m_ActiveFocus; }
 	SceneNode* getRootNode(void);
 
     void pushMatrix(D3DXMATRIX matrix);
@@ -34,6 +35,7 @@ public:
     D3DXMATRIX getProjection();
 protected:
     SceneNode* m_RootNode;
+    SceneNode* m_ActiveFocus;
     CameraSceneNode* m_ActiveCamera;
     LightSceneNode* m_ActiveLight;
     std::set<SceneNode*> m_Nodes;
