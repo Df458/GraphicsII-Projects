@@ -152,7 +152,7 @@ void SkeletonClass::updateScene(float dt)
             m_Camera->turnFocus((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD);
         else
         {
-            m_Camera->Rotate((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD, 0);
+            m_Camera->Rotate((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD, 0, true);
             m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
         }
     }

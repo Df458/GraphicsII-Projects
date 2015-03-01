@@ -62,7 +62,10 @@ void CameraSceneNode::setProjection(D3DXMATRIX projection)
 void CameraSceneNode::setView(D3DXMATRIX view)
 {
     if(!focused)
+    {
+        printf("Setting view...\n");
         D3DXMatrixInverse(&m_World, NULL, &view);
+    }
 }
 
 D3DXMATRIX CameraSceneNode::getView(void) const

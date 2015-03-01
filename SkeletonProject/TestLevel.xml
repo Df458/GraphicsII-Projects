@@ -1,6 +1,6 @@
 <level>
     <sky r="0.2" g="0.7" b="0.9"/>
-    <model type="primitive" shape="cylinder" radius="0.5" radials="24" focused="true">
+    <model type="primitive" shape="cylinder" radius="0.5" radials="24">
         <translate z="1"/>
         <material shine="1.0f">
         </material>

@@ -12,7 +12,6 @@ public:
 
 	virtual void Update(float deltatime);
     virtual void Render(){}
-    virtual void renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice){ }
 
     D3DXMATRIX getView(void) const;
     D3DXMATRIX getProjection(void) const;
