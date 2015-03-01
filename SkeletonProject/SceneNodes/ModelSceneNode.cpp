@@ -9,6 +9,7 @@
 #include "../3DClasses/TeapotObject3D.h"
 #include "../3DClasses/UVSphereObject3D.h"
 #include "../Materials/BaseMaterial.h"
+#include "../Materials/TexturedMaterial.h"
 
 using namespace rapidxml;
 
@@ -36,11 +37,22 @@ ModelSceneNode::ModelSceneNode(MeshObject3D* model, float x, float y, float z, f
 	UpdateMatricies();
 }
 
-ModelSceneNode::ModelSceneNode(xml_node<>* node, ID3DXEffect* effect) : SceneNode(node)
+ModelSceneNode::ModelSceneNode(xml_node<>* node, ID3DXEffect* ceffect, ID3DXEffect* teffect) : SceneNode(node)
 {
     BaseMaterial* mat;
+    ID3DXEffect* effect = ceffect;
+    if(!teffect)
+        printf("huh\n");
     if(xml_node<>* nmat = node->first_node("material", 8, false))
-         mat = new BaseMaterial(nmat);
+    {
+        if(nmat->first_attribute("texture", 7, false))
+        {
+            mat = new TexturedMaterial(nmat);
+            effect = teffect;
+        }
+        else
+            mat = new BaseMaterial(nmat);
+    }
     else
         mat = new BaseMaterial();
     xml_attribute<>* type = node->first_attribute("type", 4, false);

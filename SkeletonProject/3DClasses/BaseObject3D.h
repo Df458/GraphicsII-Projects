@@ -35,6 +35,7 @@ protected:
     // Replace the code in the following methods
 	virtual void buildVertexBuffer(IDirect3DDevice9* gd3dDevice) = 0;
 	virtual void buildIndexBuffer(IDirect3DDevice9* gd3dDevice) = 0;
+	virtual void buildUVBuffer(IDirect3DDevice9* gd3dDevice) = 0;
 
 public:
     BaseObject3D(BaseMaterial* mat, ID3DXEffect* effect = NULL);

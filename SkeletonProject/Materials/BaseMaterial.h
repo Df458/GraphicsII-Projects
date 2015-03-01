@@ -54,11 +54,11 @@ public:
     BaseMaterial(rapidxml::xml_node<>* node);
     virtual ~BaseMaterial(void);
 
-    void ConnectToEffect( ID3DXEffect* effect );
-    unsigned PreRender(void);
-    void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light ); 
-    void PostPass(void);
-    void PostRender(void);
+    virtual void ConnectToEffect( ID3DXEffect* effect );
+    virtual unsigned PreRender(void);
+    virtual void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light ); 
+    virtual void PostPass(void);
+    virtual void PostRender(void);
 };
 //=============================================================================
 

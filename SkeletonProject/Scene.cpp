@@ -11,11 +11,11 @@
 
 using namespace rapidxml;
 
-Scene::Scene(const char* filepath, ID3DXEffect* effect)
+Scene::Scene(const char* filepath, ID3DXEffect* ceffect, ID3DXEffect* teffect)
 {
     m_RootNode = new SceneNode();
     m_Sky = 0xffffff;
-    if(!loadLevel(filepath, effect))
+    if(!loadLevel(filepath, ceffect, teffect))
         fprintf(stderr, "Failed to load level: %s\n", filepath);
     else
         printf("Successfully loaded level: %s\n", filepath);
@@ -42,7 +42,7 @@ void Scene::updateSize(float w, float h)
         m_ActiveCamera->rebuildProjection(w, h);
 }
 
-bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
+bool Scene::loadLevel(const char* filepath, ID3DXEffect* ceffect, ID3DXEffect* teffect)
 {
     char* text_buffer = loadFileContents(filepath);
     if(!text_buffer)
@@ -61,7 +61,7 @@ bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
     }
 
     for(xml_node<>* light = node->first_node("light", 5, false); light; light = light->next_sibling("light", 5, false)) {
-        LightSceneNode* lightn = new LightSceneNode(light, effect);
+        LightSceneNode* lightn = new LightSceneNode(light, ceffect);
         addNode(lightn);
         m_ActiveLight = lightn;
         if(xml_attribute<>* active = light->first_attribute("focused", 7, false))
@@ -70,7 +70,7 @@ bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
     }
 
     for(xml_node<>* model = node->first_node("model", 5, false); model; model = model->next_sibling("model", 5, false)) {
-        ModelSceneNode* modeln = new ModelSceneNode(model, effect);
+        ModelSceneNode* modeln = new ModelSceneNode(model, ceffect, teffect);
         addNode(modeln);
         if(xml_attribute<>* active = model->first_attribute("focused", 7, false))
             if(!strcmp(active->value(), "true"))

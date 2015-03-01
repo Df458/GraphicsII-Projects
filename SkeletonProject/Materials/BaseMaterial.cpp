@@ -93,7 +93,14 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
 
 unsigned BaseMaterial::PreRender(void)
 {
+    printf("Test\n");
+    if(!m_Effect)
+    {
+        printf("?????\n");
+        return 0;
+    }
     HR(m_Effect->SetTechnique(m_Technique));
+    printf("Test\n");
     unsigned passes;
     HR(m_Effect->Begin(&passes, 0));
     return passes;

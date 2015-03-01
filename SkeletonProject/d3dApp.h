@@ -59,6 +59,7 @@ protected:
 	D3DPRESENT_PARAMETERS md3dPP;
 
 	ID3DXEffect* m_DefaultEffect;
+	ID3DXEffect* m_TextureEffect;
 };
 
 // Globals for convenient access.

@@ -17,6 +17,8 @@ BaseObject3D::BaseObject3D(BaseMaterial* mat, ID3DXEffect* effect) : m_Material(
     m_IndexBuffer = NULL;
     if(effect)
         mat->ConnectToEffect(effect);
+    else
+        printf("Error: no effect given\n");
 }
 
 //-----------------------------------------------------------------------------
@@ -36,6 +38,7 @@ void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice)
 {
     buildVertexBuffer( gd3dDevice);
     buildIndexBuffer( gd3dDevice);
+    buildUVBuffer( gd3dDevice);
 }
 
 //-----------------------------------------------------------------------------

@@ -63,15 +63,15 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	mCameraRotationY = 1.2 * D3DX_PI;
 	mCameraHeight    = 5.0f;
 
-    m_Scene = new Scene("TestLevel.xml", m_DefaultEffect);
+	InitAllVertexDeclarations();
+
+    m_Scene = new Scene("TestLevel.xml", m_DefaultEffect, m_TextureEffect);
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 	m_Camera = m_Scene->getActiveCamera();
     if(m_Scene->getActiveFocus())
         m_Camera->setFocus(m_Scene->getActiveFocus());
 
 	onResetDevice();
-
-	InitAllVertexDeclarations();
 }
 
 SkeletonClass::~SkeletonClass()
@@ -95,6 +95,7 @@ void SkeletonClass::onLostDevice()
 {
 	GfxStats::GetInstance()->onLostDevice();
 	m_DefaultEffect->OnLostDevice();
+	m_TextureEffect->OnLostDevice();
 }
 
 void SkeletonClass::onResetDevice()
@@ -106,6 +107,7 @@ void SkeletonClass::onResetDevice()
 	//buildProjMtx();
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 	m_DefaultEffect->OnResetDevice();
+	m_TextureEffect->OnResetDevice();
 }
 
 void SkeletonClass::updateScene(float dt)

@@ -6,7 +6,8 @@ MeshObject3D::MeshObject3D(BaseMaterial* mat, ID3DXEffect* effect) : BaseObject3
 {
 }
 
-void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light) {
+void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light)
+{
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
     GfxStats::GetInstance()->addTriangles(m_TriCount);
@@ -22,13 +23,15 @@ void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXM
     HR(D3DXMatrixDecompose(&vscale, &quat, &vpos, &view));
     // Set matrices and model relevant render date
     D3DXMATRIX vp = view * projection;
+    printf("...\n");
     unsigned passes = m_Material->PreRender();
-    for(unsigned i = 0; i < passes; ++i)
-    {
-        m_Material->Render(world, vp, D3DXVECTOR4(vpos), i, light);
+    printf("!!!\n");
+    //for(unsigned i = 0; i < passes; ++i)
+    //{
+        //m_Material->Render(world, vp, D3DXVECTOR4(vpos), i, light);
 
-        HR(m_Mesh->DrawSubset(0));
-        m_Material->PostPass();
-    }
-    m_Material->PostRender();
+        //HR(m_Mesh->DrawSubset(0));
+        //m_Material->PostPass();
+    //}
+    //m_Material->PostRender();
 }
