@@ -174,6 +174,10 @@ void SkeletonClass::updateScene(float dt)
 		m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
 	}
 	*/
+    if (gDInput->keyDown(DIK_M)) {
+        m_Camera->releaseFocus();
+    }
+
     if (gDInput->keyDown(DIK_W))
         m_Camera->Translate(0, 0, 25.0f * dt, true, true);
 

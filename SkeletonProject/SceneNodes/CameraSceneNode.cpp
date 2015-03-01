@@ -63,7 +63,6 @@ void CameraSceneNode::setView(D3DXMATRIX view)
 {
     if(!focused)
     {
-        printf("Setting view...\n");
         D3DXMatrixInverse(&m_World, NULL, &view);
     }
 }
@@ -106,6 +105,12 @@ void CameraSceneNode::releaseFocus()
 {
     if(!focused)
         return;
+    D3DXMATRIX mat = m_FocusView * focusTarget->getMatrix();
+    D3DXVECTOR3 scale;
+    D3DXVECTOR3 trans;
+    D3DXQUATERNION rot;
+    D3DXMatrixDecompose(&scale, &rot, &trans, &mat);
+    Translate(trans.x, trans.y, trans.z);
 	focused = false;
     delete focusTarget;
 	focusTarget = nullptr;
