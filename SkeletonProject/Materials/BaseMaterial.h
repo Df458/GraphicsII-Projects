@@ -30,6 +30,8 @@ protected:
     D3DXVECTOR4         m_SpecularColor;
     float               m_Shininess;            // specular power
 
+	int					ToggleDiffuse;
+	int					ToggleSpecular;
 
     //---------- Shader Handles ----------
     // Generic shader handles
@@ -47,6 +49,10 @@ protected:
     D3DXHANDLE          m_SpecularColHandle;
     D3DXHANDLE          m_ShininessHandle;
     D3DXHANDLE          m_AttenuationHandle;
+
+	D3DXHANDLE			ToggleSpecularHandle;
+	D3DXHANDLE			ToggleDiffuseHandle;
+
 
     D3DXHANDLE          m_Technique;
 

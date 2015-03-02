@@ -16,6 +16,7 @@ TexturedMaterial::TexturedMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR
 : BaseMaterial(amb, diff, spec, shine)
 {
     id = 1;
+	ToggleTexture = 1;
     m_Effect = NULL;
     HR(D3DXCreateTextureFromFile(gd3dDevice, name, &m_Texture));
 }
@@ -24,6 +25,7 @@ TexturedMaterial::TexturedMaterial(rapidxml::xml_node<>* node)
 {
     id = 1;
     m_Effect = NULL;
+	ToggleTexture = 1;
     if(xml_attribute<>* shine = node->first_attribute("shine", 5, false))
         m_Shininess = atof(shine->value());
 
@@ -31,8 +33,13 @@ TexturedMaterial::TexturedMaterial(rapidxml::xml_node<>* node)
     {
         HR(D3DXCreateTextureFromFile(gd3dDevice, tex->value(), &m_Texture));
     }
-    else
-        fprintf(stderr, "Warning: trying to create a textured material with no texture!\n");
+	else
+	{
+		fprintf(stderr, "Warning: trying to create a textured material with no texture!\n");
+		m_Texture = nullptr;
+
+		ToggleTexture = 0;
+	}
 
     if(xml_node<>* color = node->first_node("ambient", 7, false))
     {
@@ -100,6 +107,12 @@ void TexturedMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_AttenuationHandle = effect->GetParameterByName(0, "vAttenuation");
     m_TextureHandle = effect->GetParameterByName(0, "Texture");
 
+
+	ToggleTextureHandle = effect->GetParameterByName(0, "ToggleTexture");
+	ToggleSpecularHandle = effect->GetParameterByName(0, "ToggleSpecular");
+	ToggleDiffuseHandle = effect->GetParameterByName(0, "ToggleDiffuse");
+
+
     m_Technique = m_Effect->GetTechniqueByName("PhongSolid");
 }
 
@@ -129,7 +142,11 @@ void TexturedMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3D
     HR(m_Effect->SetVector(m_LightColorHandle, &light_color));
     HR(m_Effect->SetVector(m_AttenuationHandle, &lightatt));
     HR(m_Effect->SetFloat(m_ShininessHandle, m_Shininess));
-    HR(m_Effect->SetTexture(m_TextureHandle, m_Texture));
+	HR(m_Effect->SetInt(ToggleDiffuseHandle, ToggleDiffuse));
+	HR(m_Effect->SetInt(ToggleSpecularHandle, ToggleSpecular));
+	HR(m_Effect->SetInt(ToggleTextureHandle, ToggleTexture));
+	if (m_Texture != nullptr)
+		HR(m_Effect->SetTexture(m_TextureHandle, m_Texture));
     HR(m_Effect->CommitChanges());
     HR(m_Effect->BeginPass(pass));
 }

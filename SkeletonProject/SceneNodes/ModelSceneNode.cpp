@@ -51,7 +51,7 @@ ModelSceneNode::ModelSceneNode(xml_node<>* node, ID3DXEffect* ceffect, ID3DXEffe
             effect = teffect;
         }
         else
-            mat = new BaseMaterial(nmat);
+			mat = new TexturedMaterial(nmat);
     }
     else
         mat = new BaseMaterial();

@@ -17,10 +17,15 @@ BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, 
 {
     id = 0;
     m_Effect = NULL;
+	ToggleDiffuse = 0;
+	ToggleSpecular = 0;
 }
 
 BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 {
+	ToggleDiffuse = 0;
+	ToggleSpecular = 0;
+
     if(xml_attribute<>* shine = node->first_attribute("shine", 5, false))
         m_Shininess = atof(shine->value());
 

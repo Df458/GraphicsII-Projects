@@ -52,7 +52,7 @@ void UVSphereObject3D::buildUVBuffer(IDirect3DDevice9* gd3dDevice)
 
 		float u = theta / (2.0f*D3DX_PI);
 		float v = phi   / D3DX_PI;
-		
+	
 		// Save texture coordinates.
 		
 		verts[i].uv.x = u;

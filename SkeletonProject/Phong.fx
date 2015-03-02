@@ -13,7 +13,6 @@ uniform extern float4   colSpecular;
 uniform extern float    valShininess;
 
 uniform extern int ToggleTexture;
-uniform extern int ToggleWireframe;
 uniform extern int ToggleSpecular;
 uniform extern int ToggleDiffuse;
 
@@ -78,7 +77,7 @@ float4 PhongPS(OutputVS input) : COLOR
 	//return colAmbient + Shadow * (colDiffuse * Diffuse + Specular);
 
 	float4 TextureColor = tex2D(sstate, input.uv);
-	TextureColor = pow(TextureColor, 1);// set to 0 for no texture, 1 for them
+	TextureColor = pow(TextureColor, ToggleTexture);// set to 0 for no texture, 1 for them
 	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse + Specular);
 }
 
