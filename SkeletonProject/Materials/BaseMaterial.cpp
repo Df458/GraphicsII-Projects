@@ -15,14 +15,31 @@ using namespace rapidxml;
 BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, float shine)
 : m_AmbientColor(amb), m_DiffuseColor(diff), m_SpecularColor(spec), m_Shininess(shine)
 {
-    id = 0;
-    m_Effect = NULL;
+	id = 1;
+	ToggleTexture = 0;
+	m_Effect = NULL;
+	m_Texture = nullptr;
 	ToggleDiffuse = 0;
 	ToggleSpecular = 0;
 }
 
+BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, float shine)
+: BaseMaterial(amb, diff, spec, shine)
+{
+	id = 1;
+	ToggleTexture = 1;
+	m_Effect = NULL;
+	ToggleDiffuse = 0;
+	ToggleSpecular = 0;
+	HR(D3DXCreateTextureFromFile(gd3dDevice, name, &m_Texture));
+}
+
+
 BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 {
+	id = 1;
+	m_Effect = NULL;
+	ToggleTexture = 1;
 	ToggleDiffuse = 0;
 	ToggleSpecular = 0;
 
@@ -40,6 +57,18 @@ BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
         if(xml_attribute<>* aa = color->first_attribute("a", 1, false))
             m_AmbientColor.w = atof(aa->value());
     }
+
+	if (xml_attribute<>* tex = node->first_attribute("texture", 7, false))
+	{
+		HR(D3DXCreateTextureFromFile(gd3dDevice, tex->value(), &m_Texture));
+	}
+	else
+	{
+		fprintf(stderr, "Warning: trying to create a textured material with no texture!\n");
+		m_Texture = nullptr;
+
+		ToggleTexture = 0;
+	}
 
     if(xml_node<>* color = node->first_node("diffuse", 7, false))
     {
@@ -94,6 +123,12 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_ShininessHandle = effect->GetParameterByName(0, "valShininess");
     m_AttenuationHandle = effect->GetParameterByName(0, "vAttenuation");
 
+	m_TextureHandle = effect->GetParameterByName(0, "Texture");
+
+	ToggleTextureHandle = effect->GetParameterByName(0, "ToggleTexture");
+	ToggleSpecularHandle = effect->GetParameterByName(0, "ToggleSpecular");
+	ToggleDiffuseHandle = effect->GetParameterByName(0, "ToggleDiffuse");
+
     m_Technique = m_Effect->GetTechniqueByName("PhongSolid");
 }
 
@@ -109,30 +144,35 @@ unsigned BaseMaterial::PreRender(void)
 
 void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light)
 {
-    if(!light)
-    {
-        fprintf(stderr, "Warning: Trying to render with a NULL light.\n");
-        return;
-    }
+	if (!light)
+	{
+		fprintf(stderr, "Warning: Trying to render with a NULL light.\n");
+		return;
+	}
 
-    D3DXMatrixInverse(&m_ITWorldMat, 0, &worldMat);
-    D3DXMatrixTranspose(&m_ITWorldMat, &m_ITWorldMat);
-    D3DXVECTOR4 pos = light->getTranslation();
-    D3DXVECTOR4 light_color = light->getColor();
-    D3DXVECTOR4 lightatt = light->getAttenuation();
-    HR(m_Effect->SetMatrix(m_WorldMatHandle, &worldMat));
-    HR(m_Effect->SetMatrix(m_ITWorldMatHandle, &m_ITWorldMat));
-    HR(m_Effect->SetMatrix(m_ViewProjectionMatHandle, &viewProjMat));
-    HR(m_Effect->SetVector(m_ViewerPosWHandle, &viewer_pos));
-    HR(m_Effect->SetVector(m_AmbientColHandle, &m_AmbientColor));
-    HR(m_Effect->SetVector(m_DiffuseColHandle, &m_DiffuseColor));
-    HR(m_Effect->SetVector(m_SpecularColHandle, &m_SpecularColor));
-    HR(m_Effect->SetVector(m_LightPosWHandle, &pos));
-    HR(m_Effect->SetVector(m_LightColorHandle, &light_color));
-    HR(m_Effect->SetVector(m_AttenuationHandle, &lightatt));
-    HR(m_Effect->SetFloat(m_ShininessHandle, m_Shininess));
-    HR(m_Effect->CommitChanges());
-    HR(m_Effect->BeginPass(pass));
+	D3DXMatrixInverse(&m_ITWorldMat, 0, &worldMat);
+	D3DXMatrixTranspose(&m_ITWorldMat, &m_ITWorldMat);
+	D3DXVECTOR4 pos = light->getTranslation();
+	D3DXVECTOR4 light_color = light->getColor();
+	D3DXVECTOR4 lightatt = light->getAttenuation();
+	HR(m_Effect->SetMatrix(m_WorldMatHandle, &worldMat));
+	HR(m_Effect->SetMatrix(m_ITWorldMatHandle, &m_ITWorldMat));
+	HR(m_Effect->SetMatrix(m_ViewProjectionMatHandle, &viewProjMat));
+	HR(m_Effect->SetVector(m_ViewerPosWHandle, &viewer_pos));
+	HR(m_Effect->SetVector(m_AmbientColHandle, &m_AmbientColor));
+	HR(m_Effect->SetVector(m_DiffuseColHandle, &m_DiffuseColor));
+	HR(m_Effect->SetVector(m_SpecularColHandle, &m_SpecularColor));
+	HR(m_Effect->SetVector(m_LightPosWHandle, &pos));
+	HR(m_Effect->SetVector(m_LightColorHandle, &light_color));
+	HR(m_Effect->SetVector(m_AttenuationHandle, &lightatt));
+	HR(m_Effect->SetFloat(m_ShininessHandle, m_Shininess));
+	HR(m_Effect->SetInt(ToggleDiffuseHandle, ToggleDiffuse));
+	HR(m_Effect->SetInt(ToggleSpecularHandle, ToggleSpecular));
+	HR(m_Effect->SetInt(ToggleTextureHandle, ToggleTexture));
+	if (m_Texture != nullptr)
+		HR(m_Effect->SetTexture(m_TextureHandle, m_Texture));
+	HR(m_Effect->CommitChanges());
+	HR(m_Effect->BeginPass(pass));
 }
 
 void BaseMaterial::PostPass(void)

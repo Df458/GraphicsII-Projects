@@ -34,6 +34,13 @@ public:
     D3DXMATRIX getTopMatrix();
     D3DXMATRIX getView();
     D3DXMATRIX getProjection();
+
+	void DEBUGTOGGLETEXTURE();
+	void DEBUGTOGGLESPECULAR();
+	void DEBUGTOGGLEDIFFUSE();
+	void DEBUGTOGGLEWIREFRAME();
+	void DEBUGCYCLESCENES();
+
 protected:
     SceneNode* m_RootNode;
     SceneNode* m_ActiveFocus = NULL;

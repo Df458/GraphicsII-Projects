@@ -6,6 +6,11 @@ MeshObject3D::MeshObject3D(BaseMaterial* mat, ID3DXEffect* effect) : BaseObject3
 {
 }
 
+BaseMaterial* MeshObject3D::getMaterial(void)
+{
+	return m_Material;
+}
+
 void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light)
 {
     // Update the statistics singlton class

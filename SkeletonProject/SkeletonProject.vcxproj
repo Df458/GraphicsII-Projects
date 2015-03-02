@@ -105,7 +105,6 @@
     <ClCompile Include="DirectInput.cpp" />
     <ClCompile Include="GfxStats.cpp" />
     <ClCompile Include="Materials\BaseMaterial.cpp" />
-    <ClCompile Include="Materials\TexturedMaterial.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneNodes\CameraSceneNode.cpp" />
     <ClCompile Include="SceneNodes\LightSceneNode.cpp" />
@@ -133,7 +132,6 @@
     <ClInclude Include="DirectInput.h" />
     <ClInclude Include="GfxStats.h" />
     <ClInclude Include="Materials\BaseMaterial.h" />
-    <ClInclude Include="Materials\TexturedMaterial.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneNodes\CameraSceneNode.h" />
     <ClInclude Include="SceneNodes\LightSceneNode.h" />

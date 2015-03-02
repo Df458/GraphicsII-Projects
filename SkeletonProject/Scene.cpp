@@ -25,6 +25,34 @@ Scene::~Scene()
 {
 }
 
+void Scene::DEBUGTOGGLETEXTURE()
+{
+	for (auto node : m_Nodes)
+	{
+		node->getMaterial();
+	}
+}
+
+void Scene::DEBUGTOGGLESPECULAR()
+{
+
+}
+
+void Scene::DEBUGTOGGLEDIFFUSE()
+{
+
+}
+
+void Scene::DEBUGTOGGLEWIREFRAME()
+{
+
+}
+
+void Scene::DEBUGCYCLESCENES()
+{
+	//TODO Delete Scene and load new one
+}
+
 void Scene::Update(float deltatime)
 {
     for(SceneNode* i : m_Nodes)
