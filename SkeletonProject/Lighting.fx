@@ -12,6 +12,7 @@ uniform extern float4   colDiffuse;
 uniform extern float4   colSpecular;
 uniform extern float    valShininess;
 
+
 struct OutputVS
 {
     float4 pos : POSITION0;

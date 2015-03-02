@@ -100,7 +100,7 @@ void TexturedMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_AttenuationHandle = effect->GetParameterByName(0, "vAttenuation");
     m_TextureHandle = effect->GetParameterByName(0, "Texture");
 
-    m_Technique = m_Effect->GetTechniqueByName("GouraudSolid");
+    m_Technique = m_Effect->GetTechniqueByName("PhongSolid");
 }
 
 //=============================================================================

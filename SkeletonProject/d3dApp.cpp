@@ -155,7 +155,7 @@ void D3DApp::initDirect3D()
 	HR(D3DXCreateEffectFromFile(gd3dDevice, "Phong.fx", NULL, NULL, 0, NULL, &m_DefaultEffect, &error_buf))
 	if (error_buf)
 		fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
-	HR(D3DXCreateEffectFromFile(gd3dDevice, "GouraudTextured.fx", NULL, NULL, 0, NULL, &m_TextureEffect, &error_buf))
+	HR(D3DXCreateEffectFromFile(gd3dDevice, "Phong.fx", NULL, NULL, 0, NULL, &m_TextureEffect, &error_buf))
 	if (error_buf)
 		fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
 }
