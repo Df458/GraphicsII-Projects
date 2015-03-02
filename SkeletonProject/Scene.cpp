@@ -54,15 +54,50 @@ bool Scene::loadLevel(const char* filepath, ID3DXEffect* ceffect, ID3DXEffect* t
 
     for(xml_node<>* camera = node->first_node("camera", 6, false); camera; camera = camera->next_sibling("camera", 6, false)) {
         CameraSceneNode* cam_node = new CameraSceneNode(camera);
-        addNode(cam_node);
-        if(xml_attribute<>* active = camera->first_attribute("active", 6, false))
+		//Attach to parent if possible
+		if (xml_node<>* nuid = camera->first_node("ParentUID", 9, false))
+		{
+			if (xml_attribute<>* atid = nuid->first_attribute("id", 2, false))
+			{
+				UINT parentID = atof(atid->value());
+				getNode(parentID)->addChild(cam_node);
+			}
+			else
+			{
+				addNode(cam_node);
+			}
+		}
+		else
+		{
+			addNode(cam_node);
+		}
+		if (xml_attribute<>* active = camera->first_attribute("active", 6, false))
             if(!strcmp(active->value(), "true"))
                 setActiveCamera(cam_node);
+
+		
     }
 
     for(xml_node<>* light = node->first_node("light", 5, false); light; light = light->next_sibling("light", 5, false)) {
         LightSceneNode* lightn = new LightSceneNode(light, ceffect);
-        addNode(lightn);
+		//Attach to parent if possible
+		if (xml_node<>* nuid = light->first_node("ParentUID", 9, false))
+		{
+			if (xml_attribute<>* atid = nuid->first_attribute("id", 2, false))
+			{
+				UINT parentID = atof(atid->value());
+				getNode(parentID)->addChild(lightn);
+			}
+			else
+			{
+				addNode(lightn);
+			}
+		}
+		else
+		{
+			addNode(lightn);
+		}
+
         m_ActiveLight = lightn;
         if(xml_attribute<>* active = light->first_attribute("focused", 7, false))
             if(!strcmp(active->value(), "true"))
@@ -143,6 +178,16 @@ bool Scene::removeNode(SceneNode* node)
 bool Scene::containsNode(SceneNode* node) const
 {
     return m_Nodes.find(node) != m_Nodes.end();
+}
+
+SceneNode* Scene::getNode(UINT uid)
+{
+	for (auto node : m_Nodes)
+	{
+		if (node->getUID() == uid)
+			return node;
+	}
+	return m_RootNode;
 }
 
 bool Scene::setActiveCamera(CameraSceneNode* camera)

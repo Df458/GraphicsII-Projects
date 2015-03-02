@@ -20,6 +20,7 @@ public:
     bool addNode(SceneNode* node, SceneNode* parent = 0);
     bool removeNode(SceneNode* node);
     bool containsNode(SceneNode* node) const;
+	SceneNode* getNode(UINT uid);
 
     bool setActiveCamera(CameraSceneNode* camera);
     LightSceneNode* getActiveLight(void);

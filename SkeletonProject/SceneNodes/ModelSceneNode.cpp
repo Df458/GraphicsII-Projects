@@ -75,6 +75,8 @@ ModelSceneNode::ModelSceneNode(xml_node<>* node, ID3DXEffect* ceffect, ID3DXEffe
 
 void ModelSceneNode::Update(float deltatime)
 {
+	m_Yaw += 1 * deltatime;
+	D3DXMatrixRotationY(&m_Rotation, m_Yaw);
 	m_World = m_Scale * m_Rotation * m_Translation;
     m_Model->Update(deltatime);
 }

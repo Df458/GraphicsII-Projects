@@ -89,7 +89,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_ShininessHandle = effect->GetParameterByName(0, "valShininess");
     m_AttenuationHandle = effect->GetParameterByName(0, "vAttenuation");
 
-    m_Technique = m_Effect->GetTechniqueByName("GouraudSolid");
+    m_Technique = m_Effect->GetTechniqueByName("PhongSolid");
 }
 
 //=============================================================================
