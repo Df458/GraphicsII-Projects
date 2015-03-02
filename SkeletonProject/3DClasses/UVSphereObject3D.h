@@ -13,6 +13,6 @@ protected:
 
     void buildVertexBuffer(IDirect3DDevice9* gd3dDevice);
     void buildIndexBuffer(IDirect3DDevice9* gd3dDevice);
-	virtual void buildUVBuffer(IDirect3DDevice9* gd3dDevice) {}
+	virtual void buildUVBuffer(IDirect3DDevice9* gd3dDevice);
 };
 
