@@ -61,7 +61,7 @@ OutputVS GouraudVert(float3 position : POSITION0, float3 normal : NORMAL0, float
 	float d = distance(vLightPos, wvpos);
 	float A = vAttenuation.x + vAttenuation.y*d + vAttenuation.z*d*d;
 
-    outv.color = float4(amb + ((diff) / A), colDiffuse.a);
+    outv.color = float4(((amb + diff) / A), colDiffuse.a);
     outv.spec = float4(spec / A, 1);
     outv.uv = uv;
     return outv;
@@ -69,9 +69,10 @@ OutputVS GouraudVert(float3 position : POSITION0, float3 normal : NORMAL0, float
 
 float4 GouraudPix(OutputVS input) : COLOR
 {
-    float3 tcol = tex2D(sstate, input.uv).rgb;
-    float3 finalcol = tcol * input.color + input.spec;
-    return input.color;
+    float4 tcol = tex2D(sstate, input.uv);
+    float4 finalcol = tcol * input.color + input.spec;
+    return finalcol;
+    /*return tex2D(sstate, input.uv);*/
 }
 
 technique GouraudWire
