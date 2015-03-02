@@ -1,0 +1,20 @@
+<level>
+    <sky r="0.2" g="0.7" b="0.9"/>
+    <model type="primitive" shape="teapot">
+        <translate x="0" z="0"/>
+        <material shine="0.5">
+            <ambient/>
+            <diffuse/>
+        </material>
+    </model>
+    <camera active="true">
+        <projection angle="60"/>
+        <translate y="0.75" z="-3"/>
+        <UID id="1"/>
+        <lookat/>
+    </camera>
+    <light type="point" energy="10">
+        <color r="1.0" g="1.0" b="0.3"/>
+        <translate x="-0.25" y="2" z="-1.5"/>
+    </light>
+</level>
