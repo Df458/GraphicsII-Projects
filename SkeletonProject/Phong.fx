@@ -78,7 +78,7 @@ float4 PhongPS(OutputVS input) : COLOR
 	//return colAmbient + Shadow * (colDiffuse * Diffuse + Specular);
 
 	float4 TextureColor = tex2D(sstate, input.uv);
-	return TextureColor + Shadow * (colDiffuse * Diffuse + Specular);
+	return TextureColor * colAmbient + Shadow * (TextureColor * Diffuse + Specular);
 }
 
 technique PhongWire
