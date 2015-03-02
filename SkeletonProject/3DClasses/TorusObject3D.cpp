@@ -14,3 +14,6 @@ void TorusObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice)
     HR(D3DXCreateTorus(gd3dDevice, m_Radiusi, m_Radiusr, m_Sides, m_Rings, &m_Mesh, NULL));
 }
 
+void TorusObject3D::buildUVBuffer(IDirect3DDevice9* gd3dDevice)
+{
+}

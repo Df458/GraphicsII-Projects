@@ -31,10 +31,16 @@ void SimpleCubeObject3D::buildUVBuffer(IDirect3DDevice9* gd3dDevice)
     m_Mesh->CloneMesh(D3DXMESH_SYSTEMMEM, elements, gd3dDevice, &mesh);
     ReleaseCOM(m_Mesh);
     HR(mesh->LockVertexBuffer(0, (void**)&verts));
-    for(unsigned i = 0; i < mesh->GetNumVertices(); ++i)
+    for(unsigned i = 0; i < mesh->GetNumVertices() / 4; ++i)
     {
-        verts[i].uv.x = (float)(rand() % 10) * 0.1f;
-        verts[i].uv.y = (float)(rand() % 10) * 0.1f;
+        verts[i * 4].uv.x = 0;
+        verts[i * 4].uv.y = 0;
+        verts[i * 4 + 1].uv.x = 0;
+        verts[i * 4 + 1].uv.y = 1;
+        verts[i * 4 + 2].uv.x = 1;
+        verts[i * 4 + 2].uv.y = 0;
+        verts[i * 4 + 3].uv.x = 1;
+        verts[i * 4 + 3].uv.y = 1;
     }
     HR(mesh->UnlockVertexBuffer());
     HR(mesh->CloneMesh(D3DXMESH_MANAGED | D3DXMESH_WRITEONLY, elements, gd3dDevice, &m_Mesh));

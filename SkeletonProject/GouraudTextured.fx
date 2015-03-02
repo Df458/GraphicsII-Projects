@@ -19,6 +19,8 @@ sampler sstate = sampler_state {
     MinFilter = LINEAR;
     MagFilter = LINEAR;
     MipFilter = LINEAR;
+	AddressU  = WRAP;
+    AddressV  = WRAP;
 };
 
 struct OutputVS
