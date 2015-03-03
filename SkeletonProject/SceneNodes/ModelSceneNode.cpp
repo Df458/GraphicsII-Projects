@@ -62,6 +62,12 @@ ModelSceneNode::ModelSceneNode(xml_node<>* node, ID3DXEffect* effect) : SceneNod
 // load a mesh here
     }
 }
+
+ModelSceneNode::~ModelSceneNode()
+{
+    delete m_Model;
+}
+
 BaseMaterial* ModelSceneNode::getMaterial(void)
 { 
 	return m_Model->getMaterial(); 

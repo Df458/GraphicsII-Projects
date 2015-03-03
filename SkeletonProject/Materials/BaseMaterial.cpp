@@ -102,6 +102,7 @@ BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 // Release shader, blah...
 BaseMaterial::~BaseMaterial(void)
 {
+    m_Texture->Release();
 }
 
 //-----------------------------------------------------------------------------

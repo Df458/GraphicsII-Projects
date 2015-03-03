@@ -229,7 +229,7 @@ bool Scene::removeNode(SceneNode* node)
     {
         return false;
     }
-	if (node->m_Parent)
+    if (node->m_Parent)
 		node->m_Parent->removeChild(node);
     m_Nodes.erase(node);
     return true;
