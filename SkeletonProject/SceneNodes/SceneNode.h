@@ -5,6 +5,7 @@
 #include <rapidxml.hpp>
 #include <vector>
 
+class BaseMaterial;
 class SceneNode
 {
 public:
@@ -15,6 +16,7 @@ public:
     virtual void Update(float deltatime) {};
     virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice) {};
     virtual void renderChildren(Scene* activeScene, IDirect3DDevice9* gd3dDevice);
+	virtual BaseMaterial* getMaterial(void) { return nullptr; };
 
     void Translate(float x, float y, float z, bool relative = false, bool rotation_relative = false);
     void Rotate(float yaw, float pitch, float roll, bool relative = false);

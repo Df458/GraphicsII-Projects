@@ -9,7 +9,6 @@
 #include "../3DClasses/TeapotObject3D.h"
 #include "../3DClasses/UVSphereObject3D.h"
 #include "../Materials/BaseMaterial.h"
-#include "../Materials/TexturedMaterial.h"
 
 using namespace rapidxml;
 
@@ -47,11 +46,11 @@ ModelSceneNode::ModelSceneNode(xml_node<>* node, ID3DXEffect* ceffect, ID3DXEffe
     {
         if(nmat->first_attribute("texture", 7, false))
         {
-            mat = new TexturedMaterial(nmat);
+			mat = new BaseMaterial(nmat);
             effect = teffect;
         }
         else
-			mat = new TexturedMaterial(nmat);
+			mat = new BaseMaterial(nmat);
     }
     else
         mat = new BaseMaterial();
@@ -72,7 +71,10 @@ ModelSceneNode::ModelSceneNode(xml_node<>* node, ID3DXEffect* ceffect, ID3DXEffe
 // load a mesh here
     }
 }
-
+BaseMaterial* ModelSceneNode::getMaterial(void)
+{ 
+	return m_Model->getMaterial(); 
+}
 void ModelSceneNode::Update(float deltatime)
 {
 	m_Yaw += 1 * deltatime;
