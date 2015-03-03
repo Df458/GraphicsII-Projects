@@ -1,0 +1,7 @@
+<level>
+    <model type="primitive" shape="cone" height="0.5" radius="0.5" radials="24"  focused="true">
+        <material texture="test.png" shine="1.0f">
+			<color r="1.0"/>
+        </material>
+    </model>
+</level>

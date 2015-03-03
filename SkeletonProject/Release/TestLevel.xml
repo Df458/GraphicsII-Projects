@@ -7,43 +7,7 @@
       <translate y="0.75" z="-3"/>
       <lookat/>
     </camera>
-  
-    <model type="primitive" shape="cylinder" radius="0.5" radials="24">
-        <translate z="1"/>
-        <material texture="test.png" shine="1.0f">
-        </material>
-    </model>
-  
-    <model type="primitive" shape="cone" height="0.5" radius="0.5" radials="24">
-        <translate z="1.75"/>
-        <material shine="1.0">
-        </material>
-    </model>
-  
-    <model type="primitive" shape="teapot">
-        <translate x="4" z="-7"/>
-        <material shine="0.5">
-            <ambient/>
-            <diffuse/>
-        </material>
-    </model>
-  
-    <model type="primitive" shape="torus" radiusi="0.2" radiusr="0.75" sides="16" rings="24"/>
-  
-    <model type="primitive" shape="sphere" radius="0.4" rings="16" radials="24" focused="true">
-        <translate y="1" z="1"/>
-        <material texture="sphere.png" shine="4"/>
-    </model>
-  
-    <model type="primitive" shape="cube" width="0.8" height="0.2" depth="0.8">
-        <translate y="2.4" z="1"/>
-        <material texture="test.png" shine="2.5">
-            <ambient r="0.0" g="0.1" b="0.4" />
-            <diffuse r="0.7" g="0.7" b="1.0"/>
-            <specular r="1.0" g="1.0" b="1.0"/>
-        </material>
-    </model>
-  
+	
     <light type="point" energy="10">
         <color r="1.0" g="1.0" b="0.3"/>
         <translate x="-0.25" y="2" z="-1.5"/>
