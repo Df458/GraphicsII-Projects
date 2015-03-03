@@ -36,9 +36,9 @@
 const char* objscenes[6] = {
 	"cyl.xml",
 	"cube.xml",
-	"sph.xml",
-	"cone.xml",
 	"tea.xml",
+	"cone.xml",
+	"sph.xml",
 	"torus.xml",
 };
 
