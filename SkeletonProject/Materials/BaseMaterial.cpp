@@ -19,8 +19,8 @@ BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, 
 	ToggleTexture = 0;
 	m_Effect = NULL;
 	m_Texture = nullptr;
-	ToggleDiffuse = 0;
-	ToggleSpecular = 0;
+	ToggleDiffuse = 1;
+	ToggleSpecular = 1;
 }
 
 BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, float shine)
@@ -29,8 +29,8 @@ BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, 
 	id = 1;
 	ToggleTexture = 1;
 	m_Effect = NULL;
-	ToggleDiffuse = 0;
-	ToggleSpecular = 0;
+	ToggleDiffuse = 1;
+	ToggleSpecular = 1;
 	HR(D3DXCreateTextureFromFile(gd3dDevice, name, &m_Texture));
 }
 
@@ -40,8 +40,8 @@ BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 	id = 1;
 	m_Effect = NULL;
 	ToggleTexture = 1;
-	ToggleDiffuse = 0;
-	ToggleSpecular = 0;
+	ToggleDiffuse = 1;
+	ToggleSpecular = 1;
 
     if(xml_attribute<>* shine = node->first_attribute("shine", 5, false))
         m_Shininess = atof(shine->value());
@@ -129,7 +129,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
 	ToggleSpecularHandle = effect->GetParameterByName(0, "ToggleSpecular");
 	ToggleDiffuseHandle = effect->GetParameterByName(0, "ToggleDiffuse");
 
-    m_Technique = m_Effect->GetTechniqueByName("GouraudSolid");
+    m_Technique = m_Effect->GetTechniqueByName("PhongSolid");
 }
 
 //=============================================================================
@@ -183,4 +183,29 @@ void BaseMaterial::PostPass(void)
 void BaseMaterial::PostRender(void)
 {
     HR(m_Effect->End());
+}
+
+
+void BaseMaterial::DEBUGTOGGLETEXTURE()
+{
+	if (ToggleTexture == 1)
+		ToggleTexture = 0;
+	else
+		ToggleTexture = 1;
+}
+
+void BaseMaterial::DEBUGTOGGLESPECULAR()
+{
+	if (ToggleSpecular == 1)
+		ToggleSpecular = 0;
+	else
+		ToggleSpecular = 1;
+}
+
+void BaseMaterial::DEBUGTOGGLEDIFFUSE()
+{
+	if (ToggleDiffuse == 1)
+		ToggleDiffuse = 0;
+	else
+		ToggleDiffuse = 1;
 }

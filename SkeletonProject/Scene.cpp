@@ -7,6 +7,7 @@
 #include "SceneNodes/CameraSceneNode.h"
 #include "SceneNodes/LightSceneNode.h"
 #include "SceneNodes/ModelSceneNode.h"
+#include "Materials\BaseMaterial.h"
 #include "Utils.h"
 
 using namespace rapidxml;
@@ -29,18 +30,27 @@ void Scene::DEBUGTOGGLETEXTURE()
 {
 	for (auto node : m_Nodes)
 	{
-		node->getMaterial();
+		if(node->getMaterial())
+			node->getMaterial()->DEBUGTOGGLETEXTURE();
 	}
 }
 
 void Scene::DEBUGTOGGLESPECULAR()
 {
-
+	for (auto node : m_Nodes)
+	{
+		if (node->getMaterial())
+			node->getMaterial()->DEBUGTOGGLESPECULAR();
+	}
 }
 
 void Scene::DEBUGTOGGLEDIFFUSE()
 {
-
+	for (auto node : m_Nodes)
+	{
+		if (node->getMaterial())
+			node->getMaterial()->DEBUGTOGGLEDIFFUSE();
+	}
 }
 
 void Scene::DEBUGTOGGLEWIREFRAME()

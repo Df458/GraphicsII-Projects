@@ -77,7 +77,17 @@ float4 PhongPS(OutputVS input) : COLOR
 	//return colAmbient + Shadow * (colDiffuse * Diffuse + Specular);
 
 	float4 TextureColor = tex2D(sstate, input.uv);
-	TextureColor = pow(TextureColor, ToggleTexture);// set to 0 for no texture, 1 for them
+
+	//Toggles "Logic"
+	//Set ToggleTexture int to 1 to let variables be themselves (Self to 1st power)
+	//Set ToggleTexture int to 0 to set variables to 1 (Self to 0th power)
+	TextureColor = pow(TextureColor, ToggleTexture);
+
+	//Set ToggleDiffuse & ToggleDiffuse int to 1 to let variables be themselves
+	//Set ToggleDiffuse & ToggleDiffuse int to 0 to set variables to 0
+	Diffuse = mul(Diffuse, ToggleDiffuse);
+	Specular = mul(Specular, ToggleSpecular);
+
 	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse + Specular);
 }
 

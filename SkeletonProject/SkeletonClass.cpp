@@ -71,6 +71,12 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     if(m_Scene->getActiveFocus())
         m_Camera->setFocus(m_Scene->getActiveFocus());
 
+	pW = false;
+	pT = false;
+	pO = false;
+	pS = false;
+	pD = false;
+
 	onResetDevice();
 }
 
@@ -122,23 +128,70 @@ void SkeletonClass::updateScene(float dt)
 	gDInput->poll();
 
 	if (gDInput->mouseButtonDown(0))
-    {
-        if(m_Camera->getFocused())
-            m_Camera->turnFocus((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD);
-        else
-        {
-            m_Camera->Rotate((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD, 0, true);
-            m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
-        }
-    }
+	{
+		if (m_Camera->getFocused())
+			m_Camera->turnFocus((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD);
+		else
+		{
+			m_Camera->Rotate((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD, 0, true);
+			m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
+		}
+	}
 
-    if(gDInput->mouseDZ() != 0)
-        m_Camera->zoomFocus(gDInput->mouseDZ() * 0.0051f);
-    
-    if (gDInput->keyDown(DIK_M))
-        m_Camera->releaseFocus();
-    if (gDInput->keyDown(DIK_N))
-        m_Camera->setFocus(m_Scene->getActiveFocus());
+	if (gDInput->mouseDZ() != 0)
+		m_Camera->zoomFocus(gDInput->mouseDZ() * 0.0051f);
+
+	if (gDInput->keyDown(DIK_M))
+		m_Camera->releaseFocus();
+	if (gDInput->keyDown(DIK_N))
+		m_Camera->setFocus(m_Scene->getActiveFocus());
+
+
+	//Assignment 3 Controls
+	if (gDInput->keyDown(DIK_S))
+	{
+		if (!pS)
+			m_Scene->DEBUGTOGGLESPECULAR();
+		pS = true;
+	}
+	else
+		pS = false;
+
+	if (gDInput->keyDown(DIK_W))
+	{
+		if (!pW)
+			m_Scene->DEBUGTOGGLEWIREFRAME();
+		pW = true;
+	}
+	else
+		pW = false;
+
+	if (gDInput->keyDown(DIK_T))
+	{
+		if (!pT)
+			m_Scene->DEBUGTOGGLETEXTURE();
+		pT = true;
+	}
+	else
+		pT = false;
+
+	if (gDInput->keyDown(DIK_D))
+	{
+		if (!pD)
+			m_Scene->DEBUGTOGGLEDIFFUSE();
+		pD = true;
+	}
+	else
+		pD = false;
+
+	if (gDInput->keyDown(DIK_O))
+	{
+		if (!pO)
+			m_Scene->DEBUGCYCLESCENES();
+		pO = true;
+	}
+	else
+		pO = false;
 
 	/*
     if (gDInput->keyDown(DIK_W))

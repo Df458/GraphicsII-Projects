@@ -54,6 +54,14 @@ private:
 	float X, Y, prevX, prevY;
 
     //std::vector<BaseObject3D*>      m_Objects;
+
+	bool
+		pW,
+		pT,
+		pO,
+		pS,
+		pD;
+
     Scene* m_Scene;
     CameraSceneNode* m_Camera;
 };

@@ -73,6 +73,10 @@ public:
     virtual void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light ); 
     virtual void PostPass(void);
     virtual void PostRender(void);
+
+	void DEBUGTOGGLETEXTURE();
+	void DEBUGTOGGLESPECULAR();
+	void DEBUGTOGGLEDIFFUSE();
 };
 //=============================================================================
 
