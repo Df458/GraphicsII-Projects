@@ -88,6 +88,7 @@ float4 PhongPS(OutputVS input) : COLOR
 	Diffuse = mul(Diffuse, ToggleDiffuse);
 	Specular = mul(Specular, ToggleSpecular);
 
+	//I = Ambient * Texture + Shadow * (Diffuse * Texture * N.L + (R.V)n)
 	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse + Specular);
 }
 
