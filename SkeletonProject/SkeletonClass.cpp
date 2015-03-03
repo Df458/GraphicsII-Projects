@@ -76,6 +76,7 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	pO = false;
 	pS = false;
 	pD = false;
+	pG = false;
 
 	onResetDevice();
 }
@@ -190,6 +191,15 @@ void SkeletonClass::updateScene(float dt)
 	}
 	else
 		pO = false;
+
+	if (gDInput->keyDown(DIK_G))
+	{
+		if (!pG)
+			m_Scene->DEBUGTOGGLETYPE();
+		pG = true;
+	}
+	else
+		pG = false;
 
 	/*
     if (gDInput->keyDown(DIK_W))

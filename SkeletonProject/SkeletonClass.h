@@ -60,6 +60,7 @@ private:
 		pT,
 		pO,
 		pS,
+		pG,
 		pD;
 
     Scene* m_Scene;

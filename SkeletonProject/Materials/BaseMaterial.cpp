@@ -21,6 +21,7 @@ BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, 
 	m_Texture = nullptr;
 	ToggleDiffuse = 1;
 	ToggleSpecular = 1;
+	ToggleWire = 0;
 }
 
 BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, float shine)
@@ -31,6 +32,7 @@ BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, 
 	m_Effect = NULL;
 	ToggleDiffuse = 1;
 	ToggleSpecular = 1;
+	ToggleWire = 0;
 	HR(D3DXCreateTextureFromFile(gd3dDevice, name, &m_Texture));
 }
 
@@ -42,6 +44,7 @@ BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 	ToggleTexture = 1;
 	ToggleDiffuse = 1;
 	ToggleSpecular = 1;
+	ToggleWire = 0;
 
     if(xml_attribute<>* shine = node->first_attribute("shine", 5, false))
         m_Shininess = atof(shine->value());
@@ -129,7 +132,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
 	ToggleSpecularHandle = effect->GetParameterByName(0, "ToggleSpecular");
 	ToggleDiffuseHandle = effect->GetParameterByName(0, "ToggleDiffuse");
 
-    m_Technique = m_Effect->GetTechniqueByName("PhongSolid");
+    m_Technique = m_Effect->GetTechniqueByName("GouraudSolid");
 }
 
 //=============================================================================
@@ -208,4 +211,36 @@ void BaseMaterial::DEBUGTOGGLEDIFFUSE()
 		ToggleDiffuse = 0;
 	else
 		ToggleDiffuse = 1;
+}
+
+void BaseMaterial::DEBUGTOGGLEWIREFRAME()
+{
+	if (ToggleWire == 1) {
+		ToggleWire = 0;
+	}
+	else{
+		ToggleWire = 1;
+	}
+	updateTech();
+}
+
+void BaseMaterial::DEBUGTOGGLETYPE()
+{
+	if (Gouraud == 1) {
+		Gouraud = 0;
+		tech = "Phong";
+	}
+	else{
+		Gouraud = 1;
+		tech = "Gouraud";
+	}
+	updateTech();
+}
+
+void BaseMaterial::updateTech()
+{
+	if (ToggleWire == 0)
+		m_Technique = m_Effect->GetTechniqueByName((tech + "Solid").c_str());
+	else
+		m_Technique = m_Effect->GetTechniqueByName((tech + "Wire").c_str());
 }
