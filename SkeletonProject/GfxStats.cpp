@@ -117,8 +117,15 @@ void GfxStats::display()
 		"Milliseconds Per Frame = %.4f\n"
 		"Triangle Count = %lu\n"
 		"Vertex Count = %lu\n\n"
-		"WASDQE to move, with mouse to look\n"
-		"Press F for Fullscreen\n", mFPS, mMilliSecPerFrame, mNumTris, mNumVertices);
+		"Press G to toggle Gouraud/Phong\n"
+		"Press W to toggle Wireframe\n"
+		"Press T to toggle Texture\n"
+		"Press O to Cycle Objects\n"
+		"Press S to toggle Specular\n"
+		"Press D to toggle Diffuse\n"
+		"Press G to toggle Gouraud/Phong\n"
+		"Press F for Fullscreen\n"
+		"Mouse to look\n", mFPS, mMilliSecPerFrame, mNumTris, mNumVertices);
 
 	RECT R = {5, 5, 0, 0};
 	HR(mFont->DrawText(0, buffer, -1, &R, DT_NOCLIP, D3DCOLOR_XRGB(0,0,0)));
