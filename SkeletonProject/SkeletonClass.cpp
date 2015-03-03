@@ -32,6 +32,16 @@
 #include "3DClasses/UVSphereObject3D.h"
 #include "3DClasses/Vertex.h"
 #include "Materials/BaseMaterial.h"
+
+const char* objscenes[6] = {
+	"cyl.xml",
+	"cube.xml",
+	"sph.xml",
+	"cone.xml",
+	"tea.xml",
+	"torus.xml",
+};
+
 //=============================================================================
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 				   PSTR cmdLine, int showCmd)
@@ -68,6 +78,8 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
     m_Scene = new Scene("TestLevel.xml", m_DefaultEffect);
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 	m_Camera = m_Scene->getActiveCamera();
+	currentobj = 0;
+	m_Scene->loadLevel(objscenes[currentobj], m_DefaultEffect);
     if(m_Scene->getActiveFocus())
         m_Camera->setFocus(m_Scene->getActiveFocus());
 
@@ -185,8 +197,15 @@ void SkeletonClass::updateScene(float dt)
 
 	if (gDInput->keyDown(DIK_O))
 	{
-		if (!pO)
-			m_Scene->DEBUGCYCLESCENES();
+		if (!pO) {
+			++currentobj;
+			if (currentobj >= 6)
+				currentobj = 0;
+			m_Scene->clear();
+			m_Scene->loadLevel(objscenes[currentobj], m_DefaultEffect);
+			if (m_Scene->getActiveFocus())
+				m_Camera->setFocus(m_Scene->getActiveFocus());
+		}
 		pO = true;
 	}
 	else

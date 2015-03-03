@@ -1,0 +1,6 @@
+<level>
+    <model type="primitive" shape="torus" radiusi="0.2" radiusr="0.75" sides="16" rings="24"  focused="true">
+        <material texture="test.png" shine="1.0f">
+        </material>
+    </model>
+</level>

@@ -69,7 +69,7 @@ void SceneNode::addChild(SceneNode* child)
         printf("Parent found.\n");
         child->m_Parent->removeChild(child);
     }
-
+	child->m_Parent = this;
     m_Children.push_back(child);
 }
 

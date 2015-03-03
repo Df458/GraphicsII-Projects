@@ -17,6 +17,8 @@ public:
 
     bool loadLevel(const char* filepath, ID3DXEffect* effect);
 
+	void clear(void);
+
     bool addNode(SceneNode* node, SceneNode* parent = 0);
     bool removeNode(SceneNode* node);
     bool containsNode(SceneNode* node) const;

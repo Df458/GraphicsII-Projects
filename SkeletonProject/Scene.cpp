@@ -76,6 +76,14 @@ void Scene::DEBUGCYCLESCENES()
 	//TODO Delete Scene and load new one
 }
 
+void Scene::clear()
+{
+	if (!m_ActiveFocus)
+		return;
+	removeNode(m_ActiveFocus);
+	delete m_ActiveFocus;
+}
+
 void Scene::Update(float deltatime)
 {
     for(SceneNode* i : m_Nodes)
@@ -100,7 +108,7 @@ bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
         return false;
 
     xml_document<> document;
-    document.parse<0>(text_buffer);
+	document.parse<0>(text_buffer);
     xml_node<>* node = document.first_node("level", 5, false);
 
     for(xml_node<>* camera = node->first_node("camera", 6, false); camera; camera = camera->next_sibling("camera", 6, false)) {
@@ -221,7 +229,8 @@ bool Scene::removeNode(SceneNode* node)
     {
         return false;
     }
-    node->m_Parent->removeChild(node);
+	if (node->m_Parent)
+		node->m_Parent->removeChild(node);
     m_Nodes.erase(node);
     return true;
 }

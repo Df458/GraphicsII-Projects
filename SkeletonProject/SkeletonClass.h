@@ -43,6 +43,7 @@ public:
 	void buildProjMtx();
 
 private:
+	int currentobj = 0;
     float mCameraRotationY;
     float mCameraRadius;
     float mCameraHeight;
