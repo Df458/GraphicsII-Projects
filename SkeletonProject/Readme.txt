@@ -2,8 +2,11 @@ Assignment III - Intro to 3D & Procedural Geometry
 
 By: Hugues Ross -and- Johnathan O'Malia
 
+
+See Lighting.fx for shaders
 Phong Shader done by Johnathan
 Gouraud Shader done by Hugues
+
 
 -------------------------------------------------------------------------------
 As the project requirements demanded:
