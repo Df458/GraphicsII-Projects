@@ -113,7 +113,7 @@ void TexturedMaterial::ConnectToEffect( ID3DXEffect* effect )
 	ToggleDiffuseHandle = effect->GetParameterByName(0, "ToggleDiffuse");
 
 
-    m_Technique = m_Effect->GetTechniqueByName("PhongSolid");
+    m_Technique = m_Effect->GetTechniqueByName("GouraudSolid");
 }
 
 //=============================================================================

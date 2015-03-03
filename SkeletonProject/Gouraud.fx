@@ -14,6 +14,10 @@ uniform extern float    valShininess;
 
 uniform extern texture  Texture;
 
+uniform extern int ToggleTexture;
+uniform extern int ToggleSpecular;
+uniform extern int ToggleDiffuse;
+
 sampler sstate = sampler_state {
     Texture = <Texture>;
     MinFilter = LINEAR;
@@ -38,14 +42,13 @@ OutputVS GouraudVert(float3 position : POSITION0, float3 normal : NORMAL0, float
     outv.pos = mul(float4(position, 1.0f), matFinal);
 
 	// Transform normal to world space.
-    float3 wnorm = mul(float4(normal, 0.0f), matITWorld).xyz;
-    wnorm = normalize(wnorm);
+    float3 wnorm = normalize(mul(normal, matWorld));
 
 	// Transform vertex position to world space.
-    float3 wvpos = mul(float4(position, 1.0f), matWorld).xyz;
+    float3 worldPos = mul(float4(position, 1.0f), matWorld);
 
 	// Unit vector from vertex to light source.
-    float3 wli   = normalize(vLightPos - wvpos);
+    float3 wli   = normalize(vLightPos - worldPos);
 
 	// Ambient Light Computation.
     float3 amb  = colAmbient.rgb;
@@ -55,12 +58,12 @@ OutputVS GouraudVert(float3 position : POSITION0, float3 normal : NORMAL0, float
     float3 diff = s * colDiffuse.rgb * colLight.rgb;
 
 	// Specular Light Computation.
-    float3 wvtvi = normalize(wvpos - vViewPos); //reversed???
-    float3 reflected =  reflect(-wli, wnorm);
-    float t = pow(max(dot(wvtvi, reflected), 0.0f), valShininess);
+    float3 wvtvi = normalize(vViewPos - normalize(mul(position, matWorld)));
+    float3 reflected = normalize(2 * diff * wnorm - wli);
+    float t = pow(saturate(dot(reflected, -wvtvi)), valShininess);
     float3 spec = t * (colSpecular * colLight).rgb;
 
-	float d = distance(vLightPos, wvpos);
+	float d = distance(vLightPos, worldPos);
 	float A = vAttenuation.x + vAttenuation.y*d + vAttenuation.z*d*d;
 
     outv.color = float4(((amb + diff) / A), colDiffuse.a);
@@ -72,9 +75,9 @@ OutputVS GouraudVert(float3 position : POSITION0, float3 normal : NORMAL0, float
 float4 GouraudPix(OutputVS input) : COLOR
 {
     float4 tcol = tex2D(sstate, input.uv);
+	tcol = pow(tcol, ToggleTexture);
     float4 finalcol = tcol * input.color + input.spec;
     return finalcol;
-    /*return tex2D(sstate, input.uv);*/
 }
 
 technique GouraudWire

@@ -64,7 +64,7 @@ OutputVS PhongVS(float4 pos : POSITION0, float3 normal : NORMAL0, float2 uv : TE
 float4 PhongPS(OutputVS input) : COLOR
 {
 	float3 Normal = normalize(input.normal);
-	float3 LightDirection = normalize(input.light);
+	float3 LightDirection = input.light;
 	float3 ViewDirection = normalize(input.view);
 
 	float4 Diffuse = saturate(dot(Normal, LightDirection));
