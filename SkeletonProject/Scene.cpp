@@ -55,7 +55,7 @@ void Scene::DEBUGTOGGLEDIFFUSE()
 
 void Scene::DEBUGTOGGLEWIREFRAME()
 {
-
+	//TODO Actually Toggle Wireframes
 }
 
 void Scene::DEBUGCYCLESCENES()
