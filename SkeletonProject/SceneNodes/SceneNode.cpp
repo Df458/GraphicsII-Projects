@@ -77,8 +77,11 @@ void SceneNode::removeChild(SceneNode* child)
 {
     for(unsigned i = 0; i < m_Children.size(); ++i)
     {
-        child->m_Parent = 0;
-        m_Children.erase(m_Children.begin() + i);
+        if(child == m_Children[i]) {
+            child->m_Parent = 0;
+            m_Children.erase(m_Children.begin() + i);
+            return;
+        }
     }
 }
 
