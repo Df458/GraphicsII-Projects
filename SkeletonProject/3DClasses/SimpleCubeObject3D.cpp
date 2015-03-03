@@ -34,9 +34,9 @@ void SimpleCubeObject3D::buildUVBuffer(IDirect3DDevice9* gd3dDevice)
     for(unsigned i = 0; i < mesh->GetNumVertices() / 4; ++i)
     {
         verts[i * 4].uv.x = 0;
-        verts[i * 4].uv.y = 0;
+        verts[i * 4].uv.y = 1;
         verts[i * 4 + 1].uv.x = 0;
-        verts[i * 4 + 1].uv.y = 1;
+        verts[i * 4 + 1].uv.y = 0;
         verts[i * 4 + 2].uv.x = 1;
         verts[i * 4 + 2].uv.y = 0;
         verts[i * 4 + 3].uv.x = 1;
