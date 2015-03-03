@@ -7,7 +7,7 @@
 #include "SceneNodes/CameraSceneNode.h"
 #include "SceneNodes/LightSceneNode.h"
 #include "SceneNodes/ModelSceneNode.h"
-#include "Materials\BaseMaterial.h"
+#include "Materials/BaseMaterial.h"
 #include "Utils.h"
 
 using namespace rapidxml;
@@ -194,15 +194,15 @@ void Scene::Render(IDirect3DDevice9* gd3dDevice)
 {
 	HR(gd3dDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, m_Sky, 1.0f, 0));
 
-	HR(gd3dDevice->BeginScene());
+    HR(gd3dDevice->BeginScene());
 
     m_RootNode->renderChildren(this, gd3dDevice);
 
-    // display the render statistics
+    //// display the render statistics
     GfxStats::GetInstance()->display();
 
 
-	HR(gd3dDevice->EndScene());
+    HR(gd3dDevice->EndScene());
 
 	// Present the backbuffer.
 	HR(gd3dDevice->Present(0, 0, 0, 0));

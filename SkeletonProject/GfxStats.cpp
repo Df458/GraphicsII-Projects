@@ -111,22 +111,10 @@ void GfxStats::update(float dt)
 void GfxStats::display()
 {
 	// Make static so memory is not allocated every frame.
-	static char buffer[256];
+	static char buffer[2048];
 
-	sprintf(buffer, "Frames Per Second = %.2f\n"
-		"Milliseconds Per Frame = %.4f\n"
-		"Triangle Count = %lu\n"
-		"Vertex Count = %lu\n\n"
-		"Press G to toggle Gouraud/Phong\n"
-		"Press W to toggle Wireframe\n"
-		"Press T to toggle Texture\n"
-		"Press O to Cycle Objects\n"
-		"Press S to toggle Specular\n"
-		"Press D to toggle Diffuse\n"
-		"Press G to toggle Gouraud/Phong\n"
-		"Press F for Fullscreen\n"
-		"Mouse to look\n", mFPS, mMilliSecPerFrame, mNumTris, mNumVertices);
+    sprintf(buffer, "Frames Per Second = %.2f\nMilliseconds Per Frame = %.4f\nTriangle Count = %lu\nVertex Count = %lu\n\nPress G to toggle Gouraud/Phong\nPress W to toggle Wireframe\nPress T to toggle Texture\nPress O to Cycle Objects\nPress S to toggle Specular\nPress D to toggle Diffuse\nPress G to toggle Gouraud/Phong\nPress F for Fullscreen\nMouse to look\n", mFPS, mMilliSecPerFrame, mNumTris, mNumVertices);
 
-	RECT R = {5, 5, 0, 0};
-	HR(mFont->DrawText(0, buffer, -1, &R, DT_NOCLIP, D3DCOLOR_XRGB(0,0,0)));
+    RECT R = {5, 5, 0, 0};
+    HR(mFont->DrawText(0, buffer, -1, &R, DT_NOCLIP, D3DCOLOR_XRGB(0,0,0)));
 }
