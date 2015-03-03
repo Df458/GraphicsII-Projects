@@ -2,9 +2,9 @@
 #include <cstdio>
 
 char* loadFileContents(const char* filepath) {
-    FILE* file = fopen(filepath, "rb");
+    FILE* file = fopen((getPath() + filepath).c_str(), "rb");
     if(!file) {
-        fprintf(stderr, "Failed to load %s: File not found.", filepath);
+        fprintf(stderr, "Failed to load %s: File not found.", (getPath() + filepath).c_str());
         return NULL;
     }
 
@@ -17,4 +17,11 @@ char* loadFileContents(const char* filepath) {
 
     fclose(file);
     return filedata;
+}
+
+std::string getPath(){
+	char buf[1024];
+    GetModuleFileName(NULL, buf, 1024);
+    std::string::size_type pos = std::string(buf).find_last_of("\\/");
+    return std::string(buf).substr(0, pos + 1);
 }
