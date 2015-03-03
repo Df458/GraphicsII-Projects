@@ -36,21 +36,12 @@ ModelSceneNode::ModelSceneNode(MeshObject3D* model, float x, float y, float z, f
 	UpdateMatricies();
 }
 
-ModelSceneNode::ModelSceneNode(xml_node<>* node, ID3DXEffect* ceffect, ID3DXEffect* teffect) : SceneNode(node)
+ModelSceneNode::ModelSceneNode(xml_node<>* node, ID3DXEffect* effect) : SceneNode(node)
 {
     BaseMaterial* mat;
-    ID3DXEffect* effect = ceffect;
-    if(!teffect)
-        printf("huh\n");
     if(xml_node<>* nmat = node->first_node("material", 8, false))
     {
-        if(nmat->first_attribute("texture", 7, false))
-        {
-			mat = new BaseMaterial(nmat);
-            effect = teffect;
-        }
-        else
-			mat = new BaseMaterial(nmat);
+		mat = new BaseMaterial(nmat);
     }
     else
         mat = new BaseMaterial();
