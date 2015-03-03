@@ -80,8 +80,11 @@ void Scene::clear()
 {
 	if (!m_ActiveFocus)
 		return;
-	removeNode(m_ActiveFocus);
+	//removeNode(m_ActiveFocus);
+    m_RootNode->removeChild(m_ActiveFocus);
+    m_Nodes.erase(m_ActiveFocus);
 	delete m_ActiveFocus;
+    m_ActiveFocus = NULL;
 }
 
 void Scene::Update(float deltatime)
