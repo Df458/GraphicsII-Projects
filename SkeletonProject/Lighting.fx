@@ -149,8 +149,8 @@ technique GouraudWire
 {
     pass P0
     {
-        vertexShader = compile vs_2_0 GouraudVert();
-        pixelShader = compile ps_2_0 GouraudPix();
+        vertexShader = compile vs_3_0 GouraudVert();
+        pixelShader = compile ps_3_0 GouraudPix();
         FillMode = Wireframe;
     }
 }
@@ -159,8 +159,8 @@ technique GouraudSolid
 {
     pass P0
     {
-        vertexShader = compile vs_2_0 GouraudVert();
-        pixelShader = compile ps_2_0 GouraudPix();
+        vertexShader = compile vs_3_0 GouraudVert();
+        pixelShader = compile ps_3_0 GouraudPix();
         FillMode = Solid;
     }
 }
@@ -169,8 +169,8 @@ technique PhongWire
 {
 	pass P0
 	{
-		vertexShader = compile vs_2_0 PhongVS();
-		pixelShader = compile ps_2_0 PhongPS();
+		vertexShader = compile vs_3_0 PhongVS();
+		pixelShader = compile ps_3_0 PhongPS();
 		FillMode = Wireframe;
 	}
 }
@@ -179,8 +179,8 @@ technique PhongSolid
 {
 	pass P0
 	{
-		vertexShader = compile vs_2_0 PhongVS();
-		pixelShader = compile ps_2_0 PhongPS();
+		vertexShader = compile vs_3_0 PhongVS();
+		pixelShader = compile ps_3_0 PhongPS();
 		FillMode = Solid;
 	}
 }
