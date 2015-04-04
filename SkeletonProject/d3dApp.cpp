@@ -152,9 +152,11 @@ void D3DApp::initDirect3D()
 
 
 	LPD3DXBUFFER error_buf;
+    fprintf(stderr, "Compiling shader...\n");
 	HR(D3DXCreateEffectFromFile(gd3dDevice, "Lighting.fx", NULL, NULL, 0, NULL, &m_DefaultEffect, &error_buf))
 	if (error_buf)
 		fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
+    fprintf(stderr, "done.\n");
 }
 
 int D3DApp::run()
