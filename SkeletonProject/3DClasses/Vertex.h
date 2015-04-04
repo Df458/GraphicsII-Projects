@@ -20,9 +20,9 @@ struct VertexPos
 
 	D3DXVECTOR3 pos;
 	D3DXVECTOR3 normal;
+	D3DXVECTOR2 uv;
 	D3DXVECTOR3 tangent;
 	D3DXVECTOR3 binormal;
-	D3DXVECTOR2 uv;
 	static IDirect3DVertexDeclaration9* Decl;
 };
 //=============================================================================
