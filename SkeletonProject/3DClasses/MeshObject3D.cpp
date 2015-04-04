@@ -23,7 +23,7 @@ void MeshObject3D::Create(IDirect3DDevice9* gd3dDevice)
     UINT eCount = 0;
     HR(VertexPosNM::Decl->GetDeclaration(e, &eCount));
     HR(m_Mesh->CloneMesh(D3DXMESH_MANAGED, e, gd3dDevice, &temp));
-    HR(D3DXComputeTangentFrameEx(temp, D3DDECLUSAGE_NORMAL, 0, D3DDECLUSAGE_TEXCOORD, 0, D3DDECLUSAGE_TANGENT, 0, D3DDECLUSAGE_BINORMAL, 0, 0, 0, 0.1f, 0.25f, 0.01f, &m_Mesh, 0));
+	HR(D3DXComputeTangentFrameEx(temp, D3DDECLUSAGE_TEXCOORD, 0, D3DDECLUSAGE_TANGENT, 0, D3DDECLUSAGE_BINORMAL, 0, D3DDECLUSAGE_NORMAL, 0, 0, 0, 0.1f, 0.25f, 0.01f, &m_Mesh, 0));
     ReleaseCOM(temp);
 }
 

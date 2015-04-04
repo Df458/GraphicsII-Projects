@@ -60,6 +60,6 @@ void UVSphereObject3D::buildUVBuffer(IDirect3DDevice9* gd3dDevice)
     }
 
     HR(mesh->UnlockVertexBuffer());
-    HR(mesh->CloneMesh(D3DXMESH_MANAGED | D3DXMESH_WRITEONLY, elements, gd3dDevice, &m_Mesh));
+    HR(mesh->CloneMesh(D3DXMESH_MANAGED, elements, gd3dDevice, &m_Mesh));
     ReleaseCOM(mesh);
 }
