@@ -43,6 +43,6 @@ void SimpleCubeObject3D::buildUVBuffer(IDirect3DDevice9* gd3dDevice)
         verts[i * 4 + 3].uv.y = 1;
     }
     HR(mesh->UnlockVertexBuffer());
-    HR(mesh->CloneMesh(D3DXMESH_MANAGED | D3DXMESH_WRITEONLY, elements, gd3dDevice, &m_Mesh));
+    HR(mesh->CloneMesh(D3DXMESH_MANAGED, elements, gd3dDevice, &m_Mesh));
     ReleaseCOM(mesh);
 }
