@@ -92,7 +92,6 @@
     <ClCompile Include="3DClasses\ConeObject3D.cpp" />
     <ClCompile Include="3DClasses\CuboidObject3D.cpp" />
     <ClCompile Include="3DClasses\CylinderObject3D.cpp" />
-    <ClCompile Include="3DClasses\DoubleConeObject3D.cpp" />
     <ClCompile Include="3DClasses\MeshObject3D.cpp" />
     <ClCompile Include="3DClasses\PlainObject3D.cpp" />
     <ClCompile Include="3DClasses\SimpleCubeObject3D.cpp" />
@@ -105,7 +104,9 @@
     <ClCompile Include="DirectInput.cpp" />
     <ClCompile Include="GfxStats.cpp" />
     <ClCompile Include="Materials\BaseMaterial.cpp" />
+    <ClCompile Include="Materials\SimplePhong.cpp" />
     <ClCompile Include="Materials\SkyBoxMaterial.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneNodes\CameraSceneNode.cpp" />
     <ClCompile Include="SceneNodes\LightSceneNode.cpp" />
@@ -120,7 +121,6 @@
     <ClInclude Include="3DClasses\ConeObject3D.h" />
     <ClInclude Include="3DClasses\CuboidObject3D.h" />
     <ClInclude Include="3DClasses\CylinderObject3D.h" />
-    <ClInclude Include="3DClasses\DoubleConeObject3D.h" />
     <ClInclude Include="3DClasses\MeshObject3D.h" />
     <ClInclude Include="3DClasses\PlainObject3D.h" />
     <ClInclude Include="3DClasses\SimpleCubeObject3D.h" />
@@ -129,12 +129,15 @@
     <ClInclude Include="3DClasses\TubeObject3D.h" />
     <ClInclude Include="3DClasses\UVSphereObject3D.h" />
     <ClInclude Include="3DClasses\Vertex.h" />
+    <ClInclude Include="CRC32.h" />
     <ClInclude Include="d3dApp.h" />
     <ClInclude Include="d3dUtil.h" />
     <ClInclude Include="DirectInput.h" />
     <ClInclude Include="GfxStats.h" />
     <ClInclude Include="Materials\BaseMaterial.h" />
+    <ClInclude Include="Materials\SimplePhong.h" />
     <ClInclude Include="Materials\SkyBoxMaterial.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneNodes\CameraSceneNode.h" />
     <ClInclude Include="SceneNodes\LightSceneNode.h" />

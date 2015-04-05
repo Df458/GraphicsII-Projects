@@ -1,6 +1,0 @@
-<level>
-    <model type="primitive" shape="sphere" radius="0.4" rings="16" radials="24" focused="true">
-        <material texture="sphere.png" shine="1.0f">
-        </material>
-    </model>
-</level>

@@ -9,6 +9,7 @@
 //=============================================================================
 #include "BaseMaterial.h"
 #include "../SceneNodes/LightSceneNode.h"
+#include "../ResourceManager.h"
 //=============================================================================
 using namespace rapidxml;
 
@@ -33,7 +34,7 @@ BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, 
 	ToggleDiffuse = 1;
 	ToggleSpecular = 1;
 	ToggleWire = 0;
-	HR(D3DXCreateTextureFromFile(gd3dDevice, name, &m_Texture));
+	m_Texture = gResourceManager->GetTexture(name);
 }
 
 
@@ -63,7 +64,7 @@ BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 
 	if (xml_attribute<>* tex = node->first_attribute("texture", 7, false))
 	{
-		HR(D3DXCreateTextureFromFile(gd3dDevice, tex->value(), &m_Texture));
+		m_Texture = gResourceManager->GetTexture(tex->value());
 	}
 	else
 	{

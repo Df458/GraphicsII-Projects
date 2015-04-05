@@ -57,12 +57,11 @@ protected:
 	IDirect3D9*           md3dObject;
 	bool                  mAppPaused;
 	D3DPRESENT_PARAMETERS md3dPP;
-
-	ID3DXEffect* m_DefaultEffect;
 };
 
 // Globals for convenient access.
 extern D3DApp* gd3dApp;
 extern IDirect3DDevice9* gd3dDevice;
+extern ResourceManager* gResourceManager;
 
 #endif // D3DAPP_H

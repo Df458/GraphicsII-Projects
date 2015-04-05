@@ -1,6 +1,0 @@
-<level>
-    <model type="primitive" shape="teapot"  focused="true">
-        <material texture="test.png" shine="1.0f">
-        </material>
-    </model>
-</level>

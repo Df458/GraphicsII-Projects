@@ -13,6 +13,7 @@ uniform extern float4   colSpecular;
 uniform extern float    valShininess;
 
 uniform extern texture  Texture;
+uniform extern texture  NormalTexture;
 
 uniform extern int ToggleTexture;
 uniform extern int ToggleSpecular;
@@ -84,7 +85,7 @@ OutputVSG GouraudVert(float3 position : POSITION0, float3 normal : NORMAL0, floa
 float4 GouraudPix(OutputVSG input) : COLOR
 {
     float4 tcol = tex2D(sstate, input.uv);
-	tcol = pow(tcol, ToggleTexture);
+	tcol = pow(abs(tcol), ToggleTexture);
     float4 finalcol = tcol * input.color + input.spec;
     return finalcol;
 }
@@ -134,7 +135,7 @@ float4 PhongPS(OutputVS input) : COLOR
 	//Toggles "Logic"
 	//Set ToggleTexture int to 1 to let variables be themselves (Self to 1st power)
 	//Set ToggleTexture int to 0 to set variables to 1 (Self to 0th power)
-	TextureColor = pow(TextureColor, ToggleTexture);
+	TextureColor = pow(abs(TextureColor), ToggleTexture);
 
 	//Set ToggleDiffuse & ToggleDiffuse int to 1 to let variables be themselves
 	//Set ToggleDiffuse & ToggleDiffuse int to 0 to set variables to 0
@@ -149,8 +150,8 @@ technique GouraudWire
 {
     pass P0
     {
-        vertexShader = compile vs_2_0 GouraudVert();
-        pixelShader = compile ps_2_0 GouraudPix();
+        vertexShader = compile vs_3_0 GouraudVert();
+        pixelShader = compile ps_3_0 GouraudPix();
         FillMode = Wireframe;
     }
 }
@@ -159,8 +160,8 @@ technique GouraudSolid
 {
     pass P0
     {
-        vertexShader = compile vs_2_0 GouraudVert();
-        pixelShader = compile ps_2_0 GouraudPix();
+        vertexShader = compile vs_3_0 GouraudVert();
+        pixelShader = compile ps_3_0 GouraudPix();
         FillMode = Solid;
     }
 }
@@ -169,8 +170,8 @@ technique PhongWire
 {
 	pass P0
 	{
-		vertexShader = compile vs_2_0 PhongVS();
-		pixelShader = compile ps_2_0 PhongPS();
+		vertexShader = compile vs_3_0 PhongVS();
+		pixelShader = compile ps_3_0 PhongPS();
 		FillMode = Wireframe;
 	}
 }
@@ -179,8 +180,8 @@ technique PhongSolid
 {
 	pass P0
 	{
-		vertexShader = compile vs_2_0 PhongVS();
-		pixelShader = compile ps_2_0 PhongPS();
+		vertexShader = compile vs_3_0 PhongVS();
+		pixelShader = compile ps_3_0 PhongPS();
 		FillMode = Solid;
 	}
 }

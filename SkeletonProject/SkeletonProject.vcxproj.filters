@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="3DClasses\BaseObject3D.cpp">
+      <Filter>3D Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNodes\CameraSceneNode.cpp">
+      <Filter>Scene Graph\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNodes\ModelSceneNode.cpp">
+      <Filter>Scene Graph\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNodes\SceneNode.cpp">
+      <Filter>Scene Graph\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\BaseMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\SimplePhong.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="3DClasses\CuboidObject3D.cpp">
+      <Filter>3D Objects\Procedual Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="3DClasses\PlainObject3D.cpp">
+      <Filter>3D Objects\Procedual Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="3DClasses\TubeObject3D.cpp">
+      <Filter>3D Objects\Procedual Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="3DClasses\SimpleCubeObject3D.cpp">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="3DClasses\TeapotObject3D.cpp">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="3DClasses\TorusObject3D.cpp">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="3DClasses\ConeObject3D.cpp">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="3DClasses\UVSphereObject3D.cpp">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="3DClasses\CylinderObject3D.cpp">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNodes\LightSceneNode.cpp">
+      <Filter>Scene Graph\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="3DClasses\MeshObject3D.cpp">
+      <Filter>3D Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Resource Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="d3dApp.cpp">
+      <Filter>Magic Adi Code</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectInput.cpp">
+      <Filter>Magic Adi Code</Filter>
+    </ClCompile>
+    <ClCompile Include="GfxStats.cpp">
+      <Filter>Magic Adi Code</Filter>
+    </ClCompile>
+    <ClCompile Include="3DClasses\Vertex.cpp">
+      <Filter>Magic Adi Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonClass.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\SkyBoxMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNodes\SkySceneNode.cpp">
+      <Filter>Scene Graph\Nodes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3DClasses\BaseObject3D.h">
+      <Filter>3D Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodes\CameraSceneNode.h">
+      <Filter>Scene Graph\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodes\ModelSceneNode.h">
+      <Filter>Scene Graph\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodes\SceneNode.h">
+      <Filter>Scene Graph\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\BaseMaterial.h">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\SimplePhong.h">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\CuboidObject3D.h">
+      <Filter>3D Objects\Procedual Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\PlainObject3D.h">
+      <Filter>3D Objects\Procedual Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\TubeObject3D.h">
+      <Filter>3D Objects\Procedual Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\SimpleCubeObject3D.h">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\TeapotObject3D.h">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\TorusObject3D.h">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\ConeObject3D.h">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\UVSphereObject3D.h">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\CylinderObject3D.h">
+      <Filter>3D Objects\D3DX Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodes\LightSceneNode.h">
+      <Filter>Scene Graph\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\MeshObject3D.h">
+      <Filter>3D Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Resource Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dApp.h">
+      <Filter>Magic Adi Code</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dUtil.h">
+      <Filter>Magic Adi Code</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectInput.h">
+      <Filter>Magic Adi Code</Filter>
+    </ClInclude>
+    <ClInclude Include="GfxStats.h">
+      <Filter>Magic Adi Code</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\Vertex.h">
+      <Filter>Magic Adi Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonClass.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CRC32.h">
+      <Filter>Resource Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\SkyBoxMaterial.h">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodes\SkySceneNode.h">
+      <Filter>Scene Graph\Nodes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Materials">
+      <UniqueIdentifier>{2cf25c9e-1cf2-43b3-aac7-bb3ed76b5577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Graph">
+      <UniqueIdentifier>{e261e1d6-0906-425e-9806-587c1dfcc2ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Graph\Nodes">
+      <UniqueIdentifier>{7f567b75-51ff-4e73-9c81-dbd2705eb2ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects">
+      <UniqueIdentifier>{b46a2e6b-cc8d-45af-a772-d43d1d65deee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Procedual Generated">
+      <UniqueIdentifier>{95173023-caa5-4550-9b88-eaf7a02b0f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\D3DX Generated">
+      <UniqueIdentifier>{bee430f7-9844-46bd-98f3-d173bf8b1fd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Manager">
+      <UniqueIdentifier>{b9aa6e7b-f4b6-4f1d-a43c-ed7676df01cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Magic Adi Code">
+      <UniqueIdentifier>{2c5b81e6-ed69-4aee-b513-6eb0a30cde90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{b25aaa45-cc27-442f-b933-fce03ee12c87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{9edef6e0-3917-484f-a210-512b9126af18}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

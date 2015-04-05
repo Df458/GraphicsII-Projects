@@ -18,6 +18,7 @@
 #include "GfxStats.h"
 #include <list>
 
+#include "ResourceManager.h"
 #include "Scene.h"
 #include "SceneNodes/CameraSceneNode.h"
 #include "SceneNodes/ModelSceneNode.h"
@@ -26,7 +27,6 @@
 #include "3DClasses/ConeObject3D.h"
 #include "3DClasses/CuboidObject3D.h"
 #include "3DClasses/CylinderObject3D.h"
-#include "3DClasses/DoubleConeObject3D.h"
 #include "3DClasses/PlainObject3D.h"
 #include "3DClasses/TubeObject3D.h"
 #include "3DClasses/UVSphereObject3D.h"
@@ -68,6 +68,10 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 		MessageBox(0, "checkDeviceCaps() Failed", 0, 0);
 		PostQuitMessage(0);
 	}
+	ResourceManager* tmpManager = new ResourceManager();
+	tmpManager->Initalize();
+
+	gResourceManager = tmpManager;
 
 	mCameraRadius    = 10.0f;
 	mCameraRotationY = 1.2 * D3DX_PI;
@@ -75,11 +79,11 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 
 	InitAllVertexDeclarations();
 
-    m_Scene = new Scene("TestLevel.xml", m_DefaultEffect);
+	m_Scene = new Scene("TestLevel.xml", gResourceManager->getDefaultEffect());
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 	m_Camera = m_Scene->getActiveCamera();
 	currentobj = 0;
-	m_Scene->loadLevel(objscenes[currentobj], m_DefaultEffect);
+	m_Scene->loadLevel(objscenes[currentobj], gResourceManager->getDefaultEffect());
     if(m_Scene->getActiveFocus())
         m_Camera->setFocus(m_Scene->getActiveFocus());
 
@@ -103,6 +107,8 @@ SkeletonClass::~SkeletonClass()
     delete m_Scene;
 
 	DestroyAllVertexDeclarations();
+
+	gResourceManager->Terminate();
 }
 
 bool SkeletonClass::checkDeviceCaps()
@@ -113,7 +119,7 @@ bool SkeletonClass::checkDeviceCaps()
 void SkeletonClass::onLostDevice()
 {
 	GfxStats::GetInstance()->onLostDevice();
-	m_DefaultEffect->OnLostDevice();
+	gResourceManager->getDefaultEffect()->OnLostDevice();
 }
 
 void SkeletonClass::onResetDevice()
@@ -124,7 +130,7 @@ void SkeletonClass::onResetDevice()
 	// possibly change after a reset.  So rebuild the projection matrix.
 	//buildProjMtx();
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
-	m_DefaultEffect->OnResetDevice();
+	gResourceManager->getDefaultEffect()->OnResetDevice();
 }
 
 void SkeletonClass::updateScene(float dt)
@@ -202,7 +208,7 @@ void SkeletonClass::updateScene(float dt)
 			if (currentobj >= 6)
 				currentobj = 0;
 			m_Scene->clear();
-			m_Scene->loadLevel(objscenes[currentobj], m_DefaultEffect);
+			m_Scene->loadLevel(objscenes[currentobj], gResourceManager->getDefaultEffect());
 			if (m_Scene->getActiveFocus())
 				m_Camera->setFocus(m_Scene->getActiveFocus());
 		}

@@ -5,6 +5,7 @@
 #include "../Materials/SkyBoxMaterial.h"
 #include "../3DClasses/UVSphereObject3D.h"
 #include "../Utils.h"
+#include "../ResourceManager.h"
 
 SkySceneNode::SkySceneNode()
 {
@@ -13,14 +14,11 @@ SkySceneNode::SkySceneNode()
     ID3DXEffect* effect;
 	LPD3DXBUFFER error_buf;
     fprintf(stderr, "Compiling shader...\n");
-	D3DXCreateEffectFromFile(gd3dDevice, "skybox.fx", NULL, NULL, 0, NULL, &effect, &error_buf);
-	if (error_buf) {
-		//fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
-		MessageBox(NULL, (char*)error_buf->GetBufferPointer(), "Error", MB_OK | MB_ICONERROR);
-		exit(1);
-	}
+	//D3DXCreateEffectFromFile(gd3dDevice, "skybox.fx", NULL, NULL, 0, NULL, &effect, &error_buf);
+	effect = gResourceManager->GetEffect("skybox.fx");
+	
     fprintf(stderr, "done.\n");
-    m_Model = new UVSphereObject3D(5, 8, 8, new SkyBoxMaterial((getPath() + "cubemap.png").c_str()), effect); // Needs an effect
+    m_Model = new UVSphereObject3D(5, 8, 8, new SkyBoxMaterial("cubemap.png"), effect); // Needs an effect
 	m_Model->Create(gd3dDevice);
 }
 
@@ -29,7 +27,7 @@ SkySceneNode::SkySceneNode(float x, float y, float z, float xRot, float yRot, fl
     printf("Unimplemented stub\n");
     m_Parent = NULL;
     D3DXMatrixIdentity(&m_World);
-    m_Model = new UVSphereObject3D(1, 6, 8, new SkyBoxMaterial((getPath() + "cubemap.png").c_str())); // Needs an effect
+    m_Model = new UVSphereObject3D(1, 6, 8, new SkyBoxMaterial("cubemap.png")); // Needs an effect
 }
 
 SkySceneNode::SkySceneNode(rapidxml::xml_node<>* node, ID3DXEffect* effect)
@@ -37,7 +35,7 @@ SkySceneNode::SkySceneNode(rapidxml::xml_node<>* node, ID3DXEffect* effect)
     printf("Unimplemented stub\n");
     m_Parent = NULL;
     D3DXMatrixIdentity(&m_World);
-    m_Model = new UVSphereObject3D(1, 6, 8, new SkyBoxMaterial((getPath() + "cubemap.png").c_str())); // Needs an effect
+    m_Model = new UVSphereObject3D(1, 6, 8, new SkyBoxMaterial("cubemap.png")); // Needs an effect
 }
 
 void SkySceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)

@@ -1,7 +1,0 @@
-<level>
-	<model type="primitive" shape="cylinder" radius="0.5" radials="24" focused="true">
-        <material texture="test.png" shine="1.0">
-			<color g="1.0"/>
-        </material>
-    </model>
-</level>

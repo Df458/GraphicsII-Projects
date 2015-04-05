@@ -1,8 +1,9 @@
 #include "SkyBoxMaterial.h"
+#include "../ResourceManager.h"
 
 SkyBoxMaterial::SkyBoxMaterial(const char* texture_name)
 {
-	HR(D3DXCreateTextureFromFile(gd3dDevice, texture_name, &m_Texture));
+	m_Texture = gResourceManager->GetTexture(texture_name);
 }
 
 void SkyBoxMaterial::ConnectToEffect( ID3DXEffect* effect )

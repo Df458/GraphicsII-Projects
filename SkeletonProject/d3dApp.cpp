@@ -6,6 +6,7 @@
 
 D3DApp* gd3dApp              = 0;
 IDirect3DDevice9* gd3dDevice = 0;
+ResourceManager* gResourceManager = 0;
 
 LRESULT CALLBACK
 MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -149,14 +150,6 @@ void D3DApp::initDirect3D()
 		devBehaviorFlags,   // vertex processing
 	    &md3dPP,            // present parameters
 	    &gd3dDevice));      // return created device
-
-
-	LPD3DXBUFFER error_buf;
-    fprintf(stderr, "Compiling shader...\n");
-	HR(D3DXCreateEffectFromFile(gd3dDevice, "Lighting.fx", NULL, NULL, 0, NULL, &m_DefaultEffect, &error_buf))
-	if (error_buf)
-		fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
-    fprintf(stderr, "done.\n");
 }
 
 int D3DApp::run()
