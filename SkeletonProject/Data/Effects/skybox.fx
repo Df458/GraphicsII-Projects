@@ -1,4 +1,5 @@
-uniform extern float4x4 matWVP;
+uniform extern float4x4 matVP;
+uniform extern float4 view;
 uniform extern texture  SkyTexture;
 
 samplerCUBE sstate = sampler_state {
@@ -15,7 +16,7 @@ void SkyVS(float3 position : POSITION0,
            out float4 outpos : POSITION0,
            out float3 texcoord : TEXCOORD0)
 {
-      outpos = mul(float4(position, 1.0f), matWVP).xyww;
+      outpos = mul(float4(position.xyz, 1.0f), matVP).xyzw;
 
       texcoord = position;
 }
