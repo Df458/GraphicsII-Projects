@@ -38,32 +38,32 @@ protected:
 
     //---------- Shader Handles ----------
     // Generic shader handles
-    D3DXHANDLE          m_WorldMatHandle;
-    D3DXHANDLE          m_ITWorldMatHandle;
-    D3DXHANDLE          m_ViewProjectionMatHandle;
+    D3DXHANDLE          m_WorldMatHandle = 0;
+	D3DXHANDLE          m_ITWorldMatHandle = 0;
+	D3DXHANDLE          m_ViewProjectionMatHandle = 0;
 
-    D3DXHANDLE          m_LightPosWHandle;       // Position (spot/point) / Direction (directional)
-    D3DXHANDLE          m_LightColorHandle;
-    D3DXHANDLE          m_ViewerPosWHandle;
+	D3DXHANDLE          m_LightPosWHandle = 0;       // Position (spot/point) / Direction (directional)
+	D3DXHANDLE          m_LightColorHandle = 0;
+	D3DXHANDLE          m_ViewerPosWHandle = 0;
 
     // Material specific shader handles
-    D3DXHANDLE          m_AmbientColHandle;
-    D3DXHANDLE          m_DiffuseColHandle;
-    D3DXHANDLE          m_SpecularColHandle;
-    D3DXHANDLE          m_ShininessHandle;
-    D3DXHANDLE          m_AttenuationHandle;
+	D3DXHANDLE          m_AmbientColHandle = 0;
+	D3DXHANDLE          m_DiffuseColHandle = 0;
+	D3DXHANDLE          m_SpecularColHandle = 0;
+	D3DXHANDLE          m_ShininessHandle = 0;
+	D3DXHANDLE          m_AttenuationHandle = 0;
 
-	D3DXHANDLE			ToggleSpecularHandle;
-	D3DXHANDLE			ToggleDiffuseHandle;
+	D3DXHANDLE			ToggleSpecularHandle = 0;
+	D3DXHANDLE			ToggleDiffuseHandle = 0;
 
 	//Texture Thngs
 	int					ToggleTexture;
 	IDirect3DTexture9*  m_Texture;
 	D3DXHANDLE          m_TextureHandle;
-	D3DXHANDLE			ToggleTextureHandle;
+	D3DXHANDLE			ToggleTextureHandle = 0;
 
 
-    D3DXHANDLE          m_Technique;
+	D3DXHANDLE          m_Technique = 0;
 
 public:
     BaseMaterial(D3DXVECTOR3 amb = D3DXVECTOR3(0.1f, 0.1f, 0.1f), D3DXVECTOR3 diff = D3DXVECTOR3(0.9f, 0.9f, 0.9f), D3DXVECTOR3 spec = D3DXVECTOR3(1.0f, 1.0f, 1.0f), float shine = 0.1f);

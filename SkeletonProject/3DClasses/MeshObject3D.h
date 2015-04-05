@@ -12,5 +12,5 @@ public:
 	virtual BaseMaterial* getMaterial(void);
 
 protected:
-    LPD3DXMESH m_Mesh;
+    LPD3DXMESH m_Mesh = 0;
 };

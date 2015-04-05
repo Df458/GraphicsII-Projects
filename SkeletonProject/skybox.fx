@@ -1,7 +1,7 @@
 uniform extern float4x4 matWVP;
 uniform extern texture  SkyTexture;
 
-sampler sstate = sampler_state {
+samplerCUBE sstate = sampler_state {
       Texture   = <SkyTexture>;
       MinFilter = LINEAR;
       MagFilter = LINEAR;
@@ -17,12 +17,14 @@ void SkyVS(float3 position : POSITION0,
 {
       outpos = mul(float4(position, 1.0f), matWVP).xyww;
 
-      texcoord = posL;
+      texcoord = position;
 }
 
 float4 SkyPS(float3 texcoord : TEXCOORD0) : COLOR
 {
-      return texCUBE(texcoord, SkyTexture);
+    return texCUBE(sstate, texcoord);
+	//return tex2D(sstate, texcoord.xy);
+	//return float4(texcoord, 1.0f);
 }
 
 technique SkyTech

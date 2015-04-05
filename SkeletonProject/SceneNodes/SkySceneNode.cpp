@@ -1,5 +1,7 @@
 #include "../d3dUtil.h"
 #include "SkySceneNode.h"
+#include "../Scene.h"
+#include "CameraSceneNode.h"
 #include "../Materials/SkyBoxMaterial.h"
 #include "../3DClasses/UVSphereObject3D.h"
 #include "../Utils.h"
@@ -11,11 +13,15 @@ SkySceneNode::SkySceneNode()
     ID3DXEffect* effect;
 	LPD3DXBUFFER error_buf;
     fprintf(stderr, "Compiling shader...\n");
-	HR(D3DXCreateEffectFromFile(gd3dDevice, "Lighting.fx", NULL, NULL, 0, NULL, &effect, &error_buf))
-	if (error_buf)
-		fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
+	D3DXCreateEffectFromFile(gd3dDevice, "skybox.fx", NULL, NULL, 0, NULL, &effect, &error_buf);
+	if (error_buf) {
+		//fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
+		MessageBox(NULL, (char*)error_buf->GetBufferPointer(), "Error", MB_OK | MB_ICONERROR);
+		exit(1);
+	}
     fprintf(stderr, "done.\n");
-    m_Model = new UVSphereObject3D(5, 6, 8, new SkyBoxMaterial((getPath() + "cubemap.png").c_str()), effect); // Needs an effect
+    m_Model = new UVSphereObject3D(5, 8, 8, new SkyBoxMaterial((getPath() + "cubemap.png").c_str()), effect); // Needs an effect
+	m_Model->Create(gd3dDevice);
 }
 
 SkySceneNode::SkySceneNode(float x, float y, float z, float xRot, float yRot, float zRot)
@@ -36,6 +42,8 @@ SkySceneNode::SkySceneNode(rapidxml::xml_node<>* node, ID3DXEffect* effect)
 
 void SkySceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
 {
+	D3DXVECTOR4 t = activeScene->getActiveFocus()->getTranslation();
+	D3DXMatrixTranslation(&m_Translation, t.x, t.y, t.z);
 	m_World = m_Scale * m_Rotation * m_Translation;
     D3DXMATRIX world = activeScene->getTopMatrix() * m_World;
     D3DXMATRIX view = activeScene->getView();

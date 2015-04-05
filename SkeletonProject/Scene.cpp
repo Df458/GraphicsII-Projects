@@ -17,7 +17,7 @@ Scene::Scene(const char* filepath, ID3DXEffect* effect)
 {
     m_RootNode = new SceneNode();
     m_Sky = 0xffffff;
-    //setActiveSky(new SkySceneNode()); // Load this eventually
+    setActiveSky(new SkySceneNode()); // Load this eventually
     if(!loadLevel(filepath, effect))
         fprintf(stderr, "Failed to load level: %s\n", filepath);
     else

@@ -105,11 +105,13 @@
     <ClCompile Include="DirectInput.cpp" />
     <ClCompile Include="GfxStats.cpp" />
     <ClCompile Include="Materials\BaseMaterial.cpp" />
+    <ClCompile Include="Materials\SkyBoxMaterial.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneNodes\CameraSceneNode.cpp" />
     <ClCompile Include="SceneNodes\LightSceneNode.cpp" />
     <ClCompile Include="SceneNodes\ModelSceneNode.cpp" />
     <ClCompile Include="SceneNodes\SceneNode.cpp" />
+    <ClCompile Include="SceneNodes\SkySceneNode.cpp" />
     <ClCompile Include="SkeletonClass.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
@@ -132,11 +134,13 @@
     <ClInclude Include="DirectInput.h" />
     <ClInclude Include="GfxStats.h" />
     <ClInclude Include="Materials\BaseMaterial.h" />
+    <ClInclude Include="Materials\SkyBoxMaterial.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneNodes\CameraSceneNode.h" />
     <ClInclude Include="SceneNodes\LightSceneNode.h" />
     <ClInclude Include="SceneNodes\ModelSceneNode.h" />
     <ClInclude Include="SceneNodes\SceneNode.h" />
+    <ClInclude Include="SceneNodes\SkySceneNode.h" />
     <ClInclude Include="SkeletonClass.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
