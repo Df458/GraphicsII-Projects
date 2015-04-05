@@ -6,6 +6,7 @@
 
 class SceneNode;
 class CameraSceneNode;
+class SkySceneNode;
 class LightSceneNode;
 
 class Scene {
@@ -25,8 +26,10 @@ public:
 	SceneNode* getNode(UINT uid);
 
     bool setActiveCamera(CameraSceneNode* camera);
+    bool setActiveSky(SkySceneNode* sky);
     LightSceneNode* getActiveLight(void);
 	CameraSceneNode* getActiveCamera(void);
+	SkySceneNode* getActiveSky(void);
     SceneNode* getActiveFocus(void) { return m_ActiveFocus; }
 	SceneNode* getRootNode(void);
 
@@ -50,6 +53,7 @@ protected:
     D3DCOLOR m_Sky;
     CameraSceneNode* m_ActiveCamera;
     LightSceneNode* m_ActiveLight;
+    SkySceneNode* m_ActiveSky = NULL;
     std::set<SceneNode*> m_Nodes;
     std::stack<D3DXMATRIX> m_MatrixStack;
     float m_LastWidth = 1;

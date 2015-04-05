@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "SceneNodes/SceneNode.h"
 #include "SceneNodes/CameraSceneNode.h"
+#include "SceneNodes/SkySceneNode.h"
 #include "SceneNodes/LightSceneNode.h"
 #include "SceneNodes/ModelSceneNode.h"
 #include "Materials/BaseMaterial.h"
@@ -16,6 +17,7 @@ Scene::Scene(const char* filepath, ID3DXEffect* effect)
 {
     m_RootNode = new SceneNode();
     m_Sky = 0xffffff;
+    //setActiveSky(new SkySceneNode()); // Load this eventually
     if(!loadLevel(filepath, effect))
         fprintf(stderr, "Failed to load level: %s\n", filepath);
     else
@@ -259,6 +261,14 @@ bool Scene::setActiveCamera(CameraSceneNode* camera)
         return false;
     m_ActiveCamera = camera;
     m_ActiveCamera->rebuildProjection(m_LastWidth, m_LastHeight);
+    return true;
+}
+
+bool Scene::setActiveSky(SkySceneNode* sky)
+{
+    if(!containsNode(sky) && !addNode(sky))
+        return false;
+    m_ActiveSky = sky;
     return true;
 }
 
