@@ -1,6 +1,8 @@
 #include "LightSceneNode.h"
+#include "SkySceneNode.h"
 #include "../Materials/BaseMaterial.h"
 #include "../3DClasses/UVSphereObject3D.h"
+#include "../Scene.h"
 
 using namespace rapidxml;
 
@@ -69,5 +71,5 @@ void LightSceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     D3DXMATRIX view = activeScene->getView();
     D3DXMATRIX proj = activeScene->getProjection();
     LightSceneNode* light = this;
-    m_Model->Render(gd3dDevice, world, view, proj, light);
+    m_Model->Render(gd3dDevice, world, view, proj, light, activeScene->getActiveSky()->getSkyTexture());
 }

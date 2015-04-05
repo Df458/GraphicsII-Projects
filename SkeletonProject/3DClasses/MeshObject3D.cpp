@@ -27,7 +27,7 @@ void MeshObject3D::Create(IDirect3DDevice9* gd3dDevice)
     ReleaseCOM(temp);
 }
 
-void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light)
+void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light, IDirect3DCubeTexture9* cube)
 {
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
@@ -47,7 +47,7 @@ void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXM
     unsigned passes = m_Material->PreRender();
     for(unsigned i = 0; i < passes; ++i)
     {
-        m_Material->Render(world, vp, D3DXVECTOR4(vpos), i, light);
+        m_Material->Render(world, vp, D3DXVECTOR4(vpos), i, light, cube);
 
         HR(m_Mesh->DrawSubset(0));
         m_Material->PostPass();

@@ -29,7 +29,7 @@ public:
     bool setActiveSky(SkySceneNode* sky);
     LightSceneNode* getActiveLight(void);
 	CameraSceneNode* getActiveCamera(void);
-	SkySceneNode* getActiveSky(void);
+	SkySceneNode* getActiveSky(void) { return m_ActiveSky; }
     SceneNode* getActiveFocus(void) { return m_ActiveFocus; }
 	SceneNode* getRootNode(void);
 

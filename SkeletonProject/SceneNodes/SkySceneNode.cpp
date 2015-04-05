@@ -17,8 +17,9 @@ SkySceneNode::SkySceneNode()
 	//D3DXCreateEffectFromFile(gd3dDevice, "skybox.fx", NULL, NULL, 0, NULL, &effect, &error_buf);
 	effect = gResourceManager->GetEffect("skybox.fx");
 	
+	m_Mat = new SkyBoxMaterial("OutputCube.dds");
     fprintf(stderr, "done.\n");
-    m_Model = new UVSphereObject3D(5, 8, 8, new SkyBoxMaterial("cubemap.png"), effect); // Needs an effect
+    m_Model = new UVSphereObject3D(5, 8, 8, m_Mat, effect); // Needs an effect
 	m_Model->Create(gd3dDevice);
 }
 
@@ -27,7 +28,7 @@ SkySceneNode::SkySceneNode(float x, float y, float z, float xRot, float yRot, fl
     printf("Unimplemented stub\n");
     m_Parent = NULL;
     D3DXMatrixIdentity(&m_World);
-    m_Model = new UVSphereObject3D(1, 6, 8, new SkyBoxMaterial("cubemap.png")); // Needs an effect
+    m_Model = new UVSphereObject3D(1, 6, 8, new SkyBoxMaterial("OutputCube.dds")); // Needs an effect
 }
 
 SkySceneNode::SkySceneNode(rapidxml::xml_node<>* node, ID3DXEffect* effect)
@@ -35,7 +36,7 @@ SkySceneNode::SkySceneNode(rapidxml::xml_node<>* node, ID3DXEffect* effect)
     printf("Unimplemented stub\n");
     m_Parent = NULL;
     D3DXMatrixIdentity(&m_World);
-    m_Model = new UVSphereObject3D(1, 6, 8, new SkyBoxMaterial("cubemap.png")); // Needs an effect
+    m_Model = new UVSphereObject3D(1, 6, 8, new SkyBoxMaterial("OutputCube.dds")); // Needs an effect
 }
 
 void SkySceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
@@ -47,5 +48,9 @@ void SkySceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     D3DXMATRIX view = activeScene->getView();
     D3DXMATRIX proj = activeScene->getProjection();
     LightSceneNode* light = activeScene->getActiveLight();
-    m_Model->Render(gd3dDevice, world, view, proj, light);
+    m_Model->Render(gd3dDevice, world, view, proj, light, NULL);
+}
+
+IDirect3DCubeTexture9* SkySceneNode::getSkyTexture() {
+	return m_Mat->getSkyTexture();
 }

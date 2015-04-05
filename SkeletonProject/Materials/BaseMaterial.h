@@ -60,6 +60,7 @@ protected:
 	int					ToggleTexture;
 	IDirect3DTexture9*  m_Texture;
 	D3DXHANDLE          m_TextureHandle;
+	D3DXHANDLE          m_SkyTextureHandle;
 	D3DXHANDLE			ToggleTextureHandle = 0;
 
 
@@ -73,7 +74,7 @@ public:
 
     virtual void ConnectToEffect( ID3DXEffect* effect );
     virtual unsigned PreRender(void);
-    virtual void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light ); 
+    virtual void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light, IDirect3DCubeTexture9* cube); 
     virtual void PostPass(void);
     virtual void PostRender(void);
 

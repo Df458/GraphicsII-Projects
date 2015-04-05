@@ -129,6 +129,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_AttenuationHandle = effect->GetParameterByName(0, "vAttenuation");
 
 	m_TextureHandle = effect->GetParameterByName(0, "Texture");
+	m_SkyTextureHandle = effect->GetParameterByName(0, "SkyTexture");
 
 	ToggleTextureHandle = effect->GetParameterByName(0, "ToggleTexture");
 	ToggleSpecularHandle = effect->GetParameterByName(0, "ToggleSpecular");
@@ -147,7 +148,7 @@ unsigned BaseMaterial::PreRender(void)
     return passes;
 }
 
-void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light)
+void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light, IDirect3DCubeTexture9* cube)
 {
 	if (!light)
 	{
@@ -176,6 +177,7 @@ void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVEC
 	HR(m_Effect->SetInt(ToggleTextureHandle, ToggleTexture));
 	if (m_Texture != nullptr)
 		HR(m_Effect->SetTexture(m_TextureHandle, m_Texture));
+	HR(m_Effect->SetTexture(m_SkyTextureHandle, cube));
 	HR(m_Effect->CommitChanges());
 	HR(m_Effect->BeginPass(pass));
 }

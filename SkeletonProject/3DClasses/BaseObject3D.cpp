@@ -43,7 +43,7 @@ void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice)
 
 //-----------------------------------------------------------------------------
 void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
-    D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light)
+    D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light, IDirect3DCubeTexture9* cube)
 {
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
@@ -57,7 +57,7 @@ void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
     D3DXMATRIX vp = view * projection;
     for(unsigned i = 0; i < passes; ++i)
     {
-        m_Material->Render(world, vp, D3DXVECTOR4(vpos), i, light);
+        m_Material->Render(world, vp, D3DXVECTOR4(vpos), i, light, cube);
 
         // Set the buffers and format
         HR(gd3dDevice->SetStreamSource(0, m_VertexBuffer, 0, sizeof(VertexPos)));

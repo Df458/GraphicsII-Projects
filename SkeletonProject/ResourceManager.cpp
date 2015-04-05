@@ -70,6 +70,31 @@ unsigned int ResourceManager::GetTextureID(std::string TextureName)
 	return 0; //change to default error texture;
 }
 
+unsigned int ResourceManager::GetCubeTextureID(std::string TextureName)
+{
+	unsigned int hashID = crc32(TextureName);
+	//If texture is loaded
+	if (CubeTextureExists(hashID))
+		return hashID;
+	else //try to load texture
+	{
+		//if it can be loaded
+		if (LoadCubeTexture(TextureName))
+		{
+			return hashID;
+		}
+		else
+		{
+			//TODO: RETURN DEFAULT ERROR TEXTURE AND POST ERROR LOG AND DEBUG CONSOLE
+			std::string msg = "Cannot find Cube Texture file: " + TextureName;
+			MessageBox(NULL, msg.c_str(), "Error", MB_OK | MB_ICONERROR);
+			PostQuitMessage(0);
+			return 0;
+		}
+	}
+	return 0; //change to default error texture;
+}
+
 unsigned int ResourceManager::GetModelID(std::string ModelName)
 {
 	unsigned int hashID = crc32(ModelName);
@@ -111,7 +136,7 @@ unsigned int ResourceManager::GetEffectID(std::string EffectName)
 		else
 		{
 			//TODO: RETURN DEFAULT ERROR EFFECT AND POST ERROR LOG AND DEBUG CONSOLE
-			std::string msg = "Cannot find Effect File: " + EffectName;
+			std::string msg = "Cannot find Effect File: " + EffectFilePath + EffectName;
 			MessageBox(NULL, msg.c_str() , "Error", MB_OK | MB_ICONERROR);
 			PostQuitMessage(0);
 			return 0;
@@ -134,6 +159,27 @@ IDirect3DTexture9* ResourceManager::GetTexture(unsigned int TextureID)
 	{
 		//TODO: RETURN DEFAULT ERROR TEXTURE AND POST ERROR LOG AND DEBUG CONSOLE
 		std::string msg = "Cannot find Texture file with ID : " + std::to_string(TextureID);
+		MessageBox(NULL, msg.c_str(), "Error", MB_OK | MB_ICONERROR);
+		PostQuitMessage(0);
+		return nullptr;
+	}
+	return nullptr; //change to default error texture;
+}
+
+IDirect3DCubeTexture9* ResourceManager::GetCubeTexture(std::string TextureName)
+{
+	return cubeTextureMap.at(GetCubeTextureID(TextureName));
+}
+
+IDirect3DCubeTexture9* ResourceManager::GetCubeTexture(unsigned int TextureID)
+{
+	//If texture is loaded
+	if (CubeTextureExists(TextureID))
+		return cubeTextureMap.at(TextureID);
+	else 
+	{
+		//TODO: RETURN DEFAULT ERROR TEXTURE AND POST ERROR LOG AND DEBUG CONSOLE
+		std::string msg = "Cannot find Cube Texture file with ID : " + std::to_string(TextureID);
 		MessageBox(NULL, msg.c_str(), "Error", MB_OK | MB_ICONERROR);
 		PostQuitMessage(0);
 		return nullptr;
@@ -199,6 +245,22 @@ bool ResourceManager::LoadTexture(std::string TextureName)
 	return true;
 }
 
+bool ResourceManager::LoadCubeTexture(std::string TextureName)
+{
+	HRESULT result = S_OK;
+	IDirect3DCubeTexture9* pTexture;
+	result = D3DXCreateCubeTextureFromFile(gd3dDevice, (TextureFilePath + TextureName).c_str(), &pTexture);
+	if (FAILED(result))
+	{
+		MessageBox(NULL, ("Error loading Cube Texture " + TextureName + "Add Defaults Later.").c_str(), "Error", MB_OK | MB_ICONERROR);
+		PostQuitMessage(0);
+
+		return false;
+	}	
+    cubeTextureMap.insert(std::pair<unsigned int, IDirect3DCubeTexture9*>(crc32(TextureName), pTexture));
+	return true;
+}
+
 bool ResourceManager::LoadEffect(std::string EffectName)
 {
 	HRESULT result = S_OK;
@@ -259,6 +321,21 @@ bool ResourceManager::TextureExists(unsigned int TextureUID)
 	return false;
 }
 
+bool ResourceManager::CubeTextureExists(std::string TextureName)
+{
+	return CubeTextureExists(crc32(TextureName));
+}
+
+bool ResourceManager::CubeTextureExists(unsigned int TextureUID)
+{
+	if (cubeTextureMap.find(TextureUID) != cubeTextureMap.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+
 bool ResourceManager::ModelExists(std::string ModelName)
 {
 	return ModelExists(crc32(ModelName));
@@ -305,6 +382,26 @@ void ResourceManager::UnloadTexture(unsigned int TextureUID)
 void ResourceManager::UnloadTexture(std::string TextureName)
 {
 	UnloadTexture(crc32(TextureName));
+}
+
+void ResourceManager::UnloadCubeTexture(unsigned int TextureUID)
+{
+	if (CubeTextureExists(TextureUID))
+	{
+		cubeTextureMap.at(TextureUID)->Release();
+		cubeTextureMap.at(TextureUID) = NULL;
+
+		cubeTextureMap.erase(TextureUID);
+	}
+	else
+	{
+		//TODO: Log Resource not found Error Here.
+	}
+}
+
+void ResourceManager::UnloadCubeTexture(std::string TextureName)
+{
+	UnloadCubeTexture(crc32(TextureName));
 }
 
 void ResourceManager::UnloadEffect(unsigned int EffectUID)

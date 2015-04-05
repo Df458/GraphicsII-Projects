@@ -14,6 +14,7 @@ uniform extern float    valShininess;
 
 uniform extern texture  Texture;
 uniform extern texture  NormalTexture;
+uniform extern texture  SkyTexture;
 
 uniform extern int ToggleTexture;
 uniform extern int ToggleSpecular;
@@ -26,6 +27,14 @@ sampler sstate = sampler_state {
     MipFilter = LINEAR;
 	AddressU  = WRAP;
     AddressV  = WRAP;
+};
+samplerCUBE skysampler = sampler_state {
+      Texture   = <SkyTexture>;
+      MinFilter = LINEAR;
+      MagFilter = LINEAR;
+      MipFilter = LINEAR;
+      AddressU  = WRAP;
+      AddressV  = WRAP;
 };
 
 struct OutputVSG
@@ -127,6 +136,10 @@ float4 PhongPS(OutputVS input) : COLOR
 	float3 Reflect = normalize(2 * Diffuse * Normal - LightDirection); // Calculate reflections
 	float4 Specular = pow(saturate(dot(Reflect, -ViewDirection)), 8); // Calculate Specular (Relections.ViewDirection)^8
 
+	// REFLECT STUFF IS RIGHT HERE!!
+	float3 emt = reflect(-ViewDirection, Normal);
+	float3 rcolor = texCUBE(skysampler, emt);
+
 	//Specular = float4(0, 0, 0, 0);
 	//return colAmbient + Shadow * (colDiffuse * Diffuse + Specular);
 
@@ -142,7 +155,7 @@ float4 PhongPS(OutputVS input) : COLOR
 	Diffuse = mul(Diffuse, ToggleDiffuse);
 	Specular = mul(Specular, ToggleSpecular);
 
-	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse + Specular);
+	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse * rcolor + Specular);
 }
 
 

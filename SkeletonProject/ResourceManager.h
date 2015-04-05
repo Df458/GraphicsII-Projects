@@ -46,11 +46,14 @@ public:
 
 	//DirectX 9 Resource Management
 	unsigned int		GetTextureID(std::string TextureName);
+	unsigned int		GetCubeTextureID(std::string TextureName);
 	unsigned int		GetModelID(std::string ModelName);
 	unsigned int		GetEffectID(std::string EffectName);
 	
 	IDirect3DTexture9*	GetTexture(std::string TextureName);
 	IDirect3DTexture9*	GetTexture(unsigned int TextureUID);
+	IDirect3DCubeTexture9*	GetCubeTexture(std::string TextureName);
+	IDirect3DCubeTexture9*	GetCubeTexture(unsigned int TextureUID);
 	ID3DXEffect*		GetEffect(std::string  EffectName);
 	ID3DXEffect*		GetEffect(unsigned int EffectUID);
 	LPD3DXMESH			GetMesh(std::string MeshName);
@@ -58,6 +61,8 @@ public:
 
 	bool				TextureExists(std::string TextureName);
 	bool				TextureExists(unsigned int TextureUID);
+	bool				CubeTextureExists(std::string TextureName);
+	bool				CubeTextureExists(unsigned int TextureUID);
 	bool				ModelExists(std::string ModelName);
 	bool				ModelExists(unsigned int MeshUID);
 	bool				EffectExists(std::string EffectName);
@@ -65,6 +70,8 @@ public:
 
 	void				UnloadTexture(unsigned int TextureUID);
 	void				UnloadTexture(std::string TextureName);
+	void				UnloadCubeTexture(unsigned int TextureUID);
+	void				UnloadCubeTexture(std::string TextureName);
 	void				UnloadEffect(unsigned int EffectUID);
 	void				UnloadEffect(std::string EffectName);
 	void				UnloadMesh(unsigned int MeshUID);
@@ -80,6 +87,7 @@ public:
 private:
 	//DirectX 9 Resources
 	std::map<unsigned int, IDirect3DTexture9*> textureMap;
+	std::map<unsigned int, IDirect3DCubeTexture9*> cubeTextureMap;
 	std::map<unsigned int, ID3DXEffect*> effectMap;
 	std::map<unsigned int, LPD3DXMESH> meshMap;
 	
@@ -88,6 +96,7 @@ private:
 
 	//DirectX 9 Resource Management
 	bool LoadTexture(std::string TextureName);
+	bool LoadCubeTexture(std::string TextureName);
 	bool LoadEffect(std::string EffectName);
 	bool LoadMesh(std::string MeshName);
 

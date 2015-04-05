@@ -9,6 +9,8 @@
 #include "../3DClasses/TeapotObject3D.h"
 #include "../3DClasses/UVSphereObject3D.h"
 #include "../Materials/BaseMaterial.h"
+#include "SkySceneNode.h"
+#include "../Scene.h"
 
 using namespace rapidxml;
 
@@ -87,7 +89,7 @@ void ModelSceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     D3DXMATRIX view = activeScene->getView();
     D3DXMATRIX proj = activeScene->getProjection();
     LightSceneNode* light = activeScene->getActiveLight();
-    m_Model->Render(gd3dDevice, world, view, proj, light);
+    m_Model->Render(gd3dDevice, world, view, proj, light, activeScene->getActiveSky()->getSkyTexture());
 }
 
 void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node, BaseMaterial* mat, ID3DXEffect* effect)
