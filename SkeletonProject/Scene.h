@@ -51,8 +51,8 @@ protected:
     SceneNode* m_RootNode;
     SceneNode* m_ActiveFocus = NULL;
     D3DCOLOR m_Sky;
-    CameraSceneNode* m_ActiveCamera;
-    LightSceneNode* m_ActiveLight;
+    CameraSceneNode* m_ActiveCamera = NULL;
+    LightSceneNode* m_ActiveLight = NULL;
     SkySceneNode* m_ActiveSky = NULL;
     std::set<SceneNode*> m_Nodes;
     std::stack<D3DXMATRIX> m_MatrixStack;

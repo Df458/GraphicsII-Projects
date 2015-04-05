@@ -10,6 +10,7 @@
 #include "SceneNodes/ModelSceneNode.h"
 #include "Materials/BaseMaterial.h"
 #include "Utils.h"
+#include "ResourceManager.h"
 
 using namespace rapidxml;
 
@@ -108,7 +109,7 @@ void Scene::updateSize(float w, float h)
 
 bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
 {
-    char* text_buffer = loadFileContents(filepath);
+    char* text_buffer = gResourceManager->loadSceneData(filepath);
     if(!text_buffer)
         return false;
 

@@ -2,7 +2,7 @@
 #include <cstdio>
 
 char* loadFileContents(const char* filepath) {
-    FILE* file = fopen((getPath() + filepath).c_str(), "rb");
+    FILE* file = fopen(filepath, "rb");
     if(!file) {
         fprintf(stderr, "Failed to load %s: File not found.", (getPath() + filepath).c_str());
         return NULL;
