@@ -50,7 +50,8 @@ void SkySceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     D3DXMATRIX view = activeScene->getActiveCamera()->getView();
     D3DXMATRIX proj = activeScene->getProjection();
     LightSceneNode* light = activeScene->getActiveLight();
-    m_Model->Render(gd3dDevice, m_World, activeScene->getActiveCamera()->getFocusView(), view, proj, light, NULL);
+    D3DXMATRIX fc = activeScene->getActiveCamera()->getFocusView();
+    m_Model->Render(gd3dDevice, m_World, fc, view, proj, light, NULL);
 }
 
 IDirect3DCubeTexture9* SkySceneNode::getSkyTexture() {
