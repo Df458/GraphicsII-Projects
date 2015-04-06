@@ -13,19 +13,19 @@ DEFINE_SINGLETON(GfxStats);
 //=============================================================================
 
 GfxStats::GfxStats()
-: mFont(0), mFPS(0.0f), mMilliSecPerFrame(0.0f), mNumTris(0), mNumVertices(0)
+	: mFont(0), mFPS(0.0f), mMilliSecPerFrame(0.0f), mNumTris(0), mNumVertices(0)
 {
 	D3DXFONT_DESC fontDesc;
-	fontDesc.Height          = 18;
-    fontDesc.Width           = 0;
-    fontDesc.Weight          = 0;
-    fontDesc.MipLevels       = 1;
-    fontDesc.Italic          = false;
-    fontDesc.CharSet         = DEFAULT_CHARSET;
-    fontDesc.OutputPrecision = OUT_DEFAULT_PRECIS;
-    fontDesc.Quality         = DEFAULT_QUALITY;
-    fontDesc.PitchAndFamily  = DEFAULT_PITCH | FF_DONTCARE;
-    _tcscpy(fontDesc.FaceName, _T("Times New Roman"));
+	fontDesc.Height = 18;
+	fontDesc.Width = 0;
+	fontDesc.Weight = 0;
+	fontDesc.MipLevels = 1;
+	fontDesc.Italic = false;
+	fontDesc.CharSet = DEFAULT_CHARSET;
+	fontDesc.OutputPrecision = OUT_DEFAULT_PRECIS;
+	fontDesc.Quality = DEFAULT_QUALITY;
+	fontDesc.PitchAndFamily = DEFAULT_PITCH | FF_DONTCARE;
+	_tcscpy(fontDesc.FaceName, _T("Times New Roman"));
 
 	HR(D3DXCreateFontIndirect(gd3dDevice, &fontDesc, &mFont));
 }
@@ -78,7 +78,7 @@ void GfxStats::setVertexCount(DWORD n)
 void GfxStats::update(float dt)
 {
 	// Make static so that their values persist accross function calls.
-	static float numFrames   = 0.0f;
+	static float numFrames = 0.0f;
 	static float timeElapsed = 0.0f;
 
 	// Increment the frame count.
@@ -90,7 +90,7 @@ void GfxStats::update(float dt)
 	// Has one second passed?--we compute the frame statistics once 
 	// per second.  Note that the time between frames can vary so 
 	// these stats are averages over a second.
-	if( timeElapsed >= 1.0f )
+	if (timeElapsed >= 1.0f)
 	{
 		// Frames Per Second = numFrames / timeElapsed,
 		// but timeElapsed approx. equals 1.0, so 
@@ -104,7 +104,7 @@ void GfxStats::update(float dt)
 		// Reset time counter and frame count to prepare for computing
 		// the average stats over the next second.
 		timeElapsed = 0.0f;
-		numFrames   = 0.0f;
+		numFrames = 0.0f;
 	}
 }
 
@@ -113,8 +113,8 @@ void GfxStats::display()
 	// Make static so memory is not allocated every frame.
 	static char buffer[2048];
 
-    sprintf(buffer, "Frames Per Second = %.2f\nMilliseconds Per Frame = %.4f\nTriangle Count = %lu\nVertex Count = %lu\n\nPress G to toggle Gouraud/Phong\nPress W to toggle Wireframe\nPress T to toggle Texture\nPress O to Cycle Objects\nPress S to toggle Specular\nPress D to toggle Diffuse\nPress G to toggle Gouraud/Phong\nPress F for Fullscreen\nMouse to look\n", mFPS, mMilliSecPerFrame, mNumTris, mNumVertices);
+	sprintf(buffer, "Frames Per Second = %.2f\nMilliseconds Per Frame = %.4f\nTriangle Count = %lu\nVertex Count = %lu\n\n\nPress W to toggle Wireframe\nPress T to toggle Texture\nPress O to Cycle Objects\nPress R to toggle reflections\nPress N to toggle normals\nPress - or + to change Reflect/Specular Blending\nPress A or S to change normal strength\nPress 1-7 to control specular coefficient\nPress F for Fullscreen\nMouse to look\n", mFPS, mMilliSecPerFrame, mNumTris, mNumVertices);
 
-    RECT R = {5, 5, 0, 0};
-    HR(mFont->DrawText(0, buffer, -1, &R, DT_NOCLIP, D3DCOLOR_XRGB(125,0,0)));
+	RECT R = { 5, 5, 0, 0 };
+	HR(mFont->DrawText(0, buffer, -1, &R, DT_NOCLIP, D3DCOLOR_XRGB(125, 0, 0)));
 }
