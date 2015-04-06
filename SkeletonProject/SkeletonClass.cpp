@@ -178,21 +178,21 @@ void SkeletonClass::updateScene(float dt)
 	//Assignment 4 Controls
 	if (gDInput->keyDown(DIK_ADD))
 	{
-		if (!pA)
+		if (!pPlus)
 			m_Scene->DEBUGBLENDSPECULARREFLECTION(-0.01f);
-		pA = true;
+		pPlus = true;
 	}
 	else
-		pA = false;
+		pPlus = false;
 
 	if (gDInput->keyDown(DIK_MINUS))
 	{
-		if (!pS)
+		if (!pMinus)
 			m_Scene->DEBUGBLENDSPECULARREFLECTION(0.01f);
-		pS = true;
+		pMinus = true;
 	}
 	else
-		pS = false;
+		pMinus = false;
 
 	if (gDInput->keyDown(DIK_A))
 	{
@@ -246,7 +246,7 @@ void SkeletonClass::updateScene(float dt)
 		pN = true;
 	}
 	else
-		pR = false;
+		pN = false;
 
 	if (gDInput->keyDown(DIK_O))
 	{

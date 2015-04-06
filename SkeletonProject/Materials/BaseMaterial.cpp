@@ -30,6 +30,8 @@ BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, 
 	ReflectionCoefficient = 0.1f;
 	NormalStrength = 1.0f;
 	SpecularPower = 8;
+
+	m_Normal = gResourceManager->GetTexture("normal.png");
 }
 
 BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, float shine)
@@ -49,6 +51,8 @@ BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, 
 	ReflectionCoefficient = 0.1f;
 	NormalStrength = 1.0f;
 	SpecularPower = 8;
+
+	m_Normal = gResourceManager->GetTexture("normal.png");
 }
 
 
@@ -67,6 +71,8 @@ BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 	ReflectionCoefficient = 0.1f;
 	NormalStrength = 1.0f;
 	SpecularPower = 8;
+
+	m_Normal = gResourceManager->GetTexture("normal.png");
 
     if(xml_attribute<>* shine = node->first_attribute("shine", 5, false))
         m_Shininess = atof(shine->value());
@@ -150,6 +156,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_AttenuationHandle			= effect->GetParameterByName(0, "vAttenuation");
 
 	m_TextureHandle				= effect->GetParameterByName(0, "Texture");
+	m_NormalHandle				= effect->GetParameterByName(0, "NormalTexture");
 	m_SkyTextureHandle			= effect->GetParameterByName(0, "SkyTexture");
 
 	ToggleTextureHandle			= effect->GetParameterByName(0, "ToggleTexture");
@@ -211,6 +218,7 @@ void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVEC
 	HR(m_Effect->SetInt(NormalStrengthHandle, NormalStrength));
 	if (m_Texture != nullptr)
 		HR(m_Effect->SetTexture(m_TextureHandle, m_Texture));
+	HR(m_Effect->SetTexture(m_NormalHandle, m_Normal));
 	HR(m_Effect->SetTexture(m_SkyTextureHandle, cube));
 	HR(m_Effect->CommitChanges());
 	HR(m_Effect->BeginPass(pass));

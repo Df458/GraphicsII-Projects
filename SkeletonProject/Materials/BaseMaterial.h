@@ -64,7 +64,9 @@ protected:
 	//Texture Thngs
 	int					ToggleTexture;
 	IDirect3DTexture9*  m_Texture;
+	IDirect3DTexture9*	m_Normal;
 	D3DXHANDLE          m_TextureHandle;
+	D3DXHANDLE          m_NormalHandle;
 	D3DXHANDLE          m_SkyTextureHandle;
 	D3DXHANDLE			ToggleTextureHandle = 0;
 
