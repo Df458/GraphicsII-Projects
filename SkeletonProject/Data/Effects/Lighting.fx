@@ -91,8 +91,8 @@ float4 PhongPS(OutputVS input) : COLOR
 	float4 Specular = pow(saturate(dot(Reflect, -ViewDirection)), 8); // Calculate Specular (Relections.ViewDirection)^8
 
 	// REFLECT STUFF IS RIGHT HERE!!
-	float3 emt = reflect(-ViewDirection, Normal);
-	float4 rcolor = texCUBE(skysampler, emt);
+	//float3 emt = reflect(-ViewDirection, Normal);
+	float4 rcolor = texCUBE(skysampler, Normal);
 
 	//Specular = float4(0, 0, 0, 0);
 	//return colAmbient + Shadow * (colDiffuse * Diffuse + Specular);
