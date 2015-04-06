@@ -35,6 +35,16 @@ sampler sstate = sampler_state {
 	AddressU  = WRAP;
     AddressV  = WRAP;
 };
+
+sampler normalbump = sampler_state {
+    Texture = <NormalTexture>;
+    MinFilter = LINEAR;
+    MagFilter = LINEAR;
+    MipFilter = LINEAR;
+	AddressU  = WRAP;
+    AddressV  = WRAP;
+};
+
 samplerCUBE skysampler = sampler_state {
       Texture   = <SkyTexture>;
       MinFilter = LINEAR;
@@ -61,11 +71,16 @@ struct OutputVS //vertex shader output
 	float2 uv		: TEXCOORD3;
 };
 
-OutputVS PhongVS(float4 pos : POSITION0, float3 normal : NORMAL0, float2 uv : TEXCOORD0)
+OutputVS PhongVS(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXCOORD0, float3 Tangent : TANGENT)
 {
 	//Set inital output to 0
 	OutputVS outVS = (OutputVS)0;
-
+	
+	float3x3 toTangentSpace;
+	toTangentSpace[0] = mul(Tangent, matWorld);
+	toTangentSpace[1] = mul(cross(Tangent, normal), matWorld);
+	toTangentSpace[2] = mul(normal, matWorld);
+	
 	//Make the matrix for in world view * Projection
 	float4x4 matWorldViewProj = mul(matWorld, matVP);
 
@@ -76,9 +91,11 @@ OutputVS PhongVS(float4 pos : POSITION0, float3 normal : NORMAL0, float2 uv : TE
 	float3 worldPos = mul(pos, matWorld).xyz;
 
 	//  Sets the light vector to the unit vectors of the lighting position - world space
-	outVS.light = normalize(vLightPos - worldPos);;
-
+	outVS.light = normalize(vLightPos - worldPos);
+	outVS.light = mul(toTangentSpace, outVS.light);
+	
 	outVS.view = vViewPos - normalize(mul(pos, matWorld));// Sets the view vector
+	outVS.view = mul(toTangentSpace, outVS.view);
 	outVS.normal = mul(normal, matWorld);// Sets the normal vector
 
 	outVS.uv = uv;
@@ -87,7 +104,8 @@ OutputVS PhongVS(float4 pos : POSITION0, float3 normal : NORMAL0, float2 uv : TE
 
 float4 PhongPS(OutputVS input) : COLOR
 {
-	float3 Normal = normalize(input.normal);
+	//float3 Normal = normalize(input.normal);
+	float3 Normal = NormalStr*2*(tex2D(normalbump, input.uv) - 0.5);
 	float3 LightDirection = input.light;
 	float3 ViewDirection = normalize(input.view);
 
@@ -115,7 +133,7 @@ float4 PhongPS(OutputVS input) : COLOR
 	//Specular = mul(Specular, ToggleSpecular);
 	rcolor = mul(rcolor, ToggleReflection);
 	
-	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse + rcolor * ReflectionCoef + Specular * SpecularCoef);
+	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse + rcolor * (ReflectionCoef * 10) + Specular * (SpecularCoef * 10));
 	//return TextureColor * colAmbient + (rcolor + Specular);
 	//return TextureColor * colAmbient * AmbientCoef + (TextureColor + colDiffuse * Diffuse) * DiffuseCoef + rcolor + Specular * SpecularCoef;
 }
