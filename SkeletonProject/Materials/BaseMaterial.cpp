@@ -135,7 +135,7 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
 	ToggleSpecularHandle = effect->GetParameterByName(0, "ToggleSpecular");
 	ToggleDiffuseHandle = effect->GetParameterByName(0, "ToggleDiffuse");
 
-    m_Technique = m_Effect->GetTechniqueByName("GouraudSolid");
+    m_Technique = m_Effect->GetTechniqueByName("PhongSolid");
 }
 
 //=============================================================================
@@ -226,20 +226,7 @@ void BaseMaterial::DEBUGTOGGLEWIREFRAME()
 		ToggleWire = 1;
 	}
 	updateTech();
-}
-
-void BaseMaterial::DEBUGTOGGLETYPE()
-{
-	if (Gouraud == 1) {
-		Gouraud = 0;
-		tech = "Phong";
-	}
-	else{
-		Gouraud = 1;
-		tech = "Gouraud";
-	}
-	updateTech();
-}
+} 
 
 void BaseMaterial::updateTech()
 {
