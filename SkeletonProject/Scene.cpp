@@ -37,22 +37,48 @@ void Scene::DEBUGTOGGLETEXTURE()
 			node->getMaterial()->DEBUGTOGGLETEXTURE();
 	}
 }
-
-void Scene::DEBUGTOGGLESPECULAR()
+void Scene::DEBUGBLENDSPECULARREFLECTION(float increment)
 {
 	for (auto node : m_Nodes)
 	{
 		if (node->getMaterial())
-			node->getMaterial()->DEBUGTOGGLESPECULAR();
+			node->getMaterial()->DEBUGBLENDSPECULARREFLECTION(increment);
 	}
 }
 
-void Scene::DEBUGTOGGLEDIFFUSE()
+void Scene::DEBUGTOGGLENORMAL()
 {
 	for (auto node : m_Nodes)
 	{
 		if (node->getMaterial())
-			node->getMaterial()->DEBUGTOGGLEDIFFUSE();
+			node->getMaterial()->DEBUGTOGGLENORMAL();
+	}
+}
+
+void Scene::DEBUGSPECULARPOWER(int power)
+{
+	for (auto node : m_Nodes)
+	{
+		if (node->getMaterial())
+			node->getMaterial()->DEBUGSPECULARPOWER(power);
+	}
+}
+
+void Scene::DEBUGNORMALSTRENGTH(float increment)
+{
+	for (auto node : m_Nodes)
+	{
+		if (node->getMaterial())
+			node->getMaterial()->DEBUGNORMALSTRENGTH(increment);
+	}
+}
+
+void Scene::DEBUGTOGGLEREFLECTION()
+{
+	for (auto node : m_Nodes)
+	{
+		if (node->getMaterial())
+			node->getMaterial()->DEBUGTOGGLEREFLECTION();
 	}
 }
 
@@ -65,10 +91,6 @@ void Scene::DEBUGTOGGLEWIREFRAME()
 	}
 }
 
-void Scene::DEBUGTOGGLETYPE()
-{
-	
-}
 
 void Scene::DEBUGCYCLESCENES()
 {

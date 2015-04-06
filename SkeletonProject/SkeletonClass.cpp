@@ -92,8 +92,18 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	pT = false;
 	pO = false;
 	pS = false;
-	pD = false;
-	pG = false;
+	pA = false;
+	pPlus = false;
+	pMinus = false;
+	p1 = false;
+	p2 = false;
+	p3 = false;
+	p4 = false;
+	p5 = false;
+	p6 = false;
+	p7 = false;
+	pR = false;
+	pN = false;
 
 	onResetDevice();
 }
@@ -165,11 +175,38 @@ void SkeletonClass::updateScene(float dt)
 		m_Camera->setFocus(m_Scene->getActiveFocus());
 
 
-	//Assignment 3 Controls
+	//Assignment 4 Controls
+	if (gDInput->keyDown(DIK_ADD))
+	{
+		if (!pA)
+			m_Scene->DEBUGBLENDSPECULARREFLECTION(-0.01f);
+		pA = true;
+	}
+	else
+		pA = false;
+
+	if (gDInput->keyDown(DIK_MINUS))
+	{
+		if (!pS)
+			m_Scene->DEBUGBLENDSPECULARREFLECTION(0.01f);
+		pS = true;
+	}
+	else
+		pS = false;
+
+	if (gDInput->keyDown(DIK_A))
+	{
+		if (!pA)
+			m_Scene->DEBUGNORMALSTRENGTH(-0.01f);
+		pA = true;
+	}
+	else
+		pA = false;
+
 	if (gDInput->keyDown(DIK_S))
 	{
 		if (!pS)
-			m_Scene->DEBUGTOGGLESPECULAR();
+			m_Scene->DEBUGNORMALSTRENGTH(0.01f);
 		pS = true;
 	}
 	else
@@ -193,14 +230,23 @@ void SkeletonClass::updateScene(float dt)
 	else
 		pT = false;
 
-	if (gDInput->keyDown(DIK_D))
+	if (gDInput->keyDown(DIK_R))
 	{
-		if (!pD)
-			m_Scene->DEBUGTOGGLEDIFFUSE();
-		pD = true;
+		if (!pR)
+			m_Scene->DEBUGTOGGLEREFLECTION();
+		pR = true;
 	}
 	else
-		pD = false;
+		pR = false;
+
+	if (gDInput->keyDown(DIK_N))
+	{
+		if (!pN)
+			m_Scene->DEBUGTOGGLENORMAL();
+		pN = true;
+	}
+	else
+		pR = false;
 
 	if (gDInput->keyDown(DIK_O))
 	{
@@ -218,31 +264,68 @@ void SkeletonClass::updateScene(float dt)
 	else
 		pO = false;
 
-	if (gDInput->keyDown(DIK_G))
+	if (gDInput->keyDown(DIK_1))
 	{
-		pG = true;
+		if (!p1)
+			m_Scene->DEBUGSPECULARPOWER(1);
+		p1 = true;
 	}
 	else
-		pG = false;
+		p1 = false;
 
-	/*
-    if (gDInput->keyDown(DIK_W))
-        m_Camera->Translate(0, 0, 25.0f * dt, true, true);
+	if (gDInput->keyDown(DIK_2))
+	{
+		if (!p2)
+			m_Scene->DEBUGSPECULARPOWER(2);
+		p2 = true;
+	}
+	else
+		p2 = false;
 
-    if (gDInput->keyDown(DIK_S))
-        m_Camera->Translate(0, 0, -25.0f * dt, true, true);
+	if (gDInput->keyDown(DIK_3))
+	{
+		if (!p3)
+			m_Scene->DEBUGSPECULARPOWER(3);
+		p3 = true;
+	}
+	else
+		p3 = false;
 
-    if (gDInput->keyDown(DIK_A))
-        m_Camera->Translate(-25.0f * dt, 0, 0, true, true);
+	if (gDInput->keyDown(DIK_4))
+	{
+		if (!p4)
+			m_Scene->DEBUGSPECULARPOWER(4);
+		p4 = true;
+	}
+	else
+		p4 = false;
 
-    if (gDInput->keyDown(DIK_D))
-        m_Camera->Translate(25.0f * dt, 0, 0, true, true);
-    
-    if (gDInput->keyDown(DIK_Q))
-        m_Camera->Translate(0, -25.0f * dt, 0, true);
+	if (gDInput->keyDown(DIK_5))
+	{
+		if (!p5)
+			m_Scene->DEBUGSPECULARPOWER(5);
+		p5 = true;
+	}
+	else
+		p5 = false;
+	
+	if (gDInput->keyDown(DIK_6))
+	{
+		if (!p6)
+			m_Scene->DEBUGSPECULARPOWER(6);
+		p6 = true;
+	}
+	else
+		p6 = false;
 
-    if (gDInput->keyDown(DIK_E))
-        m_Camera->Translate(0, 25.0f * dt, 0, true);*/
+	if (gDInput->keyDown(DIK_7))
+	{
+		if (!p7)
+			m_Scene->DEBUGSPECULARPOWER(7);
+		p7 = true;
+	}
+	else
+		p7 = false;
 
     m_Scene->Update(dt);
 }

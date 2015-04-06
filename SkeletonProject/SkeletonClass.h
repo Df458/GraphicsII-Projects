@@ -61,8 +61,18 @@ private:
 		pT,
 		pO,
 		pS,
-		pG,
-		pD;
+		pA,
+		pPlus,
+		pMinus,
+		p1,
+		p2,
+		p3,
+		p4,
+		p5,
+		p6,
+		p7,
+		pR,
+		pN;
 
     Scene* m_Scene;
     CameraSceneNode* m_Camera;

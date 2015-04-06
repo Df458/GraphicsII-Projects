@@ -16,9 +16,16 @@ uniform extern texture  Texture;
 uniform extern texture  NormalTexture;
 uniform extern texture  SkyTexture;
 
-uniform extern int ToggleTexture;
-uniform extern int ToggleSpecular;
-uniform extern int ToggleDiffuse;
+uniform extern int		ToggleTexture;
+uniform extern int		ToggleReflection;
+uniform extern int		ToggleNormal;
+uniform extern int		SpecularPower;
+uniform extern float    AmbientCoef;
+uniform extern float    DiffuseCoef;
+uniform extern float    SpecularCoef;
+uniform extern float    ReflectionCoef;
+uniform extern float	NormalStr;
+
 
 sampler sstate = sampler_state {
     Texture = <Texture>;
@@ -106,8 +113,8 @@ float4 PhongPS(OutputVS input) : COLOR
 
 	//Set ToggleDiffuse & ToggleDiffuse int to 1 to let variables be themselves
 	//Set ToggleDiffuse & ToggleDiffuse int to 0 to set variables to 0
-	Diffuse = mul(Diffuse, ToggleDiffuse);
-	Specular = mul(Specular, ToggleSpecular);
+	//Diffuse = mul(Diffuse, ToggleDiffuse);
+	//Specular = mul(Specular, ToggleSpecular);
 
 	//return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse * rcolor + Specular);
 	return TextureColor * colAmbient + (rcolor + Specular);

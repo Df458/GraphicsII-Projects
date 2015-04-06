@@ -20,9 +20,16 @@ BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, 
 	ToggleTexture = 0;
 	m_Effect = NULL;
 	m_Texture = nullptr;
-	ToggleDiffuse = 1;
-	ToggleSpecular = 1;
+	ToggleNormal = 1;
+	ToggleReflection = 1;
 	ToggleWire = 0;
+
+	AmbientCoefficient = 0.2f;
+	DiffuseCoefficient = 0.65f;
+	SpecularCoefficient = 0.15f;
+	ReflectionCoefficient = 0.1f;
+	NormalStrength = 1.0f;
+	SpecularPower = 8;
 }
 
 BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, float shine)
@@ -31,10 +38,17 @@ BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, 
 	id = 1;
 	ToggleTexture = 1;
 	m_Effect = NULL;
-	ToggleDiffuse = 1;
-	ToggleSpecular = 1;
+	ToggleNormal = 1;
+	ToggleReflection = 1;
 	ToggleWire = 0;
 	m_Texture = gResourceManager->GetTexture(name);
+
+	AmbientCoefficient = 0.2f;
+	DiffuseCoefficient = 0.65f;
+	SpecularCoefficient = 0.15f;
+	ReflectionCoefficient = 0.1f;
+	NormalStrength = 1.0f;
+	SpecularPower = 8;
 }
 
 
@@ -43,9 +57,16 @@ BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 	id = 1;
 	m_Effect = NULL;
 	ToggleTexture = 1;
-	ToggleDiffuse = 1;
-	ToggleSpecular = 1;
+	ToggleNormal = 1;
+	ToggleReflection = 1;
 	ToggleWire = 0;
+	
+	AmbientCoefficient = 0.2f;
+	DiffuseCoefficient = 0.65f;
+	SpecularCoefficient = 0.15f;
+	ReflectionCoefficient = 0.1f;
+	NormalStrength = 1.0f;
+	SpecularPower = 8;
 
     if(xml_attribute<>* shine = node->first_attribute("shine", 5, false))
         m_Shininess = atof(shine->value());
@@ -114,26 +135,33 @@ void BaseMaterial::ConnectToEffect( ID3DXEffect* effect )
     m_Effect = effect;
     if(!m_Effect)
         printf("Error: trying to connect a null effect\n");
-    m_WorldMatHandle = effect->GetParameterByName(0, "matWorld");
-    m_ITWorldMatHandle = effect->GetParameterByName(0, "matITWorld");
-    m_ViewProjectionMatHandle = effect->GetParameterByName(0, "matVP");
+    m_WorldMatHandle			= effect->GetParameterByName(0, "matWorld");
+    m_ITWorldMatHandle			= effect->GetParameterByName(0, "matITWorld");
+    m_ViewProjectionMatHandle	= effect->GetParameterByName(0, "matVP");
 
-    m_LightPosWHandle = effect->GetParameterByName(0, "vLightPos");
-    m_ViewerPosWHandle = effect->GetParameterByName(0, "vViewPos");
+    m_LightPosWHandle			= effect->GetParameterByName(0, "vLightPos");
+    m_ViewerPosWHandle			= effect->GetParameterByName(0, "vViewPos");
 
-    m_LightColorHandle = effect->GetParameterByName(0, "colLight");
-    m_AmbientColHandle = effect->GetParameterByName(0, "colAmbient");
-    m_DiffuseColHandle = effect->GetParameterByName(0, "colDiffuse");
-    m_SpecularColHandle = effect->GetParameterByName(0, "colSpecular");
-    m_ShininessHandle = effect->GetParameterByName(0, "valShininess");
-    m_AttenuationHandle = effect->GetParameterByName(0, "vAttenuation");
+    m_LightColorHandle			= effect->GetParameterByName(0, "colLight");
+    m_AmbientColHandle			= effect->GetParameterByName(0, "colAmbient");
+    m_DiffuseColHandle			= effect->GetParameterByName(0, "colDiffuse");
+    m_SpecularColHandle			= effect->GetParameterByName(0, "colSpecular");
+    m_ShininessHandle			= effect->GetParameterByName(0, "valShininess");
+    m_AttenuationHandle			= effect->GetParameterByName(0, "vAttenuation");
 
-	m_TextureHandle = effect->GetParameterByName(0, "Texture");
-	m_SkyTextureHandle = effect->GetParameterByName(0, "SkyTexture");
+	m_TextureHandle				= effect->GetParameterByName(0, "Texture");
+	m_SkyTextureHandle			= effect->GetParameterByName(0, "SkyTexture");
 
-	ToggleTextureHandle = effect->GetParameterByName(0, "ToggleTexture");
-	ToggleSpecularHandle = effect->GetParameterByName(0, "ToggleSpecular");
-	ToggleDiffuseHandle = effect->GetParameterByName(0, "ToggleDiffuse");
+	ToggleTextureHandle			= effect->GetParameterByName(0, "ToggleTexture");
+	ToggleReflectionHandle		= effect->GetParameterByName(0, "ToggleReflection");
+	ToggleNormalHandle			= effect->GetParameterByName(0, "ToggleNormal");
+	SpecularPowerHandle			= effect->GetParameterByName(0, "SpecularPower");
+	AmbientCoefficientHandle	= effect->GetParameterByName(0, "AmbientCoef");
+	DiffuseCoefficientHandle	= effect->GetParameterByName(0, "DiffuseCoef");
+	SpecularCoefficientHandle	= effect->GetParameterByName(0, "SpecularCoef");
+	ReflectionCoefficientHandle = effect->GetParameterByName(0, "ReflectionCoef");
+	NormalStrengthHandle		= effect->GetParameterByName(0, "NormalStr");
+
 
     m_Technique = m_Effect->GetTechniqueByName("PhongSolid");
 }
@@ -172,9 +200,15 @@ void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVEC
 	HR(m_Effect->SetVector(m_LightColorHandle, &light_color));
 	HR(m_Effect->SetVector(m_AttenuationHandle, &lightatt));
 	HR(m_Effect->SetFloat(m_ShininessHandle, m_Shininess));
-	HR(m_Effect->SetInt(ToggleDiffuseHandle, ToggleDiffuse));
-	HR(m_Effect->SetInt(ToggleSpecularHandle, ToggleSpecular));
+	HR(m_Effect->SetInt(ToggleNormalHandle, ToggleNormal));
+	HR(m_Effect->SetInt(ToggleReflectionHandle, ToggleReflection));
 	HR(m_Effect->SetInt(ToggleTextureHandle, ToggleTexture));
+	HR(m_Effect->SetInt(SpecularPowerHandle, SpecularPower));
+	HR(m_Effect->SetInt(AmbientCoefficientHandle, AmbientCoefficient));
+	HR(m_Effect->SetInt(DiffuseCoefficientHandle, DiffuseCoefficient));
+	HR(m_Effect->SetInt(SpecularCoefficientHandle, SpecularCoefficient));
+	HR(m_Effect->SetInt(ReflectionCoefficientHandle, ReflectionCoefficient));
+	HR(m_Effect->SetInt(NormalStrengthHandle, NormalStrength));
 	if (m_Texture != nullptr)
 		HR(m_Effect->SetTexture(m_TextureHandle, m_Texture));
 	HR(m_Effect->SetTexture(m_SkyTextureHandle, cube));
@@ -201,20 +235,20 @@ void BaseMaterial::DEBUGTOGGLETEXTURE()
 		ToggleTexture = 1;
 }
 
-void BaseMaterial::DEBUGTOGGLESPECULAR()
+void BaseMaterial::DEBUGTOGGLENORMAL()
 {
-	if (ToggleSpecular == 1)
-		ToggleSpecular = 0;
+	if (ToggleNormal == 1)
+		ToggleNormal = 0;
 	else
-		ToggleSpecular = 1;
+		ToggleNormal = 1;
 }
 
-void BaseMaterial::DEBUGTOGGLEDIFFUSE()
+void BaseMaterial::DEBUGTOGGLEREFLECTION()
 {
-	if (ToggleDiffuse == 1)
-		ToggleDiffuse = 0;
+	if (ToggleReflection == 1)
+		ToggleReflection = 0;
 	else
-		ToggleDiffuse = 1;
+		ToggleReflection = 1;
 }
 
 void BaseMaterial::DEBUGTOGGLEWIREFRAME()
@@ -226,7 +260,23 @@ void BaseMaterial::DEBUGTOGGLEWIREFRAME()
 		ToggleWire = 1;
 	}
 	updateTech();
-} 
+}
+
+void BaseMaterial::DEBUGBLENDSPECULARREFLECTION(float increment)
+{
+	SpecularCoefficient += increment;
+	ReflectionCoefficient -= increment;
+}
+
+void BaseMaterial::DEBUGSPECULARPOWER(int power)
+{
+	SpecularPower = 2 ^ power;
+}
+
+void BaseMaterial::DEBUGNORMALSTRENGTH(float increment)
+{
+	NormalStrength += increment;
+}
 
 void BaseMaterial::updateTech()
 {

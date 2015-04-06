@@ -30,9 +30,15 @@ protected:
     D3DXVECTOR4         m_SpecularColor;
     float               m_Shininess;            // specular power
 
-	int					ToggleDiffuse;
-	int					ToggleSpecular;
+	int					ToggleReflection;
+	int					ToggleNormal;
 	int					ToggleWire;
+	int					SpecularPower;
+	float				AmbientCoefficient;
+	float				DiffuseCoefficient;
+	float				SpecularCoefficient;
+	float				ReflectionCoefficient;
+	float				NormalStrength;
 	std::string			tech = "Phong";
 
     //---------- Shader Handles ----------
@@ -52,8 +58,8 @@ protected:
 	D3DXHANDLE          m_ShininessHandle = 0;
 	D3DXHANDLE          m_AttenuationHandle = 0;
 
-	D3DXHANDLE			ToggleSpecularHandle = 0;
-	D3DXHANDLE			ToggleDiffuseHandle = 0;
+	D3DXHANDLE			ToggleReflectionHandle = 0;
+	D3DXHANDLE			ToggleNormalHandle = 0;
 
 	//Texture Thngs
 	int					ToggleTexture;
@@ -62,8 +68,15 @@ protected:
 	D3DXHANDLE          m_SkyTextureHandle;
 	D3DXHANDLE			ToggleTextureHandle = 0;
 
-
 	D3DXHANDLE          m_Technique = 0;
+
+	//stuff
+	D3DXHANDLE			SpecularPowerHandle = 0;
+	D3DXHANDLE			AmbientCoefficientHandle = 0;
+	D3DXHANDLE			DiffuseCoefficientHandle = 0;
+	D3DXHANDLE			SpecularCoefficientHandle = 0;
+	D3DXHANDLE			ReflectionCoefficientHandle = 0;
+	D3DXHANDLE			NormalStrengthHandle = 0;
 
 public:
     BaseMaterial(D3DXVECTOR3 amb = D3DXVECTOR3(0.1f, 0.1f, 0.1f), D3DXVECTOR3 diff = D3DXVECTOR3(0.9f, 0.9f, 0.9f), D3DXVECTOR3 spec = D3DXVECTOR3(1.0f, 1.0f, 1.0f), float shine = 0.1f);
@@ -78,9 +91,12 @@ public:
     virtual void PostRender(void);
 
 	void DEBUGTOGGLETEXTURE();
-	void DEBUGTOGGLESPECULAR();
-	void DEBUGTOGGLEDIFFUSE();
+	void DEBUGBLENDSPECULARREFLECTION(float increment);
+	void DEBUGTOGGLENORMAL();
+	void DEBUGSPECULARPOWER(int power);
+	void DEBUGNORMALSTRENGTH(float increment);
 	void DEBUGTOGGLEWIREFRAME();
+	void DEBUGTOGGLEREFLECTION();
 
 	void updateTech();
 };
