@@ -26,6 +26,8 @@ BaseObject3D::~BaseObject3D(void)
 {
     ReleaseCOM(m_VertexBuffer);
 	ReleaseCOM(m_IndexBuffer);
+	delete m_VertexBuffer;
+	delete m_IndexBuffer;
     delete m_Material;
 }
 

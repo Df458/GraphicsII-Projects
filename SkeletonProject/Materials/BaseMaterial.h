@@ -33,8 +33,8 @@ protected:
 	int					ToggleDiffuse;
 	int					ToggleSpecular;
 	int					ToggleWire;
-	int					Gouraud = 1;
-	std::string			tech = "Gouraud";
+	int					Gouraud = 0;
+	std::string			tech = "Phong";
 
     //---------- Shader Handles ----------
     // Generic shader handles
