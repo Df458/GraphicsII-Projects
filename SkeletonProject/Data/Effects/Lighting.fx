@@ -138,7 +138,7 @@ float4 PhongPS(OutputVS input) : COLOR
 
 	// REFLECT STUFF IS RIGHT HERE!!
 	float3 emt = reflect(-ViewDirection, Normal);
-	float3 rcolor = texCUBE(skysampler, emt);
+	float4 rcolor = texCUBE(skysampler, emt);
 
 	//Specular = float4(0, 0, 0, 0);
 	//return colAmbient + Shadow * (colDiffuse * Diffuse + Specular);
@@ -155,7 +155,8 @@ float4 PhongPS(OutputVS input) : COLOR
 	Diffuse = mul(Diffuse, ToggleDiffuse);
 	Specular = mul(Specular, ToggleSpecular);
 
-	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse * rcolor + Specular);
+	//return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse * rcolor + Specular);
+	return TextureColor * colAmbient + (rcolor + Specular);
 }
 
 
