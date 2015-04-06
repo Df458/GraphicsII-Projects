@@ -27,7 +27,7 @@ void MeshObject3D::Create(IDirect3DDevice9* gd3dDevice)
     ReleaseCOM(temp);
 }
 
-void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light, IDirect3DCubeTexture9* cube)
+void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light, IDirect3DCubeTexture9* cube)
 {
     // Update the statistics singlton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
@@ -37,11 +37,12 @@ void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXM
         printf("Error: no mesh\n");
     if(!m_Material)
         printf("Error: no material\n");
-    D3DXVECTOR3 vpos, vscale;
+    D3DXVECTOR3 vscale;
     D3DXQUATERNION quat;
     D3DXMATRIX iview;
     D3DXMatrixInverse(&iview, 0, &view);
-    HR(D3DXMatrixDecompose(&vscale, &quat, &vpos, &view));
+    HR(D3DXMatrixDecompose(&vscale, &quat, &vpos, &iview));
+	OutputDebugString((std::to_string(vpos.x) + "\n").c_str());
     // Set matrices and model relevant render date
     D3DXMATRIX vp = view * projection;
     unsigned passes = m_Material->PreRender();

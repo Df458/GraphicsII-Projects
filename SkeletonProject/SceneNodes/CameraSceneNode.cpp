@@ -76,6 +76,11 @@ D3DXMATRIX CameraSceneNode::getView(void) const
     return *D3DXMatrixInverse(&out, NULL, &out);
 }
 
+D3DXMATRIX CameraSceneNode::getFocusView(void) const
+{
+	return m_FocusView;
+}
+
 D3DXMATRIX CameraSceneNode::getProjection(void) const
 {
     return m_Projection;

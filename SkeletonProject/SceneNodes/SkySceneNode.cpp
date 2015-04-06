@@ -44,13 +44,13 @@ void SkySceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
 	//D3DXVECTOR4 t = activeScene->getActiveCamera()->getTranslation();
 	//D3DXMatrixTranslation(&m_Translation, t.x, t.y, t.z);
 	m_World = m_Scale * m_Rotation * m_Translation;
-    D3DXMATRIX world = activeScene->getTopMatrix() * m_World;
+    //D3DXMATRIX world = activeScene->getActiveCamera()->getFocusView();
 	//D3DXMATRIX world;
 	//D3DXMatrixInverse(&world, NULL, &activeScene->getView());
-    D3DXMATRIX view = activeScene->getView();
+    D3DXMATRIX view = activeScene->getActiveCamera()->getView();
     D3DXMATRIX proj = activeScene->getProjection();
     LightSceneNode* light = activeScene->getActiveLight();
-    m_Model->Render(gd3dDevice, world, view, proj, light, NULL);
+    m_Model->Render(gd3dDevice, m_World, activeScene->getActiveCamera()->getFocusView(), view, proj, light, NULL);
 }
 
 IDirect3DCubeTexture9* SkySceneNode::getSkyTexture() {
