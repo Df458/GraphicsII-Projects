@@ -193,6 +193,7 @@ bool Scene::loadLevel(const char* filepath, ID3DXEffect* effect)
 // Add support for children
 
     delete[] text_buffer;
+
     return true;
 }
 

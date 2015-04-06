@@ -26,6 +26,7 @@ public:
 	D3DXVECTOR4 getTranslation(void) { return D3DXVECTOR4(m_X, m_Y, m_Z, 1.0f); }
 	D3DXVECTOR3 getPosition(void) { return D3DXVECTOR3(m_X, m_Y, m_Z); }
 	D3DXVECTOR3 getRotation(void) { return D3DXVECTOR3(m_Yaw, m_Pitch, m_Roll); }
+	D3DXMATRIX  getWorld(void) { return m_World; }
 
 	void SetRotationLimits(float YawMin, float YawMax, float PitchMin, float PitchMax, float RollMin, float RollMax);
     

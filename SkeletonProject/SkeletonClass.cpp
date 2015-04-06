@@ -84,8 +84,9 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	m_Camera = m_Scene->getActiveCamera();
 	currentobj = 0;
 	m_Scene->loadLevel(objscenes[currentobj], gResourceManager->getDefaultEffect());
-    if(m_Scene->getActiveFocus())
-        m_Camera->setFocus(m_Scene->getActiveFocus());
+	if (m_Scene->getActiveFocus()) {
+		m_Camera->setFocus(m_Scene->getActiveFocus());
+	}
 
 	pW = false;
 	pT = false;
