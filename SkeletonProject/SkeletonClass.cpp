@@ -119,7 +119,7 @@ bool SkeletonClass::checkDeviceCaps()
 void SkeletonClass::onLostDevice()
 {
 	GfxStats::GetInstance()->onLostDevice();
-	gResourceManager->getDefaultEffect()->OnLostDevice();
+	gResourceManager->OnLostDevice();
 }
 
 void SkeletonClass::onResetDevice()
@@ -130,7 +130,7 @@ void SkeletonClass::onResetDevice()
 	// possibly change after a reset.  So rebuild the projection matrix.
 	//buildProjMtx();
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
-	gResourceManager->getDefaultEffect()->OnResetDevice();
+	gResourceManager->OnResetDevice();
 }
 
 void SkeletonClass::updateScene(float dt)

@@ -45,6 +45,18 @@ void ResourceManager::Terminate()
 	}
 }
 
+void ResourceManager::OnLostDevice()
+{
+	for (auto& kv : effectMap)
+		kv.second->OnLostDevice();
+}
+
+void ResourceManager::OnResetDevice()
+{
+	for (auto& kv : effectMap)
+		kv.second->OnResetDevice();
+}
+
 unsigned int ResourceManager::GetTextureID(std::string TextureName)
 {
 	unsigned int hashID = crc32(TextureName);

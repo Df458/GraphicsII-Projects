@@ -77,6 +77,9 @@ public:
 	void				UnloadMesh(unsigned int MeshUID);
 	void				UnloadMesh(std::string MeshName);
 
+	void OnLostDevice();
+	void OnResetDevice();
+
 	//Custom Resource Management
 	char*				loadSceneData(std::string name);//Calls Hugues ASCII data loader 
 	std::string			getSceneDataFilePath(){ return SceneFilePath; };
