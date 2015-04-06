@@ -16,7 +16,7 @@ void SkyVS(float3 position : POSITION0,
            out float4 outpos : POSITION0,
            out float3 texcoord : TEXCOORD0)
 {
-      outpos = mul(float4(position.xyz + view.xyz, 1.0f), matVP).xyzw;
+      outpos = mul(float4(position.xyz, 1.0f), matVP).xyww;
 
       texcoord = position;
 }
