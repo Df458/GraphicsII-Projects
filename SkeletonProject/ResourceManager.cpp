@@ -275,7 +275,7 @@ bool ResourceManager::LoadEffect(std::string EffectName)
 	{
 		char* errlog = (char*)error_buf->GetBufferPointer();
 		fprintf(stderr, "Errors:\n%s\n", (char*)error_buf->GetBufferPointer());
-		MessageBox(NULL, "Errors:", errlog, MB_OK | MB_ICONERROR);
+		MessageBox(NULL, errlog, "Shader Error", MB_OK | MB_ICONERROR);
 		return false;
 	}
 	if (error_buf)
