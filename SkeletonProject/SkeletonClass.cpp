@@ -220,8 +220,6 @@ void SkeletonClass::updateScene(float dt)
 
 	if (gDInput->keyDown(DIK_G))
 	{
-		if (!pG)
-			m_Scene->DEBUGTOGGLETYPE();
 		pG = true;
 	}
 	else

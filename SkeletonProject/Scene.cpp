@@ -67,11 +67,7 @@ void Scene::DEBUGTOGGLEWIREFRAME()
 
 void Scene::DEBUGTOGGLETYPE()
 {
-	for (auto node : m_Nodes)
-	{
-		if (node->getMaterial())
-			node->getMaterial()->DEBUGTOGGLETYPE();
-	}
+	
 }
 
 void Scene::DEBUGCYCLESCENES()
