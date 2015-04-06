@@ -116,5 +116,5 @@ void GfxStats::display()
     sprintf(buffer, "Frames Per Second = %.2f\nMilliseconds Per Frame = %.4f\nTriangle Count = %lu\nVertex Count = %lu\n\nPress G to toggle Gouraud/Phong\nPress W to toggle Wireframe\nPress T to toggle Texture\nPress O to Cycle Objects\nPress S to toggle Specular\nPress D to toggle Diffuse\nPress G to toggle Gouraud/Phong\nPress F for Fullscreen\nMouse to look\n", mFPS, mMilliSecPerFrame, mNumTris, mNumVertices);
 
     RECT R = {5, 5, 0, 0};
-    HR(mFont->DrawText(0, buffer, -1, &R, DT_NOCLIP, D3DCOLOR_XRGB(0,255,0)));
+    HR(mFont->DrawText(0, buffer, -1, &R, DT_NOCLIP, D3DCOLOR_XRGB(125,0,0)));
 }
