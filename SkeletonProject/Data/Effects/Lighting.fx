@@ -64,7 +64,8 @@ struct OutputVSG
 
 struct OutputVS //vertex shader output
 {
-	float4 pos		: POSITION0;
+	float4 A        : COLOR0;
+    float4 pos      : POSITION0;
 	float3 light	: TEXCOORD0;
 	float3 normal	: TEXCOORD1;
 	float3 view		: TEXCOORD2;
@@ -98,6 +99,9 @@ OutputVS PhongVS(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXC
 	outVS.view = mul(toTangentSpace, outVS.view);
 	outVS.normal = mul(normal, matWorld);// Sets the normal vector
 
+	float d = distance(vLightPos, pos);
+	outVS.A.x = vAttenuation.x + vAttenuation.y*d + vAttenuation.z*d*d;
+
 	outVS.uv = uv;
 	return outVS;
 }
@@ -117,7 +121,7 @@ float4 PhongPS(OutputVS input) : COLOR
 
 	// REFLECT STUFF IS RIGHT HERE!!
 	//float3 emt = reflect(-ViewDirection, Normal);
-	float4 rcolor = texCUBE(skysampler, Normal);
+	float4 rcolor = texCUBE(skysampler, Reflect);
 
 	
 	float4 TextureColor = tex2D(sstate, input.uv);
@@ -133,7 +137,8 @@ float4 PhongPS(OutputVS input) : COLOR
 	//Specular = mul(Specular, ToggleSpecular);
 	rcolor = mul(rcolor, ToggleReflection);
 	
-	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse + rcolor * (ReflectionCoef * 10) + Specular * (SpecularCoef * 10));
+	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse * colLight / input.A.x + rcolor * (ReflectionCoef * 10) + Specular * (SpecularCoef * 10) * colLight / input.A.x);
+	//return rcolor;
 	//return TextureColor * colAmbient + (rcolor + Specular);
 	//return TextureColor * colAmbient * AmbientCoef + (TextureColor + colDiffuse * Diffuse) * DiffuseCoef + rcolor + Specular * SpecularCoef;
 }

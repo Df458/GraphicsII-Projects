@@ -211,11 +211,11 @@ void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVEC
 	HR(m_Effect->SetInt(ToggleReflectionHandle, ToggleReflection));
 	HR(m_Effect->SetInt(ToggleTextureHandle, ToggleTexture));
 	HR(m_Effect->SetInt(SpecularPowerHandle, SpecularPower));
-	HR(m_Effect->SetInt(AmbientCoefficientHandle, AmbientCoefficient));
-	HR(m_Effect->SetInt(DiffuseCoefficientHandle, DiffuseCoefficient));
-	HR(m_Effect->SetInt(SpecularCoefficientHandle, SpecularCoefficient));
-	HR(m_Effect->SetInt(ReflectionCoefficientHandle, ReflectionCoefficient));
-	HR(m_Effect->SetInt(NormalStrengthHandle, NormalStrength));
+	HR(m_Effect->SetFloat(AmbientCoefficientHandle, AmbientCoefficient));
+	HR(m_Effect->SetFloat(DiffuseCoefficientHandle, DiffuseCoefficient));
+	HR(m_Effect->SetFloat(SpecularCoefficientHandle, SpecularCoefficient));
+	HR(m_Effect->SetFloat(ReflectionCoefficientHandle, ReflectionCoefficient));
+	HR(m_Effect->SetFloat(NormalStrengthHandle, NormalStrength));
 	if (m_Texture != nullptr)
 		HR(m_Effect->SetTexture(m_TextureHandle, m_Texture));
 	HR(m_Effect->SetTexture(m_NormalHandle, m_Normal));
