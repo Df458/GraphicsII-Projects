@@ -18,6 +18,7 @@
 #include "GfxStats.h"
 #include <list>
 
+#include "CRC32.h"
 #include "ResourceManager.h"
 #include "Scene.h"
 #include "SceneNodes/CameraSceneNode.h"
