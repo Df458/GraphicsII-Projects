@@ -162,14 +162,32 @@
     <ClInclude Include="SkeletonClass.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="CRC32.h">
-      <Filter>Resource Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Materials\SkyBoxMaterial.h">
       <Filter>Materials</Filter>
     </ClInclude>
     <ClInclude Include="SceneNodes\SkySceneNode.h">
       <Filter>Scene Graph\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Scene Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Resource Manager\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Resource Manager\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="CRC32.h">
+      <Filter>Resource Manager\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="HashTable.h">
+      <Filter>Resource Manager\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeTexture.h">
+      <Filter>Resource Manager\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Resource Manager\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +220,12 @@
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{9edef6e0-3917-484f-a210-512b9126af18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Manager\Resources">
+      <UniqueIdentifier>{12e12546-2aa5-4ffb-af6e-464fc35eaddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Manager\Hashing">
+      <UniqueIdentifier>{62440db0-5b89-469b-8dab-7922931c4c59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

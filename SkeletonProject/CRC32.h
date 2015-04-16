@@ -1,7 +1,7 @@
 /************************************************************************
 								CRC32.h
-Author: Johnathan O'Malia © 2014
-Description: CRC precomputed tables and function.
+Author: Johnathan O'Malia © 2015
+Description:	CRC precomputed tables and function and Compile Time Macros.
 
 /************************************************************************/
 
@@ -9,10 +9,18 @@ Description: CRC precomputed tables and function.
 #define CRC32_H_
 
 #include <string>
+#include <inttypes.h>
 
+#ifdef _DEBUG
+typedef std::string UniqueID;
+#else
+typedef unsigned int UniqueID;
+#endif // _DEBUG
+
+typedef unsigned char uchar_t;
 /// <summary>
 /// Precomputed lookup table for XOR operations regarding one byte</summary>
-const unsigned int crc_table_32[256] =
+const uint32_t crc_table_32[256] =
 {
 	0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA, 0x076DC419, 0x706AF48F, 0xE963A535, 0x9E6495A3,
 	0x0EDB8832, 0x79DCB8A4, 0xE0D5E91E, 0x97D2D988, 0x09B64C2B, 0x7EB17CBD, 0xE7B82D07, 0x90BF1D91,
@@ -50,7 +58,7 @@ const unsigned int crc_table_32[256] =
 
 /// <summary>
 /// Precomputed lookup table for XOR operations regarding two bytes</summary>
-const unsigned int crc_table_40[256] =
+const uint32_t crc_table_40[256] =
 {
 	0x00000000, 0x191B3141, 0x32366282, 0x2B2D53C3, 0x646CC504, 0x7D77F445, 0x565AA786, 0x4F4196C7,
 	0xC8D98A08, 0xD1C2BB49, 0xFAEFE88A, 0xE3F4D9CB, 0xACB54F0C, 0xB5AE7E4D, 0x9E832D8E, 0x87981CCF,
@@ -88,7 +96,7 @@ const unsigned int crc_table_40[256] =
 
 /// <summary>
 /// Precomputed lookup table for XOR operations regarding three bytes</summary>
-const unsigned int crc_table_48[256] =
+const uint32_t crc_table_48[256] =
 {
 	0x00000000, 0x01C26A37, 0x0384D46E, 0x0246BE59, 0x0709A8DC, 0x06CBC2EB, 0x048D7CB2, 0x054F1685,
 	0x0E1351B8, 0x0FD13B8F, 0x0D9785D6, 0x0C55EFE1, 0x091AF964, 0x08D89353, 0x0A9E2D0A, 0x0B5C473D,
@@ -126,7 +134,7 @@ const unsigned int crc_table_48[256] =
 
 /// <summary>
 /// Precomputed lookup table for XOR operations regarding four bytes</summary>
-const unsigned int crc_table_56[256] =
+const uint32_t crc_table_56[256] =
 {
 	0x00000000, 0xB8BC6765, 0xAA09C88B, 0x12B5AFEE, 0x8F629757, 0x37DEF032, 0x256B5FDC, 0x9DD738B9,
 	0xC5B428EF, 0x7D084F8A, 0x6FBDE064, 0xD7018701, 0x4AD6BFB8, 0xF26AD8DD, 0xE0DF7733, 0x58631056,
@@ -164,7 +172,7 @@ const unsigned int crc_table_56[256] =
 
 /// <summary>
 /// Precomputed lookup table for XOR operations regarding five bytes</summary>
-const unsigned int crc_table_64[256] =
+const uint32_t crc_table_64[256] =
 {
 	0x00000000, 0x3D6029B0, 0x7AC05360, 0x47A07AD0, 0xF580A6C0, 0xC8E08F70, 0x8F40F5A0, 0xB220DC10,
 	0x30704BC1, 0x0D106271, 0x4AB018A1, 0x77D03111, 0xC5F0ED01, 0xF890C4B1, 0xBF30BE61, 0x825097D1,
@@ -202,7 +210,7 @@ const unsigned int crc_table_64[256] =
 
 /// <summary>
 /// Precomputed lookup table for XOR operations regarding six bytes</summary>
-const unsigned int crc_table_72[256] =
+const uint32_t crc_table_72[256] =
 {
 	0x00000000, 0xCB5CD3A5, 0x4DC8A10B, 0x869472AE, 0x9B914216, 0x50CD91B3, 0xD659E31D, 0x1D0530B8,
 	0xEC53826D, 0x270F51C8, 0xA19B2366, 0x6AC7F0C3, 0x77C2C07B, 0xBC9E13DE, 0x3A0A6170, 0xF156B2D5,
@@ -240,7 +248,7 @@ const unsigned int crc_table_72[256] =
 
 /// <summary>
 /// Precomputed lookup table for XOR operations regarding seven bytes</summary>
-const unsigned int crc_table_80[256] =
+const uint32_t crc_table_80[256] =
 {
 	0x00000000, 0xA6770BB4, 0x979F1129, 0x31E81A9D, 0xF44F2413, 0x52382FA7, 0x63D0353A, 0xC5A73E8E,
 	0x33EF4E67, 0x959845D3, 0xA4705F4E, 0x020754FA, 0xC7A06A74, 0x61D761C0, 0x503F7B5D, 0xF64870E9,
@@ -278,7 +286,7 @@ const unsigned int crc_table_80[256] =
 
 /// <summary>
 /// Precomputed lookup table for XOR operations regarding eight bytes</summary>
-const unsigned int crc_table_88[256] =
+const uint32_t crc_table_88[256] =
 {
 	0x00000000, 0xCCAA009E, 0x4225077D, 0x8E8F07E3, 0x844A0EFA, 0x48E00E64, 0xC66F0987, 0x0AC50919,
 	0xD3E51BB5, 0x1F4F1B2B, 0x91C01CC8, 0x5D6A1C56, 0x57AF154F, 0x9B0515D1, 0x158A1232, 0xD92012AC,
@@ -316,19 +324,19 @@ const unsigned int crc_table_88[256] =
 
 /// <summary>
 /// Hashes the string given using CRC32</summary>
-/// <param name="name">Char Name</param>
+/// <param name="name">String Name</param>
 /// <returns>Hashed String</returns>
-static const unsigned int crc32(std::string name)
+static uint32_t crc32(std::string name)
 {
 	size_t unHashedLength = name.length(); //Each ASCII Character(1 byte) to be hashed
-	unsigned int crc_Hash = -1; //Set to max
-	const unsigned int* current = (const unsigned int*)name.c_str();
+	uint32_t crc_Hash = -1; //Set to max
+	const uint32_t* current = (const uint32_t*)name.c_str();
 
 	//Hash 8 at a time
 	while (unHashedLength >= 8)
 	{
-		unsigned int first = *current++ ^ crc_Hash;
-		unsigned int second = *current++;
+		uint32_t first = *current++ ^ crc_Hash;
+		uint32_t second = *current++;
 		crc_Hash =
 			crc_table_32[(second >> 24) & 0xFF] ^
 			crc_table_40[(second >> 16) & 0xFF] ^
@@ -344,7 +352,7 @@ static const unsigned int crc32(std::string name)
 	//Hash 4 at a time
 	if (unHashedLength >= 4)
 	{
-		unsigned int first = *current++ ^ crc_Hash;
+		uint32_t first = *current++ ^ crc_Hash;
 
 		crc_Hash =
 			crc_table_32[(first >> 24) & 0xFF] ^
@@ -354,12 +362,54 @@ static const unsigned int crc32(std::string name)
 		unHashedLength -= 4;
 	}
 
-	const unsigned char* finalChars = (const unsigned char*)current;
+	const uchar_t* finalChars = (const uchar_t*)current;
 	// remaining 3 characters hashed individually
 	while (unHashedLength-- > 0)
 		crc_Hash = (crc_Hash >> 8) ^ crc_table_32[(crc_Hash & 0xFF) ^ *finalChars++];
 
 	return ~crc_Hash; //return inverted
 }
+
+/// <summary>
+/// interns</summary>
+/// <param name="name">String Name</param>
+/// <returns>Hashed String</returns>
+static const UniqueID internString(std::string name)
+{
+#ifdef _DEBUG
+	return name;
+#else
+	return crc32(name);
+#endif
+}
+
+
+/************************************************************************/
+//Compile Time CRC32Hasher
+/************************************************************************/
+
+/// <summary>
+/// Hashes the string given using CRC32 recursively</summary>
+/// <param name="name">Char* Name</param>
+/// <returns>Hashed String</returns>
+template<size_t index>
+constexpr uint32_t crc32(const char * string)
+{
+	return (crc32<index - 1>(string) >> 8) ^ crc_table[(crc32<index - 1>(string) ^ string[index]) & 0x000000FF];
+}
+template<>
+constexpr uint32_t crc32<size_t(-1)>(const char * string)
+{
+	return 0xFFFFFFFF;
+}
+
+#ifdef _DEBUG
+
+#define UID
+
+#else
+#define UID(x) (crc32<sizeof(x) - 2>(x) ^ 0xFFFFFFFF)
+
+#endif
 
 #endif // !CRC_32_H_

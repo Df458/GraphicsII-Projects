@@ -15,7 +15,7 @@ SkySceneNode::SkySceneNode()
 	LPD3DXBUFFER error_buf;
     fprintf(stderr, "Compiling shader...\n");
 	//D3DXCreateEffectFromFile(gd3dDevice, "skybox.fx", NULL, NULL, 0, NULL, &effect, &error_buf);
-	effect = gResourceManager->GetEffect("skybox.fx");
+	effect = (ID3DXEffect*)gResourceManager->GetEffect("skybox.fx")->GetData();
 	
 	m_Mat = new SkyBoxMaterial("OutputCube.dds");
     fprintf(stderr, "done.\n");

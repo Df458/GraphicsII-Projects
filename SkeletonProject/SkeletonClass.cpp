@@ -79,11 +79,17 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 
 	InitAllVertexDeclarations();
 
-	m_Scene = new Scene("TestLevel.xml", gResourceManager->getDefaultEffect());
+	//hard coded loading
+	gResourceManager->LoadTextureResource("normal.png");
+	gResourceManager->LoadTextureResource("test.png");
+	gResourceManager->LoadTextureResource("sphere.png");
+	gResourceManager->LoadEffectResource("skybox.fx");
+
+	m_Scene = new Scene("TestLevel.xml", (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData());
     m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 	m_Camera = m_Scene->getActiveCamera();
 	currentobj = 0;
-	m_Scene->loadLevel(objscenes[currentobj], gResourceManager->getDefaultEffect());
+	m_Scene->loadLevel(objscenes[currentobj], (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData());
 	if (m_Scene->getActiveFocus()) {
 		m_Camera->setFocus(m_Scene->getActiveFocus());
 	}
@@ -255,7 +261,7 @@ void SkeletonClass::updateScene(float dt)
 			if (currentobj >= 6)
 				currentobj = 0;
 			m_Scene->clear();
-			m_Scene->loadLevel(objscenes[currentobj], gResourceManager->getDefaultEffect());
+			m_Scene->loadLevel(objscenes[currentobj], (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData());
 			if (m_Scene->getActiveFocus())
 				m_Camera->setFocus(m_Scene->getActiveFocus());
 		}

@@ -57,7 +57,7 @@ SceneNode::SceneNode(xml_node<>* node)
 	if (xml_node<>* nuid = node->first_node("UID", 3, false))
 	{
 		if (xml_attribute<>* atid = nuid->first_attribute("id", 2, false))
-			UID = atof(atid->value());
+			mID = atof(atid->value());
 	}
     UpdateMatricies();
 }

@@ -30,7 +30,7 @@ public:
 
 	void SetRotationLimits(float YawMin, float YawMax, float PitchMin, float PitchMax, float RollMin, float RollMax);
     
-	UINT getUID(void){ return UID; }
+	UINT getUID(void){ return mID; }
 
     friend class Scene;
 protected:
@@ -56,7 +56,7 @@ protected:
 	D3DXMATRIX m_Rotation;
 	D3DXMATRIX m_Scale;
 
-	UINT UID;
+	unsigned int mID;
 
 	//move to utils
 	float clamp(float num, float min, float max);

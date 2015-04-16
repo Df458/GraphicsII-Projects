@@ -3,7 +3,8 @@
 
 SkyBoxMaterial::SkyBoxMaterial(const char* texture_name)
 {
-	m_CubeTexture = gResourceManager->GetCubeTexture(texture_name);
+	UniqueID cubeID = gResourceManager->LoadCubeTextureResource(texture_name);
+	m_CubeTexture = (IDirect3DCubeTexture9*)gResourceManager->GetCubeTexture(cubeID)->GetData();
 }
 
 void SkyBoxMaterial::ConnectToEffect( ID3DXEffect* effect )
