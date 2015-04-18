@@ -89,14 +89,14 @@ ModelSceneNode::~ModelSceneNode()
 
 BaseMaterial* ModelSceneNode::getMaterial(void)
 { 
-	return m_Model->getMaterial(); 
+	return m_Material; 
 }
+
 void ModelSceneNode::Update(float deltatime)
 {
 	m_Yaw += 1 * deltatime;
 	D3DXMatrixRotationY(&m_Rotation, m_Yaw);
 	m_World = m_Scale * m_Rotation * m_Translation;
-    m_Model->Update(deltatime);
 }
 
 void ModelSceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
@@ -107,7 +107,7 @@ void ModelSceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     D3DXMATRIX proj = activeScene->getProjection();
     LightSceneNode* light = activeScene->getActiveLight();
     D3DXMATRIX fc = activeScene->getActiveCamera()->getFocusView();
-    m_Model->Render(gd3dDevice, world, fc, view, proj, light, activeScene->getActiveSky()->getSkyTexture());
+    m_Model->Render(gd3dDevice, world, fc, view, proj, light, NULL/*activeScene->getActiveSky()->getSkyTexture()*/, m_Material);
 }
 
 void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node)
@@ -125,7 +125,7 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node)
         if(xml_attribute<>* atl = node->first_attribute("radials", 7, false))
             radials = atoi(atl->value());
 
-		m_Model = new UVSphereObject3D(radius, rings, radials, m_Material);
+		m_Model = new UVSphereObject3D(radius, rings, radials);
     }
     else if(!strcmp(name, "cylinder"))
     {
@@ -139,7 +139,7 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node)
 			radius = (float)atof(atr->value());
         if(xml_attribute<>* atl = node->first_attribute("radials", 7, false))
             radials = atoi(atl->value());
-		m_Model = new CylinderObject3D(radius, radials, height, m_Material);
+		m_Model = new CylinderObject3D(radius, radials, height);
     }
     else if(!strcmp(name, "cone"))
     {
@@ -152,7 +152,7 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node)
         unsigned radials = 8;
         if(xml_attribute<>* atl = node->first_attribute("radials", 7, false))
             radials = atoi(atl->value());
-		m_Model = new ConeObject3D(radius, radials, height, m_Material);
+		m_Model = new ConeObject3D(radius, radials, height);
     }
     else if(!strcmp(name, "cube"))
     {
@@ -165,11 +165,11 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node)
         float depth = 1.0f;
         if(xml_attribute<>* atd = node->first_attribute("depth", 5, false))
 			depth = (float)atof(atd->value());
-		m_Model = new SimpleCubeObject3D(m_Material, width, height, depth);
+		m_Model = new SimpleCubeObject3D(width, height, depth);
     }
     else if(!strcmp(name, "teapot"))
     {
-		m_Model = new TeapotObject3D(m_Material);
+		m_Model = new TeapotObject3D();
     }
     else if(!strcmp(name, "torus"))
     {
@@ -185,7 +185,7 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node)
         unsigned rings = 8;
         if(xml_attribute<>* atg = node->first_attribute("rings", 5, false))
             rings = atoi(atg->value());
-		m_Model = new TorusObject3D(radiusi, radiusr, sides, rings, m_Material);
+		m_Model = new TorusObject3D(radiusi, radiusr, sides, rings);
     }
     else
     {

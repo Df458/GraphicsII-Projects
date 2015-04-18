@@ -22,17 +22,8 @@
 #include "ResourceManager.h"
 #include "Scene.h"
 #include "SceneNodes/CameraSceneNode.h"
-#include "SceneNodes/ModelSceneNode.h"
 #include "SkeletonClass.h"
-#include "3DClasses/BaseObject3D.h"
-#include "3DClasses/ConeObject3D.h"
-#include "3DClasses/CuboidObject3D.h"
-#include "3DClasses/CylinderObject3D.h"
-#include "3DClasses/PlainObject3D.h"
-#include "3DClasses/TubeObject3D.h"
-#include "3DClasses/UVSphereObject3D.h"
 #include "3DClasses/Vertex.h"
-#include "Materials/BaseMaterial.h"
 #include "SceneManager.h"
 
 const char* objscenes[6] = {

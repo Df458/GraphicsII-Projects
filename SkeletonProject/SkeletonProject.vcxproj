@@ -88,16 +88,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="3DClasses\BaseObject3D.cpp" />
     <ClCompile Include="3DClasses\ConeObject3D.cpp" />
-    <ClCompile Include="3DClasses\CuboidObject3D.cpp" />
     <ClCompile Include="3DClasses\CylinderObject3D.cpp" />
     <ClCompile Include="3DClasses\MeshObject3D.cpp" />
-    <ClCompile Include="3DClasses\PlainObject3D.cpp" />
     <ClCompile Include="3DClasses\SimpleCubeObject3D.cpp" />
     <ClCompile Include="3DClasses\TeapotObject3D.cpp" />
     <ClCompile Include="3DClasses\TorusObject3D.cpp" />
-    <ClCompile Include="3DClasses\TubeObject3D.cpp" />
     <ClCompile Include="3DClasses\UVSphereObject3D.cpp" />
     <ClCompile Include="3DClasses\Vertex.cpp" />
     <ClCompile Include="d3dApp.cpp" />
@@ -119,16 +115,12 @@
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="3DClasses\BaseObject3D.h" />
     <ClInclude Include="3DClasses\ConeObject3D.h" />
-    <ClInclude Include="3DClasses\CuboidObject3D.h" />
     <ClInclude Include="3DClasses\CylinderObject3D.h" />
     <ClInclude Include="3DClasses\MeshObject3D.h" />
-    <ClInclude Include="3DClasses\PlainObject3D.h" />
     <ClInclude Include="3DClasses\SimpleCubeObject3D.h" />
     <ClInclude Include="3DClasses\TeapotObject3D.h" />
     <ClInclude Include="3DClasses\TorusObject3D.h" />
-    <ClInclude Include="3DClasses\TubeObject3D.h" />
     <ClInclude Include="3DClasses\UVSphereObject3D.h" />
     <ClInclude Include="3DClasses\Vertex.h" />
     <ClInclude Include="CRC32.h" />

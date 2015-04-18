@@ -3,15 +3,14 @@
 #include "../GfxStats.h"
 
 
-TeapotObject3D::TeapotObject3D(BaseMaterial* mat)
-	:MeshObject3D(mat)
+TeapotObject3D::TeapotObject3D()
 {
 	m_VertexCount = 8;
 	m_TriCount = 12;
 	m_IndexCount = 36;
 }
 
-void TeapotObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice) 
+void TeapotObject3D::buildMeshBuffers(IDirect3DDevice9* gd3dDevice) 
 {
     HR(D3DXCreateTeapot(gd3dDevice, &m_Mesh, NULL));
 }

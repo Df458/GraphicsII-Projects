@@ -61,12 +61,12 @@ protected:
 	D3DXHANDLE			ToggleNormalHandle = 0;
 
 	//Texture Thngs
-	int					ToggleTexture;
-	IDirect3DTexture9*  m_Texture;
-	IDirect3DTexture9*	m_Normal;
-	D3DXHANDLE          m_TextureHandle;
-	D3DXHANDLE          m_NormalHandle;
-	D3DXHANDLE          m_SkyTextureHandle;
+	int					ToggleTexture = 0;
+	IDirect3DTexture9*  m_Texture = 0;
+	IDirect3DTexture9*	m_Normal = 0;
+	D3DXHANDLE          m_TextureHandle = 0;
+	D3DXHANDLE          m_NormalHandle = 0;
+	D3DXHANDLE          m_SkyTextureHandle = 0;
 	D3DXHANDLE			ToggleTextureHandle = 0;
 
 	D3DXHANDLE          m_Technique = 0;
@@ -89,7 +89,7 @@ public:
     virtual void ConnectToEffect( ID3DXEffect* effect );
     virtual unsigned PreRender(void);
     virtual void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light, IDirect3DCubeTexture9* cube); 
-    virtual void PostPass(void);
+	virtual void PostPass(void);
     virtual void PostRender(void);
 
 	void DEBUGTOGGLETEXTURE();

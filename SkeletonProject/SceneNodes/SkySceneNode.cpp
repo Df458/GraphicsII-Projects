@@ -77,7 +77,7 @@ SkySceneNode::SkySceneNode(rapidxml::xml_node<>* node)
 		radials = atoi(atl->value());
 
 	m_Mat = new SkyBoxMaterial(effect, texture);
-	m_Model = new UVSphereObject3D(radius, rings, radials, m_Mat);
+	m_Model = new UVSphereObject3D(radius, rings, radials);
 }
 
 void SkySceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
@@ -92,7 +92,7 @@ void SkySceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     D3DXMATRIX proj = activeScene->getProjection();
     LightSceneNode* light = activeScene->getActiveLight();
     D3DXMATRIX fc = activeScene->getActiveCamera()->getFocusView();
-    m_Model->Render(gd3dDevice, m_World, fc, view, proj, light, NULL);
+    m_Model->Render(gd3dDevice, m_World, fc, view, proj, light, NULL, m_Mat);
 }
 
 IDirect3DCubeTexture9* SkySceneNode::getSkyTexture() {

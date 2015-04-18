@@ -9,6 +9,7 @@ enum class LightType {
 };
 
 class MeshObject3D;
+class BaseMaterial;
 
 class LightSceneNode : public SceneNode
 {
@@ -28,5 +29,7 @@ protected:
     bool m_AffectsSpecular;
     LightType m_Type;
     float m_SpotAngle;
+
     MeshObject3D* m_Model;
+	BaseMaterial* m_Material;
 };

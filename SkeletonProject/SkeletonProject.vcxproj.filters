@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="3DClasses\BaseObject3D.cpp">
-      <Filter>3D Objects</Filter>
-    </ClCompile>
     <ClCompile Include="SceneNodes\CameraSceneNode.cpp">
       <Filter>Scene Graph\Nodes</Filter>
     </ClCompile>
@@ -18,15 +15,6 @@
     </ClCompile>
     <ClCompile Include="Materials\SimplePhong.cpp">
       <Filter>Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="3DClasses\CuboidObject3D.cpp">
-      <Filter>3D Objects\Procedual Generated</Filter>
-    </ClCompile>
-    <ClCompile Include="3DClasses\PlainObject3D.cpp">
-      <Filter>3D Objects\Procedual Generated</Filter>
-    </ClCompile>
-    <ClCompile Include="3DClasses\TubeObject3D.cpp">
-      <Filter>3D Objects\Procedual Generated</Filter>
     </ClCompile>
     <ClCompile Include="3DClasses\SimpleCubeObject3D.cpp">
       <Filter>3D Objects\D3DX Generated</Filter>
@@ -88,9 +76,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="3DClasses\BaseObject3D.h">
-      <Filter>3D Objects</Filter>
-    </ClInclude>
     <ClInclude Include="SceneNodes\CameraSceneNode.h">
       <Filter>Scene Graph\Nodes</Filter>
     </ClInclude>
@@ -105,15 +90,6 @@
     </ClInclude>
     <ClInclude Include="Materials\SimplePhong.h">
       <Filter>Materials</Filter>
-    </ClInclude>
-    <ClInclude Include="3DClasses\CuboidObject3D.h">
-      <Filter>3D Objects\Procedual Generated</Filter>
-    </ClInclude>
-    <ClInclude Include="3DClasses\PlainObject3D.h">
-      <Filter>3D Objects\Procedual Generated</Filter>
-    </ClInclude>
-    <ClInclude Include="3DClasses\TubeObject3D.h">
-      <Filter>3D Objects\Procedual Generated</Filter>
     </ClInclude>
     <ClInclude Include="3DClasses\SimpleCubeObject3D.h">
       <Filter>3D Objects\D3DX Generated</Filter>
@@ -207,9 +183,6 @@
     </Filter>
     <Filter Include="3D Objects">
       <UniqueIdentifier>{b46a2e6b-cc8d-45af-a772-d43d1d65deee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3D Objects\Procedual Generated">
-      <UniqueIdentifier>{95173023-caa5-4550-9b88-eaf7a02b0f9e}</UniqueIdentifier>
     </Filter>
     <Filter Include="3D Objects\D3DX Generated">
       <UniqueIdentifier>{bee430f7-9844-46bd-98f3-d173bf8b1fd8}</UniqueIdentifier>

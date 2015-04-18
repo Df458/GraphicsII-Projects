@@ -4,8 +4,7 @@
 #include "../d3dUtil.h"
 
 
-SimpleCubeObject3D::SimpleCubeObject3D(BaseMaterial* mat, float w, float h, float d)
-	:MeshObject3D(mat)
+SimpleCubeObject3D::SimpleCubeObject3D(float w, float h, float d)
 {
     m_Width = w;
     m_Height = h;
@@ -16,7 +15,7 @@ SimpleCubeObject3D::SimpleCubeObject3D(BaseMaterial* mat, float w, float h, floa
 	m_IndexCount = 36;
 }
 
-void SimpleCubeObject3D::buildVertexBuffer(IDirect3DDevice9* gd3dDevice) 
+void SimpleCubeObject3D::buildMeshBuffers(IDirect3DDevice9* gd3dDevice) 
 {
     HR(D3DXCreateBox(gd3dDevice, m_Width, m_Height, m_Depth,  &m_Mesh, NULL));
 }

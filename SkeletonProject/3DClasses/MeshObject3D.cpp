@@ -3,19 +3,13 @@
 #include "../Materials/BaseMaterial.h"
 #include "../GfxStats.h"
 
-MeshObject3D::MeshObject3D(BaseMaterial* mat) : BaseObject3D(mat)
+MeshObject3D::MeshObject3D()
 {
-}
-
-BaseMaterial* MeshObject3D::getMaterial(void)
-{
-	return m_Material;
 }
 
 void MeshObject3D::Create(IDirect3DDevice9* gd3dDevice)
 {
-    buildVertexBuffer( gd3dDevice);
-    buildIndexBuffer( gd3dDevice);
+	buildMeshBuffers(gd3dDevice);
     buildUVBuffer( gd3dDevice);
 
     LPD3DXMESH temp = 0;
@@ -27,7 +21,7 @@ void MeshObject3D::Create(IDirect3DDevice9* gd3dDevice)
     ReleaseCOM(temp);
 }
 
-void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light, IDirect3DCubeTexture9* cube)
+void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light, IDirect3DCubeTexture9* cube, BaseMaterial* material)
 {
     // Update the statistics singleton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
@@ -35,7 +29,7 @@ void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXM
     
     if(!m_Mesh)
         printf("Error: no mesh\n");
-    if(!m_Material)
+    if(!material)
         printf("Error: no material\n");
     D3DXVECTOR3 vscale;
     D3DXQUATERNION quat;
@@ -45,13 +39,13 @@ void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXM
 	OutputDebugString((std::to_string(vpos.x) + "\n").c_str());
     // Set matrices and model relevant render date
     D3DXMATRIX vp = view * projection;
-    unsigned passes = m_Material->PreRender();
+    unsigned passes = material->PreRender();
     for(unsigned i = 0; i < passes; ++i)
     {
-        m_Material->Render(world, vp, D3DXVECTOR4(vpos), i, light, cube);
+        material->Render(world, vp, D3DXVECTOR4(vpos), i, light, cube);
 
         HR(m_Mesh->DrawSubset(0));
-        m_Material->PostPass();
+        material->PostPass();
     }
-    m_Material->PostRender();
+    material->PostRender();
 }
