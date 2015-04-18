@@ -25,7 +25,8 @@ void SkyBoxMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXV
 	D3DXMatrixMultiply(&m_VPMat, &worldMat, &viewProjMat);
 	HR(m_Effect->SetMatrix(m_VPMatHandle, &m_VPMat));
 	HR(m_Effect->SetVector(m_viewHandle, &viewer_pos));
-	//HR(m_Effect->SetTexture(m_TextureHandle, m_CubeTexture));
+	//if (m_TextureHandle)
+		//HR(m_Effect->SetTexture(m_TextureHandle, m_CubeTexture));
 	HR(m_Effect->CommitChanges());
 	HR(m_Effect->BeginPass(pass));
 }

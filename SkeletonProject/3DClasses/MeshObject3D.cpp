@@ -45,7 +45,7 @@ void MeshObject3D::Render(D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view
     {
         material->Render(world, vp, D3DXVECTOR4(vpos), i, scene);
 
-        HR(m_Mesh->DrawSubset(i));
+		HR(m_Mesh->DrawSubset(0));
         material->PostPass();
     }
     material->PostRender();

@@ -1,7 +1,7 @@
 <scene>
 
-    <skybox>
-		<color r="0.2" g="0.7" b="0.9"/>
+    <skybox radius="100" rings="50" radials="50">
+		<color r="0.7" g="0.7" b="0.9"/>
 		<texture filename="space.dds"/>
 	</skybox>
 	
@@ -17,7 +17,7 @@
     </light>
 	
 	<model type="primitive" shape="cylinder" radius="0.5" radials="24" focused="true">
-        <material texture="test.png" shine="1.0">
+        <material texture="test.png" shine="1.0f">
 			<color g="1.0"/>
         </material>
     </model>

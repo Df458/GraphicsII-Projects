@@ -6,9 +6,9 @@ class Scene;
 class SkyBoxMaterial : public BaseMaterial
 {
     D3DXMATRIX          m_VPMat;
-    D3DXHANDLE          m_VPMatHandle;
-	D3DXHANDLE			m_viewHandle;
-	IDirect3DCubeTexture9*  m_CubeTexture;
+    D3DXHANDLE          m_VPMatHandle = 0;
+	D3DXHANDLE			m_viewHandle = 0;
+	IDirect3DCubeTexture9*  m_CubeTexture = 0;
 public:
 	SkyBoxMaterial(ID3DXEffect* pEffect, IDirect3DCubeTexture9* pTexture);
     virtual void ConnectToEffect( ID3DXEffect* effect);
