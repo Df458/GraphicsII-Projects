@@ -103,7 +103,8 @@ public:
 	//Default getters
 	Effect*					getDefaultEffect(){ return GetEffect(m_DefaultEffectID); };
 	Effect*					getDefaultSkyEffect(){ return GetEffect(m_DefaultSkyEffectID); };
-	Texture*				getDefaultTexture(){ return GetTexture(m_DefaultTextureID); };
+	Texture*				getDefaultTexture(){ return GetTexture(m_DefaultTextureID); }; 
+	CubeTexture*			getDefaultSkyTexture(){ return GetCubeTexture(m_DefaultCubeTextureID); };
 
 private:
 	//Resources

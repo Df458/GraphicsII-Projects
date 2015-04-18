@@ -17,7 +17,7 @@ BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, 
 : m_AmbientColor(amb), m_DiffuseColor(diff), m_SpecularColor(spec), m_Shininess(shine)
 {
 	ToggleTexture = 0;
-	m_Effect = (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData();
+	ConnectToEffect((ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData());
 	m_Texture = nullptr;
 	ToggleNormal = 1;
 	ToggleReflection = 1;
@@ -37,7 +37,7 @@ BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, 
 : BaseMaterial(amb, diff, spec, shine)
 {
 	ToggleTexture = 1;
-	m_Effect = (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData();
+	ConnectToEffect((ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData());
 	ToggleNormal = 1;
 	ToggleReflection = 1;
 	ToggleWire = 0;
@@ -68,7 +68,7 @@ BaseMaterial::BaseMaterial(IDirect3DTexture9* pTexture, ID3DXEffect* effect)
 	SpecularPower = 8;
 
 	m_Texture = pTexture;
-	m_Effect = effect;
+	ConnectToEffect(effect);
 }
 
 
@@ -148,6 +148,7 @@ BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
         if(xml_attribute<>* aa = color->first_attribute("a", 1, false))
             m_SpecularColor.w = atof(aa->value());
     }
+	ConnectToEffect(m_Effect);
 }
 
 //-----------------------------------------------------------------------------
