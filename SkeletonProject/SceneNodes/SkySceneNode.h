@@ -16,8 +16,8 @@ public:
     virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice);
 	IDirect3DCubeTexture9* getSkyTexture();
 private:
-    UVSphereObject3D* m_Model;
-	SkyBoxMaterial* m_Mat;
+    UVSphereObject3D* m_Model = NULL;
+	SkyBoxMaterial* m_Mat = NULL;
     bool active = true;
 };
 

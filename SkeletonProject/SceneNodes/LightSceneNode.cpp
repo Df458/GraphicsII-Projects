@@ -14,6 +14,7 @@ LightSceneNode::LightSceneNode()
 
 LightSceneNode::LightSceneNode(xml_node<>* node) : SceneNode(node)
 {
+	m_Material = new BaseMaterial();
     m_Type = LightType::POINT_LIGHT;
     if(xml_attribute<>* type = node->first_attribute("type", 4, false))
     {

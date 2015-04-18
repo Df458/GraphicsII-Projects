@@ -30,6 +30,6 @@ protected:
     LightType m_Type;
     float m_SpotAngle;
 
-    MeshObject3D* m_Model;
-	BaseMaterial* m_Material;
+    MeshObject3D* m_Model = NULL;
+	BaseMaterial* m_Material = NULL;
 };
