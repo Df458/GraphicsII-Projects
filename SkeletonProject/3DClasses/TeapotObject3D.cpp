@@ -8,14 +8,15 @@ TeapotObject3D::TeapotObject3D()
 	m_VertexCount = 8;
 	m_TriCount = 12;
 	m_IndexCount = 36;
+	Create();
 }
 
-void TeapotObject3D::buildMeshBuffers(IDirect3DDevice9* gd3dDevice) 
+void TeapotObject3D::buildMeshBuffers() 
 {
     HR(D3DXCreateTeapot(gd3dDevice, &m_Mesh, NULL));
 }
 
-void TeapotObject3D::buildUVBuffer(IDirect3DDevice9* gd3dDevice)
+void TeapotObject3D::buildUVBuffer()
 {
     VertexPos* verts;
     ID3DXMesh* mesh = 0;

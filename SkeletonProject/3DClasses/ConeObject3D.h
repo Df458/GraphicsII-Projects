@@ -14,7 +14,7 @@ protected:
 	unsigned m_RadialSegments;
 
 	//Implementation of pure virtual generation functions
-	virtual void ConeObject3D::buildMeshBuffers(IDirect3DDevice9* gd3dDevice);
-	virtual void buildUVBuffer(IDirect3DDevice9* gd3dDevice) {} // TODO: We should probably implement this someday. How did I even miss it?
+	virtual void ConeObject3D::buildMeshBuffers();
+	virtual void buildUVBuffer() {} // TODO: We should probably implement this someday. How did I even miss it?
 };
 

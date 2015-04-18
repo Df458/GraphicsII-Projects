@@ -13,14 +13,15 @@ CylinderObject3D::CylinderObject3D(float radius, unsigned radialSegments, float 
 	//Determine intex count;
 	m_TriCount = m_RadialSegments * 4;
 	m_IndexCount = m_TriCount * 3;
+	Create();
 }
 
-void CylinderObject3D::buildMeshBuffers(IDirect3DDevice9* gd3dDevice)
+void CylinderObject3D::buildMeshBuffers()
 {
     HR(D3DXCreateCylinder(gd3dDevice, m_Radius, m_Radius, m_Height, m_RadialSegments, 1, &m_Mesh, NULL));
 }
 
-void CylinderObject3D::buildUVBuffer(IDirect3DDevice9* gd3dDevice)
+void CylinderObject3D::buildUVBuffer()
 {
     VertexPos* verts;
     ID3DXMesh* mesh = 0;

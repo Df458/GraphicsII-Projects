@@ -12,8 +12,8 @@ protected:
     float m_Height = 1;
     float m_Depth = 1;
 	//Implementation of pure virtual generation functions
-	virtual void buildMeshBuffers(IDirect3DDevice9* gd3dDevice);
-	virtual void buildUVBuffer(IDirect3DDevice9* gd3dDevice);
+	virtual void buildMeshBuffers();
+	virtual void buildUVBuffer();
 };
 
 

@@ -208,8 +208,11 @@ unsigned BaseMaterial::PreRender(void)
     return passes;
 }
 
-void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light, IDirect3DCubeTexture9* cube)
+void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass/*, LightSceneNode* light, IDirect3DCubeTexture9* cube*/)
 {
+	// TODO: fix this
+	LightSceneNode* light = NULL;
+	IDirect3DCubeTexture9* cube = NULL;
 	if (!light)
 	{
 		fprintf(stderr, "Warning: Trying to render with a NULL light.\n");

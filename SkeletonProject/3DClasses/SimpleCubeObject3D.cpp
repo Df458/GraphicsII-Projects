@@ -13,14 +13,15 @@ SimpleCubeObject3D::SimpleCubeObject3D(float w, float h, float d)
 	m_VertexCount = 8;
 	m_TriCount = 12;
 	m_IndexCount = 36;
+	Create();
 }
 
-void SimpleCubeObject3D::buildMeshBuffers(IDirect3DDevice9* gd3dDevice) 
+void SimpleCubeObject3D::buildMeshBuffers() 
 {
     HR(D3DXCreateBox(gd3dDevice, m_Width, m_Height, m_Depth,  &m_Mesh, NULL));
 }
 
-void SimpleCubeObject3D::buildUVBuffer(IDirect3DDevice9* gd3dDevice)
+void SimpleCubeObject3D::buildUVBuffer()
 {
     VertexPos* verts;
     ID3DXMesh* mesh = 0;

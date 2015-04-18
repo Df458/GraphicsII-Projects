@@ -34,7 +34,6 @@ SkySceneNode::SkySceneNode(float x, float y, float z, float xRot, float yRot, fl
 
 SkySceneNode::SkySceneNode(rapidxml::xml_node<>* node)
 {
-	SkyBoxMaterial* mat;
 	ID3DXEffect* effect = nullptr;
 	IDirect3DCubeTexture9* texture = nullptr;
 
@@ -82,17 +81,12 @@ SkySceneNode::SkySceneNode(rapidxml::xml_node<>* node)
 
 void SkySceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
 {
-	//D3DXVECTOR4 t = activeScene->getActiveCamera()->getTranslation();
-	//D3DXMatrixTranslation(&m_Translation, t.x, t.y, t.z);
 	m_World = m_Scale * m_Rotation * m_Translation;
-    //D3DXMATRIX world = activeScene->getActiveCamera()->getFocusView();
-	//D3DXMATRIX world;
-	//D3DXMatrixInverse(&world, NULL, &activeScene->getView());
     D3DXMATRIX view = activeScene->getActiveCamera()->getView();
     D3DXMATRIX proj = activeScene->getProjection();
     LightSceneNode* light = activeScene->getActiveLight();
     D3DXMATRIX fc = activeScene->getActiveCamera()->getFocusView();
-    m_Model->Render(gd3dDevice, m_World, fc, view, proj, light, NULL, m_Mat);
+    m_Model->Render(m_World, fc, view, proj, light, NULL, m_Mat);
 }
 
 IDirect3DCubeTexture9* SkySceneNode::getSkyTexture() {

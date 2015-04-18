@@ -11,7 +11,7 @@ protected:
     unsigned m_Rings;
     unsigned m_RadialSegments;
 
-    void buildMeshBuffers(IDirect3DDevice9* gd3dDevice);
-	virtual void buildUVBuffer(IDirect3DDevice9* gd3dDevice);
+    void buildMeshBuffers();
+	virtual void buildUVBuffer();
 };
 

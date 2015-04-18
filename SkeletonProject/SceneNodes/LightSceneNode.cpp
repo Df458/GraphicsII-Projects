@@ -74,7 +74,7 @@ LightSceneNode::LightSceneNode(xml_node<>* node) : SceneNode(node)
 	BaseMaterial* material = new BaseMaterial(D3DXVECTOR3(m_Color), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0), 0);
 	material->ConnectToEffect((ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData());
 	m_Model = new UVSphereObject3D(0.1, 8, 8);
-    m_Model->Create(gd3dDevice);
+    m_Model->Create();
 }
 
 void LightSceneNode::Update(float deltatime)
@@ -89,5 +89,5 @@ void LightSceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     D3DXMATRIX proj = activeScene->getProjection();
     LightSceneNode* light = this;
     D3DXMATRIX fc = activeScene->getActiveCamera()->getFocusView();
-    m_Model->Render(gd3dDevice, world, fc, view, proj, light, NULL/*activeScene->getActiveSky()->getSkyTexture()*/, m_Material);
+    m_Model->Render(world, fc, view, proj, light, NULL/*activeScene->getActiveSky()->getSkyTexture()*/, m_Material);
 }

@@ -13,7 +13,7 @@ UVSphereObject3D::UVSphereObject3D(float radius, unsigned rings, unsigned radial
     m_TriCount = radialSegments * 2 + (m_RadialSegments * (m_Rings-1) * 2);
     m_IndexCount = m_TriCount * 3;
 
-	Create(gd3dDevice);
+	Create();
 }
 
 
@@ -21,12 +21,12 @@ UVSphereObject3D::~UVSphereObject3D()
 {
 }
 
-void UVSphereObject3D::buildMeshBuffers(IDirect3DDevice9* gd3dDevice)
+void UVSphereObject3D::buildMeshBuffers()
 {
     HR(D3DXCreateSphere(gd3dDevice, m_Radius, m_Rings, m_RadialSegments, &m_Mesh, NULL));
 }
 
-void UVSphereObject3D::buildUVBuffer(IDirect3DDevice9* gd3dDevice)
+void UVSphereObject3D::buildUVBuffer()
 {
     VertexPos* verts;
     ID3DXMesh* mesh = 0;
