@@ -9,7 +9,9 @@
 //=============================================================================
 #include "BaseMaterial.h"
 #include "../SceneNodes/LightSceneNode.h"
+#include "../SceneNodes/SkySceneNode.h"
 #include "../ResourceManager.h"
+#include "../Scene.h"
 //=============================================================================
 using namespace rapidxml;
 
@@ -208,14 +210,15 @@ unsigned BaseMaterial::PreRender(void)
     return passes;
 }
 
-void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass/*, LightSceneNode* light, IDirect3DCubeTexture9* cube*/)
+void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, Scene* scene)
 {
-	// TODO: fix this
-	LightSceneNode* light = NULL;
+	LightSceneNode* light = scene->getActiveLight();
 	IDirect3DCubeTexture9* cube = NULL;
-	if (!light)
+	if(SkySceneNode* sky = scene->getActiveSky())
+		cube = sky->getSkyTexture();
+	if (!light || !cube)
 	{
-		fprintf(stderr, "Warning: Trying to render with a NULL light.\n");
+		fprintf(stderr, "Warning: Trying to render with a NULL light/sky.\n");
 		HR(m_Effect->BeginPass(pass));
 		return;
 	}
@@ -249,8 +252,8 @@ void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVEC
 		HR(m_Effect->SetTexture(m_TextureHandle, m_Texture));
 	if (m_Normal)
 		HR(m_Effect->SetTexture(m_NormalHandle, m_Normal));
-	if (cube)
-		HR(m_Effect->SetTexture(m_SkyTextureHandle, cube));
+	//if (cube)
+		//HR(m_Effect->SetTexture(m_SkyTextureHandle, cube));
 	HR(m_Effect->CommitChanges());
 	HR(m_Effect->BeginPass(pass));
 }

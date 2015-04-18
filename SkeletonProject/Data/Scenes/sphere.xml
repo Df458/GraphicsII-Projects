@@ -1,7 +1,7 @@
 <scene>
 
-    <skybox radius="100" rings="50" radials="50">
-		<color r="0.2" g="0.7" b="0.9"/>
+    <skybox radius="100" rings="50" radials="50" active="true">
+		<color r="0.7" g="0.7" b="0.9"/>
 		<texture filename="space.dds"/>
 	</skybox>
 	

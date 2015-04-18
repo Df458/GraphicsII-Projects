@@ -24,9 +24,9 @@ Scene::Scene(std::string filepath)
 	m_RootNode = new SceneNode();
 
 	if (!loadScene(filepath))
-		fprintf(stderr, "Failed to load scene: %s\n", filepath);
+		fprintf(stderr, "Failed to load scene: %s\n", filepath.c_str());
 	else
-		printf("Successfully loaded scene: %s\n", filepath);
+		printf("Successfully loaded scene: %s\n", filepath.c_str());
 }
 
 Scene::~Scene()
@@ -103,7 +103,13 @@ void Scene::loadSkyBoxNode(rapidxml::xml_node<>* node, SceneNode* parent)
 			m_Sky = D3DCOLOR_COLORVALUE(r, g, b, 1.0f);
 		}
 
+		bool active = (skybox == node->first_node("skybox", 6, false));
+		if (rapidxml::xml_attribute<>* active_a = node->first_attribute("active", 3, false)) {
+			active = strcmp(active_a->value(), "false");
+		}
+
 		loadNode(skybox, sky_node);
+		m_ActiveSky = sky_node;
 	}
 }
 
@@ -114,7 +120,13 @@ void Scene::loadLightNode(rapidxml::xml_node<>* node, SceneNode* parent)
 
 		parent->addChild(light_node);
 
+		bool active = (light == node->first_node("light", 6, false));
+		if (rapidxml::xml_attribute<>* active_a = node->first_attribute("active", 3, false)) {
+			active = strcmp(active_a->value(), "false");
+		}
+
 		loadNode(light, light_node);
+		m_ActiveLight = light_node;
 	}
 }
 

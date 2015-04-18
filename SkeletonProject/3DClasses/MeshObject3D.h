@@ -4,12 +4,13 @@
 
 class BaseMaterial;
 class LightSceneNode;
+class Scene;
 
 class MeshObject3D {
 public:
     MeshObject3D();
 	virtual void Create();
-	virtual void Render(D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light, IDirect3DCubeTexture9* cube, BaseMaterial* material);
+	virtual void Render(D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view, D3DXMATRIX& projection, BaseMaterial* material, Scene* scene);
 
 protected:
     LPD3DXMESH m_Mesh = 0;

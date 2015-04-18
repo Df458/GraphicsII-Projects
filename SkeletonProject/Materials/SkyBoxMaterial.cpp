@@ -1,5 +1,6 @@
 #include "SkyBoxMaterial.h"
 #include "../ResourceManager.h"
+#include "../Scene.h"
 
 SkyBoxMaterial::SkyBoxMaterial(ID3DXEffect* pEffect, IDirect3DCubeTexture9* pTexture) : BaseMaterial(nullptr,pEffect)
 {
@@ -19,13 +20,12 @@ void SkyBoxMaterial::ConnectToEffect( ID3DXEffect* effect )
 	tech = "SkyTech";
 }
 
-void SkyBoxMaterial::Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass)
+void SkyBoxMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, Scene* scene)
 {
 	D3DXMatrixMultiply(&m_VPMat, &worldMat, &viewProjMat);
 	HR(m_Effect->SetMatrix(m_VPMatHandle, &m_VPMat));
 	HR(m_Effect->SetVector(m_viewHandle, &viewer_pos));
-	if (m_CubeTexture != nullptr)
-		HR(m_Effect->SetTexture(m_TextureHandle, m_CubeTexture));
+	//HR(m_Effect->SetTexture(m_TextureHandle, m_CubeTexture));
 	HR(m_Effect->CommitChanges());
 	HR(m_Effect->BeginPass(pass));
 }

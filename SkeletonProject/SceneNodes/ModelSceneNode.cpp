@@ -105,9 +105,8 @@ void ModelSceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     D3DXMATRIX world = activeScene->getTopMatrix() * m_World;
     D3DXMATRIX view = activeScene->getView();
     D3DXMATRIX proj = activeScene->getProjection();
-    LightSceneNode* light = activeScene->getActiveLight();
     D3DXMATRIX fc = activeScene->getActiveCamera()->getFocusView();
-    m_Model->Render(world, fc, view, proj, light, NULL/*activeScene->getActiveSky()->getSkyTexture()*/, m_Material);
+    m_Model->Render(world, fc, view, proj,  m_Material, activeScene);
 }
 
 void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node)

@@ -3,6 +3,7 @@
 #include "../Materials/BaseMaterial.h"
 #include "../GfxStats.h"
 #include "../d3dUtil.h"
+#include "../Scene.h"
 
 MeshObject3D::MeshObject3D()
 {
@@ -22,7 +23,7 @@ void MeshObject3D::Create()
     ReleaseCOM(temp);
 }
 
-void MeshObject3D::Render(D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light, IDirect3DCubeTexture9* cube, BaseMaterial* material)
+void MeshObject3D::Render(D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view, D3DXMATRIX& projection, BaseMaterial* material, Scene* scene)
 {
     // Update the statistics singleton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
@@ -42,9 +43,9 @@ void MeshObject3D::Render(D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view
     unsigned passes = material->PreRender();
     for(unsigned i = 0; i < passes; ++i)
     {
-        material->Render(world, vp, D3DXVECTOR4(vpos), i/*, light, cube*/);
+        material->Render(world, vp, D3DXVECTOR4(vpos), i, scene);
 
-        HR(m_Mesh->DrawSubset(0));
+        HR(m_Mesh->DrawSubset(i));
         material->PostPass();
     }
     material->PostRender();

@@ -13,6 +13,7 @@
 //=============================================================================
 
 class LightSceneNode;
+class Scene;
 
 class BaseMaterial
 {
@@ -88,7 +89,7 @@ public:
 
     virtual void ConnectToEffect( ID3DXEffect* effect );
     virtual unsigned PreRender(void);
-    virtual void Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass/*, LightSceneNode* light, IDirect3DCubeTexture9* cube*/); 
+	virtual void Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, Scene* scene);
 	virtual void PostPass(void);
     virtual void PostRender(void);
 
