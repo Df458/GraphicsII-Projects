@@ -1,24 +1,20 @@
 //=============================================================================
 //                              BaseObject3D
 //
-// Writen by Adi Bar-Lev, 2013
+// Written by Adi Bar-Lev, 2013 - Modified by Johnathan O'Malia & Hugues Ross
 // EGP 300-101, Graphics Programming II  - skeleton project
 //
-// Base class that can handle 3D rendergin via Vertex and Index buffer
+// Base class that can handle 3D rendering via Vertex and Index buffer
 //=============================================================================
 #include "BaseObject3D.h"
 #include "Vertex.h"
 #include "../GfxStats.h"
 #include "../Materials/BaseMaterial.h"
 //=============================================================================
-BaseObject3D::BaseObject3D(BaseMaterial* mat, ID3DXEffect* effect) : m_Material(mat)
+BaseObject3D::BaseObject3D(BaseMaterial* mat) : m_Material(mat)
 {
     m_VertexBuffer = NULL;
     m_IndexBuffer = NULL;
-    if(effect)
-        mat->ConnectToEffect(effect);
-    else
-        printf("Error: no effect given\n");
 }
 
 //-----------------------------------------------------------------------------
@@ -31,9 +27,9 @@ BaseObject3D::~BaseObject3D(void)
     delete m_Material;
 }
 
-void BaseObject3D::attachShader(ID3DXEffect* effect)
+void BaseObject3D::attachMaterial(BaseMaterial* mat)
 {
-    m_Material->ConnectToEffect(effect);
+    m_Material = mat;
 }
 
 void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice)
@@ -47,7 +43,7 @@ void BaseObject3D::Create(IDirect3DDevice9* gd3dDevice)
 void BaseObject3D::Render( IDirect3DDevice9* gd3dDevice,
     D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light, IDirect3DCubeTexture9* cube)
 {
-    // Update the statistics singlton class
+    // Update the statistics singleton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
     GfxStats::GetInstance()->addTriangles(m_TriCount);
     D3DXVECTOR3 vpos, vscale;

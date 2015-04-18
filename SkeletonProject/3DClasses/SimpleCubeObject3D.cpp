@@ -4,8 +4,8 @@
 #include "../d3dUtil.h"
 
 
-SimpleCubeObject3D::SimpleCubeObject3D(BaseMaterial* mat, float w, float h, float d, ID3DXEffect* effect)
-	:MeshObject3D(mat, effect)
+SimpleCubeObject3D::SimpleCubeObject3D(BaseMaterial* mat, float w, float h, float d)
+	:MeshObject3D(mat)
 {
     m_Width = w;
     m_Height = h;

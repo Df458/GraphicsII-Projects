@@ -102,12 +102,14 @@
     <ClCompile Include="3DClasses\Vertex.cpp" />
     <ClCompile Include="d3dApp.cpp" />
     <ClCompile Include="DirectInput.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GfxStats.cpp" />
     <ClCompile Include="Materials\BaseMaterial.cpp" />
     <ClCompile Include="Materials\SimplePhong.cpp" />
     <ClCompile Include="Materials\SkyBoxMaterial.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneNodes\CameraSceneNode.cpp" />
     <ClCompile Include="SceneNodes\LightSceneNode.cpp" />
     <ClCompile Include="SceneNodes\ModelSceneNode.cpp" />
@@ -135,6 +137,7 @@
     <ClInclude Include="d3dUtil.h" />
     <ClInclude Include="DirectInput.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GfxStats.h" />
     <ClInclude Include="HashTable.h" />
     <ClInclude Include="Materials\BaseMaterial.h" />

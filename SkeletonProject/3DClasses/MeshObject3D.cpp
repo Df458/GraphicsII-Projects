@@ -3,7 +3,7 @@
 #include "../Materials/BaseMaterial.h"
 #include "../GfxStats.h"
 
-MeshObject3D::MeshObject3D(BaseMaterial* mat, ID3DXEffect* effect) : BaseObject3D(mat, effect)
+MeshObject3D::MeshObject3D(BaseMaterial* mat) : BaseObject3D(mat)
 {
 }
 
@@ -29,7 +29,7 @@ void MeshObject3D::Create(IDirect3DDevice9* gd3dDevice)
 
 void MeshObject3D::Render(IDirect3DDevice9* gd3dDevice, D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view, D3DXMATRIX& projection, LightSceneNode* light, IDirect3DCubeTexture9* cube)
 {
-    // Update the statistics singlton class
+    // Update the statistics singleton class
     GfxStats::GetInstance()->addVertices(m_VertexCount);
     GfxStats::GetInstance()->addTriangles(m_TriCount);
     

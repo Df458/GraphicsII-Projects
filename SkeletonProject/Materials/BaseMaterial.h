@@ -18,7 +18,6 @@ class BaseMaterial
 {
 protected:
     ID3DXEffect*        m_Effect;               // the shader associate effect file
-    int id;
 
     //-------- Material Parameters -------
     D3DXMATRIX          m_WorldMat;
@@ -83,6 +82,7 @@ protected:
 public:
     BaseMaterial(D3DXVECTOR3 amb = D3DXVECTOR3(0.1f, 0.1f, 0.1f), D3DXVECTOR3 diff = D3DXVECTOR3(0.9f, 0.9f, 0.9f), D3DXVECTOR3 spec = D3DXVECTOR3(1.0f, 1.0f, 1.0f), float shine = 0.1f);
 	BaseMaterial(const char* texture_name, D3DXVECTOR3 amb = D3DXVECTOR3(0.1f, 0.1f, 0.1f), D3DXVECTOR3 diff = D3DXVECTOR3(0.9f, 0.9f, 0.9f), D3DXVECTOR3 spec = D3DXVECTOR3(1.0f, 1.0f, 1.0f), float shine = 0.1f);
+	BaseMaterial(IDirect3DTexture9* pTexture, ID3DXEffect* effect);
 	BaseMaterial(rapidxml::xml_node<>* node);
     virtual ~BaseMaterial(void);
 

@@ -49,9 +49,6 @@
     <ClCompile Include="SceneNodes\LightSceneNode.cpp">
       <Filter>Scene Graph\Nodes</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Scene Graph</Filter>
-    </ClCompile>
     <ClCompile Include="3DClasses\MeshObject3D.cpp">
       <Filter>3D Objects</Filter>
     </ClCompile>
@@ -81,6 +78,13 @@
     </ClCompile>
     <ClCompile Include="SceneNodes\SkySceneNode.cpp">
       <Filter>Scene Graph\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Scene Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene Graph</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +135,6 @@
     </ClInclude>
     <ClInclude Include="SceneNodes\LightSceneNode.h">
       <Filter>Scene Graph\Nodes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Scene Graph</Filter>
     </ClInclude>
     <ClInclude Include="3DClasses\MeshObject3D.h">
       <Filter>3D Objects</Filter>
@@ -188,6 +189,10 @@
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Resource Manager\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Scene.h">
+      <Filter>Scene Graph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

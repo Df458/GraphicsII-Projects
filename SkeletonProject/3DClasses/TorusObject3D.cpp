@@ -4,8 +4,8 @@
 #include "../GfxStats.h"
 
 
-TorusObject3D::TorusObject3D(float radiusi, float radiusr, unsigned sides, unsigned rings, BaseMaterial* mat, ID3DXEffect* effect)
-	:MeshObject3D(mat, effect), m_Radiusi(radiusi), m_Radiusr(radiusr), m_Sides(sides), m_Rings(rings)
+TorusObject3D::TorusObject3D(float radiusi, float radiusr, unsigned sides, unsigned rings, BaseMaterial* mat)
+	:MeshObject3D(mat), m_Radiusi(radiusi), m_Radiusr(radiusr), m_Sides(sides), m_Rings(rings)
 {
 }
 

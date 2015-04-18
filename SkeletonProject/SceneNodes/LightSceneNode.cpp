@@ -4,6 +4,7 @@
 #include "../Materials/BaseMaterial.h"
 #include "../3DClasses/UVSphereObject3D.h"
 #include "../Scene.h"
+#include "../ResourceManager.h"
 
 using namespace rapidxml;
 
@@ -11,7 +12,7 @@ LightSceneNode::LightSceneNode()
 {
 }
 
-LightSceneNode::LightSceneNode(xml_node<>* node, ID3DXEffect* effect) : SceneNode(node)
+LightSceneNode::LightSceneNode(xml_node<>* node) : SceneNode(node)
 {
     m_Type = LightType::POINT_LIGHT;
     if(xml_attribute<>* type = node->first_attribute("type", 4, false))
@@ -33,31 +34,45 @@ LightSceneNode::LightSceneNode(xml_node<>* node, ID3DXEffect* effect) : SceneNod
     }
 
     if(xml_attribute<>* type = node->first_attribute("energy", 6, false))
-        m_Energy = atof(type->value());
+		m_Energy = (float)atof(type->value());
     
     if(xml_node<>* att = node->first_node("attenuation", 11, false))
     {
         if(xml_attribute<>* aa = att->first_attribute("a", 1, false))
-            m_Attenuation.x = atof(aa->value());
+            m_Attenuation.x = (float)atof(aa->value());
         if(xml_attribute<>* ab = att->first_attribute("b", 1, false))
-            m_Attenuation.y = atof(ab->value());
+			m_Attenuation.y = (float)atof(ab->value());
         if(xml_attribute<>* ac = att->first_attribute("c", 1, false))
-            m_Attenuation.z = atof(ac->value());
+			m_Attenuation.z = (float)atof(ac->value());
     }
 
     if(xml_node<>* color = node->first_node("color", 5, false))
     {
         if(xml_attribute<>* ar = color->first_attribute("r", 1, false))
-            m_Color.x = atof(ar->value());
+			m_Color.x = (float)atof(ar->value());
         if(xml_attribute<>* ag = color->first_attribute("g", 1, false))
-            m_Color.y = atof(ag->value());
+			m_Color.y = (float)atof(ag->value());
         if(xml_attribute<>* ab = color->first_attribute("b", 1, false))
-            m_Color.z = atof(ab->value());
+			m_Color.z = (float)atof(ab->value());
         if(xml_attribute<>* aa = color->first_attribute("a", 1, false))
-            m_Color.w = atof(aa->value());
+			m_Color.w = (float)atof(aa->value());
     }
-
-    m_Model = new UVSphereObject3D(0.1, 8, 8, new BaseMaterial(D3DXVECTOR3(m_Color), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0), 0), effect);
+	ID3DXEffect* effect = nullptr;
+	if (xml_node<>* shader = node->first_node("shader", 6, false))
+	{
+		if (xml_attribute<>* shadername = shader->first_attribute("name", 4, false))
+		{
+			gResourceManager->LoadEffectResource(shadername->value());
+			effect = (ID3DXEffect*)gResourceManager->GetEffect(shadername->value());
+		}
+	}
+	if (effect == nullptr)
+	{
+		effect = (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData();
+	}
+	BaseMaterial* material = new BaseMaterial(D3DXVECTOR3(m_Color), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0), 0);
+	material->ConnectToEffect((ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData());
+	m_Model = new UVSphereObject3D(0.1, 8, 8, material);
     m_Model->Create(gd3dDevice);
 }
 

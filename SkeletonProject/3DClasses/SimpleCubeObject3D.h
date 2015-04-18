@@ -5,7 +5,7 @@ class SimpleCubeObject3D :
 	public MeshObject3D
 {
 public:
-	SimpleCubeObject3D(BaseMaterial* mat, float w = 1, float h = 1, float d = 1, ID3DXEffect* effect = NULL);
+	SimpleCubeObject3D(BaseMaterial* mat, float w = 1, float h = 1, float d = 1);
 	virtual ~SimpleCubeObject3D(){};
 protected:
     float m_Width = 1;

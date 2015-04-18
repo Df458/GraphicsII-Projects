@@ -3,7 +3,7 @@
 #include "../GfxStats.h"
 
 PlainObject3D::PlainObject3D(float length, float width, BaseMaterial* mat, ID3DXEffect* effect, unsigned X_Resolution, unsigned Z_Resolution)
-	:BaseObject3D(mat, effect),m_Length(length), m_Width(width), mX_Resolution(X_Resolution),  mZ_Resolution(Z_Resolution)
+	:BaseObject3D(mat),m_Length(length), m_Width(width), mX_Resolution(X_Resolution),  mZ_Resolution(Z_Resolution)
 {
 	//Calculate Vertex Count
 	m_VertexCount =

@@ -5,6 +5,8 @@ Description: File and resource manager
 
 TODO:
 Debug Error Logging for resources not found
+Make defaults and error defaults data driven
+Add proper default and error resource usage.
 
 Custom Resource Management
 Model Loading
@@ -37,31 +39,6 @@ Implement fast unsigned integer key hash table.
 #include "Effect.h"
 #include "Materials/BaseMaterial.h"
 #include "Utils.h"					//Used for Hugues ASCII data loader 
-
-
-struct TextureResourceMonitor
-{
-	int instanceCount;				//tracks active instances in scenes
-	int preserveFlagCount;			//tracks amount of things demanding pre-loading of asset.
-
-	IDirect3DTexture9* texture;		//actual texture stored
-};
-
-struct CubeTextureResourceMonitor
-{
-	int instanceCount;				//tracks active instances in scenes
-	int preserveFlagCount;			//tracks amount of things demanding pre-loading of asset.
-
-	IDirect3DCubeTexture9* texture;		//actual texture stored
-};
-
-struct EffectResourceMonitor
-{
-	int instanceCount;				//tracks active instances in scenes
-	int preserveFlagCount;			//tracks amount of things demanding pre-loading of asset.
-
-	ID3DXEffect* texture;		//actual effect stored
-};
 
 class ResourceManager
 {
@@ -116,41 +93,17 @@ public:
 	void					UnloadEffect(std::string filename, bool Preserve = false, bool count = true);
 #endif // !_DEBUG
 
-
-
-	/*
-	unsigned int 			InstantiateTexture(std::string filename);
-	unsigned int 			InstantiateCubeTexture(std::string filename);
-	unsigned int 			InstantiateEffect(std::string filename);
-
-	unsigned int 			DestroyTexture(std::string filename);
-	unsigned int 			DestroyCubeTexture(std::string filename);
-	unsigned int 			DestroyEffect(std::string filename);*/
-
-	/*
-	bool					TextureExists(std::string TextureName);
-	bool					TextureExists(unsigned int TextureUID);
-	bool					CubeTextureExists(std::string TextureName);
-	bool					CubeTextureExists(unsigned int TextureUID);
-	bool					EffectExists(std::string EffectName);
-	bool					EffectExists(unsigned int EffectUID);
-
-	void					UnloadTexture(unsigned int TextureUID);
-	void					UnloadTexture(std::string TextureName);
-	void					UnloadCubeTexture(unsigned int TextureUID);
-	void					UnloadCubeTexture(std::string TextureName);
-	void					UnloadEffect(unsigned int EffectUID);
-	void					UnloadEffect(std::string EffectName);*/
-
-	void OnLostDevice();
-	void OnResetDevice();
+	void					OnLostDevice();
+	void					OnResetDevice();
 
 	//Custom Resource Management
-	char*				loadSceneData(std::string name);//Calls Hugues ASCII data loader 
-	std::string			getSceneDataFilePath(){ return SceneFilePath; };
+	char*					loadSceneData(std::string name);//Calls Hugues ASCII data loader 
+	std::string				getSceneDataFilePath(){ return SceneFilePath; };
 
 	//Default getters
-	Effect*		getDefaultEffect(){ return GetEffect(m_DefaultEffectID); };
+	Effect*					getDefaultEffect(){ return GetEffect(m_DefaultEffectID); };
+	Effect*					getDefaultSkyEffect(){ return GetEffect(m_DefaultSkyEffectID); };
+	Texture*				getDefaultTexture(){ return GetTexture(m_DefaultTextureID); };
 
 private:
 	//Resources
@@ -159,26 +112,27 @@ private:
 	HashTable<UniqueID, Effect*> effectMap;
 	
 	//Default ObjectsID
-	UniqueID m_DefaultEffectID;
-	UniqueID m_MissingTextureID;
-	UniqueID m_DefaultCubeTextureID;
+	UniqueID				m_DefaultEffectID;
+	UniqueID				m_MissingTextureID;
+	UniqueID				m_DefaultTextureID;
+	UniqueID				m_DefaultCubeTextureID;
+	UniqueID				m_DefaultSkyEffectID;
 
 	//Resource Management
-	bool LoadTextureData(std::string TextureName);
-	bool LoadCubeTextureData(std::string TextureName);
-	bool LoadEffectData(std::string EffectName);
+	bool					LoadTextureData(std::string TextureName);
+	bool					LoadCubeTextureData(std::string TextureName);
+	bool					LoadEffectData(std::string EffectName);
 
 	//File Paths
-	std::string DataRootFilePath;
-	std::string EffectFilePath;
-	std::string TextureFilePath;
-	std::string ModelFilePath;
-	std::string SceneFilePath;
+	std::string				DataRootFilePath;
+	std::string				EffectFilePath;
+	std::string				TextureFilePath;
+	std::string				ModelFilePath;
+	std::string				SceneFilePath;
 
 	//Private Utilities
-	void LocateDataFolders();
-	bool DirectoryExists(const std::string& dirName);
-
+	void					LocateDataFolders();
+	bool					DirectoryExists(const std::string& dirName);
 };
 
 extern ResourceManager* gResourceManager;

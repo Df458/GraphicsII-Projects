@@ -10,16 +10,18 @@ class ModelSceneNode : public SceneNode
 public:
     ModelSceneNode(MeshObject3D* model);
 	ModelSceneNode(MeshObject3D* model, float x, float y, float z, float xRot = 0, float yRot = 0, float zRot = 0);
-    ModelSceneNode(rapidxml::xml_node<>* node, ID3DXEffect* effect);
+    ModelSceneNode(rapidxml::xml_node<>* node);
     ~ModelSceneNode();
 	virtual BaseMaterial* getMaterial(void);
 
 
     virtual void Update(float deltatime);
     virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice);
-    void generatePrimitive(const char* name, rapidxml::xml_node<>* node, BaseMaterial* mat, ID3DXEffect* effect);
+    void generatePrimitive(const char* name, rapidxml::xml_node<>* node);
 private:
-    MeshObject3D* m_Model;
+	void Render();
+	MeshObject3D* m_Model;
+	BaseMaterial* m_Material;
 };
 
 #endif

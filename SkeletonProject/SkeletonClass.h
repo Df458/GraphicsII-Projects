@@ -25,6 +25,7 @@
 class BaseObject3D;
 class Scene;
 class CameraSceneNode;
+class SceneManager;
 //=============================================================================
 class SkeletonClass : public D3DApp
 {
@@ -43,7 +44,6 @@ public:
 	void buildProjMtx();
 
 private:
-	int currentobj = 0;
     float mCameraRotationY;
     float mCameraRadius;
     float mCameraHeight;
@@ -74,8 +74,7 @@ private:
 		pR,
 		pN;
 
-    Scene* m_Scene;
-    CameraSceneNode* m_Camera;
+	SceneManager* mSceneManager;
 };
 //=============================================================================
 #endif // _SKELETON_CLASS_H_

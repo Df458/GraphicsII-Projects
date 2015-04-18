@@ -7,16 +7,20 @@ Description:
 				Interface with resource manager for appropriate asset management
 
 TODO:
-Everything
+Defaults.
+Switching multiscenes
+Unloading multiscenes 
+Clean up/ deletion of data
 
 /************************************************************************/
 #ifndef SCENE_MANAGER_H_
 #define SCENE_MANAGER_H_
 
 //C++ Headers
-#include <map>
 #include <string>
+#include <map>
 #include <vector>
+#include <inttypes.h>
 
 //Custom Data Headers
 #include "Scene.h"
@@ -27,17 +31,32 @@ public:
 	SceneManager();
 	~SceneManager();
 
+	void Initalize();
+	void Terminate();
+
+	bool LoadMultiScene(std::string name);
+	void UnloadMultiScene(std::string name);
+	
+	Scene* GetActiveScene();
+
+	unsigned int getSceneID(std::string name);
+	Scene* getScene(unsigned int sceneNumber);
+
+	void ChangeScene();
+
+private:
+	void LoadResources();
+	void UnloadResources();
+
 	void LoadScene(std::string name);
 	void UnloadScene(std::string name);
 
-	unsigned int getSceneID(std::string name);
-	Scene getScene(std::string name);
-	Scene getScene(unsigned int sceneID);
+	std::vector<std::string> ActiveResources;
 
-private:
-	void LoadResource();
-	std::vector<std::string> ActiveResources
+	int sceneCount;
+	int activeSceneNumber;
 
+	std::vector<Scene*> mScenes;
 };
 
 #endif // !SCENE_MANAGER_H_

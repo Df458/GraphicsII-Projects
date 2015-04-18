@@ -3,7 +3,7 @@
 #include "../GfxStats.h"
 
 CuboidObject3D::CuboidObject3D(float length, float width, float height, BaseMaterial* mat, ID3DXEffect* effect, unsigned X_Resolution, unsigned Y_Resolution, unsigned Z_Resolution)
-	:BaseObject3D(mat, effect),m_Length(length), m_Width(width), m_Height(height), mX_Resolution(X_Resolution), mY_Resolution(Y_Resolution), mZ_Resolution(Z_Resolution)
+	:BaseObject3D(mat),m_Length(length), m_Width(width), m_Height(height), mX_Resolution(X_Resolution), mY_Resolution(Y_Resolution), mZ_Resolution(Z_Resolution)
 {
 	//Calculate Vertex Count
 	m_VertexCount = 

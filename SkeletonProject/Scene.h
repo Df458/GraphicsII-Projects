@@ -1,44 +1,70 @@
-#ifndef SCENE_H
-#define SCENE_H
-#include <d3dx9.h>
+/************************************************************************
+							Scene.h
+Author: Johnathan O'Malia, Hugues Ross © 2015
+Description:	Mid Level Data structure representing scene data
+
+TODO:
+cleanup/deletion of variables
+Defaults.
+Add XML childing support
+
+/************************************************************************/
+#ifndef SCENE_H_
+#define SCENE_H_
+
+//C++ Headers
 #include <set>
 #include <stack>
+#include <string>
+
+//RapidXML
+#include <rapidxml.hpp>
+
+//DirectX 9
+#include <d3dx9.h>
 
 class SceneNode;
 class CameraSceneNode;
 class SkySceneNode;
 class LightSceneNode;
 
-class Scene {
+class Scene
+{
 public:
-    Scene(const char* filepath, ID3DXEffect* effect);
-    ~Scene();
-    void Update(float deltatime);
-    void Render(IDirect3DDevice9* gd3dDevice);
+	Scene();
+	Scene(std::string filepath);
+	~Scene();
 
-    bool loadLevel(const char* filepath, ID3DXEffect* effect);
+	void				Initialize();
+	void				Terminate();
 
-	void clear(void);
+	bool				loadScene(std::string filepath);
 
-    bool addNode(SceneNode* node, SceneNode* parent = 0);
-    bool removeNode(SceneNode* node);
-    bool containsNode(SceneNode* node) const;
-	SceneNode* getNode(UINT uid);
+	void				Update(float deltatime);
+	void				Render(IDirect3DDevice9* gd3dDevice);
 
-    bool setActiveCamera(CameraSceneNode* camera);
-    bool setActiveSky(SkySceneNode* sky);
-    LightSceneNode* getActiveLight(void);
-	CameraSceneNode* getActiveCamera(void);
-	SkySceneNode* getActiveSky(void) { return m_ActiveSky; }
-    SceneNode* getActiveFocus(void) { return m_ActiveFocus; }
-	SceneNode* getRootNode(void);
+	bool				addNode(SceneNode* node, SceneNode* parent = 0);
+	bool				removeNode(SceneNode* node);
+	bool				containsNode(SceneNode* node);
 
-    void pushMatrix(D3DXMATRIX matrix);
-    void popMatrix();
-    void updateSize(float w, float h);
-    D3DXMATRIX getTopMatrix();
-    D3DXMATRIX getView();
-    D3DXMATRIX getProjection();
+	//SceneNode*			getNode(UINT uid);
+
+	void				setActiveCamera(CameraSceneNode* camera);
+	void				setActiveSky(SkySceneNode* sky);
+
+	LightSceneNode*		getActiveLight(void) { return m_ActiveLight; };
+	CameraSceneNode*	getActiveCamera(void) { return m_ActiveCamera; };
+	SkySceneNode*		getActiveSky(void) { return m_ActiveSky; };
+	SceneNode*			getActiveFocus(void) { return m_ActiveFocus; };
+	SceneNode*			getRootNode(void) { return m_RootNode; };
+	
+	void				pushMatrix(D3DXMATRIX matrix);
+	void				popMatrix();
+	void				updateSize(unsigned int renderWidth, float renderHeight);
+
+	D3DXMATRIX			getTopMatrix();
+	D3DXMATRIX			getView();
+	D3DXMATRIX			getProjection();
 
 	void DEBUGTOGGLETEXTURE();
 	void DEBUGBLENDSPECULARREFLECTION(float increment);
@@ -47,18 +73,29 @@ public:
 	void DEBUGNORMALSTRENGTH(float increment);
 	void DEBUGTOGGLEWIREFRAME();
 	void DEBUGTOGGLEREFLECTION();
-	void DEBUGCYCLESCENES();
 
-protected:
-    SceneNode* m_RootNode;
-    SceneNode* m_ActiveFocus = NULL;
-    D3DCOLOR m_Sky;
-    CameraSceneNode* m_ActiveCamera = NULL;
-    LightSceneNode* m_ActiveLight = NULL;
-    SkySceneNode* m_ActiveSky = NULL;
-    std::set<SceneNode*> m_Nodes;
-    std::stack<D3DXMATRIX> m_MatrixStack;
-    float m_LastWidth = 1;
-    float m_LastHeight = 1;
+private:
+	void loadNode(rapidxml::xml_node<>* node, SceneNode* parent);
+	void loadCameraNode(rapidxml::xml_node<>* node, SceneNode* parent);
+	void loadSkyBoxNode(rapidxml::xml_node<>* node, SceneNode* parent);
+	void loadLightNode(rapidxml::xml_node<>* node, SceneNode* parent);
+	void loadModelNode(rapidxml::xml_node<>* node, SceneNode* parent);
+
+	SceneNode* m_RootNode;
+	SceneNode* m_ActiveFocus = NULL;
+	CameraSceneNode* m_ActiveCamera = NULL;
+	LightSceneNode* m_ActiveLight = NULL;
+	SkySceneNode* m_ActiveSky = NULL;
+
+	D3DCOLOR m_Sky;
+	
+	std::set<SceneNode*> m_Nodes;
+	std::stack<D3DXMATRIX> m_MatrixStack;
+
+	float m_RenderWidth = 1;
+	float m_RenderHeight = 1;
 };
-#endif
+
+
+
+#endif // !SCENE_H_

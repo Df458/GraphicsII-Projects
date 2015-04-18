@@ -3,8 +3,8 @@
 #include "../GfxStats.h"
 
 
-TeapotObject3D::TeapotObject3D(BaseMaterial* mat, ID3DXEffect* effect)
-	:MeshObject3D(mat, effect)
+TeapotObject3D::TeapotObject3D(BaseMaterial* mat)
+	:MeshObject3D(mat)
 {
 	m_VertexCount = 8;
 	m_TriCount = 12;

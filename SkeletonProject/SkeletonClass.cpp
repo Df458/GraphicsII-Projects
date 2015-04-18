@@ -33,6 +33,7 @@
 #include "3DClasses/UVSphereObject3D.h"
 #include "3DClasses/Vertex.h"
 #include "Materials/BaseMaterial.h"
+#include "SceneManager.h"
 
 const char* objscenes[6] = {
 	"cyl.xml",
@@ -70,7 +71,10 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 		PostQuitMessage(0);
 	}
 	ResourceManager* tmpManager = new ResourceManager();
+	mSceneManager = new SceneManager();
+
 	tmpManager->Initalize();
+	mSceneManager->Initalize();
 
 	gResourceManager = tmpManager;
 
@@ -83,17 +87,18 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	//hard coded loading
 	gResourceManager->LoadTextureResource("normal.png");
 	gResourceManager->LoadTextureResource("test.png");
-	gResourceManager->LoadTextureResource("sphere.png");
+	gResourceManager->LoadTextureResource("earth.png");
 	gResourceManager->LoadEffectResource("skybox.fx");
 
-	m_Scene = new Scene("TestLevel.xml", (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData());
-    m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
-	m_Camera = m_Scene->getActiveCamera();
-	currentobj = 0;
-	m_Scene->loadLevel(objscenes[currentobj], (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData());
+
+	mSceneManager->LoadMultiScene("Assignment5.xml");
+	mSceneManager->GetActiveScene()->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
+
+	/*m_Camera = mSceneManager->GetActiveScene()->getActiveCamera();
+
 	if (m_Scene->getActiveFocus()) {
 		m_Camera->setFocus(m_Scene->getActiveFocus());
-	}
+	}*/
 
 	pW = false;
 	pT = false;
@@ -119,10 +124,8 @@ SkeletonClass::~SkeletonClass()
 {
     GfxStats::DeleteInstance();
 
-    //for ( unsigned int obj=0 ; obj<m_Objects.size() ; obj++ )
-        //delete m_Objects[obj];
-    //m_Objects.clear();
-    delete m_Scene;
+	mSceneManager->Terminate();
+	delete mSceneManager;
 
 	DestroyAllVertexDeclarations();
 
@@ -147,7 +150,7 @@ void SkeletonClass::onResetDevice()
 	// The aspect ratio depends on the backbuffer dimensions, which can 
 	// possibly change after a reset.  So rebuild the projection matrix.
 	//buildProjMtx();
-    m_Scene->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
+	mSceneManager->GetActiveScene()->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 	gResourceManager->OnResetDevice();
 }
 
@@ -164,29 +167,29 @@ void SkeletonClass::updateScene(float dt)
 
 	if (gDInput->mouseButtonDown(0))
 	{
-		if (m_Camera->getFocused())
-			m_Camera->turnFocus((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD);
+		if (mSceneManager->GetActiveScene()->getActiveCamera()->getFocused())
+			mSceneManager->GetActiveScene()->getActiveCamera()->turnFocus((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD);
 		else
 		{
-			m_Camera->Rotate((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD, 0, true);
-			m_Camera->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
+			mSceneManager->GetActiveScene()->getActiveCamera()->Rotate((gDInput->mouseDX()) * DEGTORAD, (gDInput->mouseDY()) * DEGTORAD, 0, true);
+			mSceneManager->GetActiveScene()->getActiveCamera()->SetRotationLimits(0, (float)M_PI, -(float)M_PI / 2, (float)M_PI / 2, 0, 0);
 		}
 	}
 
 	if (gDInput->mouseDZ() != 0)
-		m_Camera->zoomFocus(gDInput->mouseDZ() * 0.0051f);
+		mSceneManager->GetActiveScene()->getActiveCamera()->zoomFocus(gDInput->mouseDZ() * 0.0051f);
 
 	if (gDInput->keyDown(DIK_M))
-		m_Camera->releaseFocus();
+		mSceneManager->GetActiveScene()->getActiveCamera()->releaseFocus();
 	if (gDInput->keyDown(DIK_N))
-		m_Camera->setFocus(m_Scene->getActiveFocus());
+		mSceneManager->GetActiveScene()->getActiveCamera()->setFocus(mSceneManager->GetActiveScene()->getActiveFocus());
 
 
 	//Assignment 4 Controls
 	if (gDInput->keyDown(DIK_ADD))
 	{
 		if (!pPlus)
-			m_Scene->DEBUGBLENDSPECULARREFLECTION(-0.01f);
+			mSceneManager->GetActiveScene()->DEBUGBLENDSPECULARREFLECTION(-0.01f);
 		pPlus = true;
 	}
 	else
@@ -195,7 +198,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_MINUS))
 	{
 		if (!pMinus)
-			m_Scene->DEBUGBLENDSPECULARREFLECTION(0.01f);
+			mSceneManager->GetActiveScene()->DEBUGBLENDSPECULARREFLECTION(0.01f);
 		pMinus = true;
 	}
 	else
@@ -204,7 +207,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_A))
 	{
 		if (!pA)
-			m_Scene->DEBUGNORMALSTRENGTH(-0.01f);
+			mSceneManager->GetActiveScene()->DEBUGNORMALSTRENGTH(-0.01f);
 		pA = true;
 	}
 	else
@@ -213,7 +216,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_S))
 	{
 		if (!pS)
-			m_Scene->DEBUGNORMALSTRENGTH(0.01f);
+			mSceneManager->GetActiveScene()->DEBUGNORMALSTRENGTH(0.01f);
 		pS = true;
 	}
 	else
@@ -222,7 +225,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_W))
 	{
 		if (!pW)
-			m_Scene->DEBUGTOGGLEWIREFRAME();
+			mSceneManager->GetActiveScene()->DEBUGTOGGLEWIREFRAME();
 		pW = true;
 	}
 	else
@@ -231,7 +234,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_T))
 	{
 		if (!pT)
-			m_Scene->DEBUGTOGGLETEXTURE();
+			mSceneManager->GetActiveScene()->DEBUGTOGGLETEXTURE();
 		pT = true;
 	}
 	else
@@ -240,7 +243,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_R))
 	{
 		if (!pR)
-			m_Scene->DEBUGTOGGLEREFLECTION();
+			mSceneManager->GetActiveScene()->DEBUGTOGGLEREFLECTION();
 		pR = true;
 	}
 	else
@@ -249,7 +252,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_N))
 	{
 		if (!pN)
-			m_Scene->DEBUGTOGGLENORMAL();
+			mSceneManager->GetActiveScene()->DEBUGTOGGLENORMAL();
 		pN = true;
 	}
 	else
@@ -257,15 +260,9 @@ void SkeletonClass::updateScene(float dt)
 
 	if (gDInput->keyDown(DIK_O))
 	{
-		if (!pO) {
-			++currentobj;
-			if (currentobj >= 6)
-				currentobj = 0;
-			m_Scene->clear();
-			m_Scene->loadLevel(objscenes[currentobj], (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData());
-			if (m_Scene->getActiveFocus())
-				m_Camera->setFocus(m_Scene->getActiveFocus());
-		}
+		if (!pO)
+			mSceneManager->ChangeScene();
+		
 		pO = true;
 	}
 	else
@@ -274,7 +271,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_1))
 	{
 		if (!p1)
-			m_Scene->DEBUGSPECULARPOWER(1);
+			mSceneManager->GetActiveScene()->DEBUGSPECULARPOWER(1);
 		p1 = true;
 	}
 	else
@@ -283,7 +280,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_2))
 	{
 		if (!p2)
-			m_Scene->DEBUGSPECULARPOWER(2);
+			mSceneManager->GetActiveScene()->DEBUGSPECULARPOWER(2);
 		p2 = true;
 	}
 	else
@@ -292,7 +289,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_3))
 	{
 		if (!p3)
-			m_Scene->DEBUGSPECULARPOWER(3);
+			mSceneManager->GetActiveScene()->DEBUGSPECULARPOWER(3);
 		p3 = true;
 	}
 	else
@@ -301,7 +298,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_4))
 	{
 		if (!p4)
-			m_Scene->DEBUGSPECULARPOWER(4);
+			mSceneManager->GetActiveScene()->DEBUGSPECULARPOWER(4);
 		p4 = true;
 	}
 	else
@@ -310,7 +307,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_5))
 	{
 		if (!p5)
-			m_Scene->DEBUGSPECULARPOWER(5);
+			mSceneManager->GetActiveScene()->DEBUGSPECULARPOWER(5);
 		p5 = true;
 	}
 	else
@@ -319,7 +316,7 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_6))
 	{
 		if (!p6)
-			m_Scene->DEBUGSPECULARPOWER(6);
+			mSceneManager->GetActiveScene()->DEBUGSPECULARPOWER(6);
 		p6 = true;
 	}
 	else
@@ -328,53 +325,23 @@ void SkeletonClass::updateScene(float dt)
 	if (gDInput->keyDown(DIK_7))
 	{
 		if (!p7)
-			m_Scene->DEBUGSPECULARPOWER(7);
+			mSceneManager->GetActiveScene()->DEBUGSPECULARPOWER(7);
 		p7 = true;
 	}
 	else
 		p7 = false;
 
-    m_Scene->Update(dt);
+	mSceneManager->GetActiveScene()->Update(dt);
 }
 
 void SkeletonClass::drawScene()
 {
-    m_Scene->Render(gd3dDevice);
-
-     //Clear the backbuffer and depth buffer.
-    //HR(gd3dDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xffffffff, 1.0f, 0));
-
-    //HR(gd3dDevice->BeginScene());
-
-     //Set render statws for the entire scene here:
-    //HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID));
-    //HR(gd3dDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME));
-
-     //Render all the objects
-    //for ( unsigned int obj=0 ; obj<m_Objects.size() ; obj++ )
-    //{
-        //m_Objects[obj]->Render( gd3dDevice, mView, mProj );
-    //}
-
-     //display the render statistics
-    //GfxStats::GetInstance()->display();
-
-    //HR(gd3dDevice->EndScene());
-
-     //Present the backbuffer.
-    //HR(gd3dDevice->Present(0, 0, 0, 0));
+	mSceneManager->GetActiveScene()->Render(gd3dDevice);
 }
 
 void SkeletonClass::buildViewMtx()
 {
-    //D3DXMATRIX view;
-    //float x = mCameraRadius * cosf(mCameraRotationY);
-    //float z = mCameraRadius * sinf(mCameraRotationY);
-    //D3DXVECTOR3 pos(x, mCameraHeight, z);
-    //D3DXVECTOR3 target(0.0f, 0.0f, 0.0f);
-    //D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
-    //D3DXMatrixLookAtLH(&view, &pos, &target, &up);
-    //m_Camera->setView(view);
+    
 }
 
 void SkeletonClass::buildProjMtx()
@@ -383,5 +350,5 @@ void SkeletonClass::buildProjMtx()
 	float h = (float)md3dPP.BackBufferHeight;
     D3DXMATRIX proj;
 	D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI * 0.25f, w/h, 1.0f, 5000.0f);
-    m_Camera->setProjection(proj);
+	mSceneManager->GetActiveScene()->getActiveCamera()->setProjection(proj);
 }

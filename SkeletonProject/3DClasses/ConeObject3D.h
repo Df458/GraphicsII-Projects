@@ -5,7 +5,7 @@ class ConeObject3D :
 	public MeshObject3D
 {
 public:
-	ConeObject3D(float radius, unsigned radialSegments, float height, BaseMaterial* mat, ID3DXEffect* effect = NULL);
+	ConeObject3D(float radius, unsigned radialSegments, float height, BaseMaterial* mat);
 	virtual ~ConeObject3D(){};
 protected:
 	float m_Height;

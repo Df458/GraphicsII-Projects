@@ -5,7 +5,7 @@ class TeapotObject3D :
 	public MeshObject3D
 {
 public:
-	TeapotObject3D(BaseMaterial* mat, ID3DXEffect* effect = NULL);
+	TeapotObject3D(BaseMaterial* mat);
 	virtual ~TeapotObject3D(){};
 protected:
 	//Implementation of pure virtual generation functions

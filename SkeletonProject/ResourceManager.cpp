@@ -18,7 +18,7 @@ void ResourceManager::Initalize()
 	LocateDataFolders();
 
 	bool result = true;
-
+	       
 	result = LoadEffectData("Lighting.fx");
 	if (!result)
 	{
@@ -27,9 +27,29 @@ void ResourceManager::Initalize()
 		PostQuitMessage(0);
 	}
 	else
-		m_DefaultEffectID = internString("Lighting.fx");
+		m_DefaultEffectID = UID("Lighting.fx");
+
+	result = LoadEffectData("skybox.fx");
+	if (!result)
+	{
+		std::string msg = "Cannot load default skybox effect";
+		MessageBox(NULL, msg.c_str(), "Error", MB_OK | MB_ICONERROR);
+		PostQuitMessage(0);
+	}
+	else
+		m_DefaultSkyEffectID = UID("skybox.fx");
 
 	result = LoadTextureData("MissingTexture.png");
+	if (!result)
+	{
+		std::string msg = "Cannot load missing Texture";
+		MessageBox(NULL, msg.c_str(), "Error", MB_OK | MB_ICONERROR);
+		PostQuitMessage(0);
+	}
+	else
+		m_MissingTextureID = UID("MissingTexture.png");
+
+	result = LoadTextureData("DefaultTexture.png");
 	if (!result)
 	{
 		std::string msg = "Cannot load default Texture";
@@ -37,9 +57,9 @@ void ResourceManager::Initalize()
 		PostQuitMessage(0);
 	}
 	else
-		m_MissingTextureID = internString("MissingTexture.png");
+		m_DefaultTextureID = UID("DefaultTexture.png");
 
-	result = LoadCubeTextureData("OutputCube.dds");
+	result = LoadCubeTextureData("defaultSky.dds");
 	if (!result)
 	{
 		std::string msg = "Cannot load cube map";
@@ -47,7 +67,7 @@ void ResourceManager::Initalize()
 		PostQuitMessage(0);
 	}
 	else
-		m_DefaultCubeTextureID = internString("OutputCube.dds");
+		m_DefaultCubeTextureID = UID("defaultSky.dds");
 
 }
 
@@ -276,7 +296,7 @@ bool ResourceManager::LoadCubeTextureData(std::string TextureName)
 {
 	HRESULT result = S_OK;
 	IDirect3DCubeTexture9* pTexture;
-	result = D3DXCreateCubeTextureFromFile(gd3dDevice, (TextureFilePath + TextureName).c_str(), &pTexture);
+	result = D3DXCreateCubeTextureFromFile(gd3dDevice, (TextureFilePath + "Skyboxes//" + TextureName).c_str(), &pTexture);
 	if (FAILED(result))
 	{
 		MessageBox(NULL, ("Error loading Cube Texture " + TextureName).c_str(), "Error", MB_OK | MB_ICONERROR);

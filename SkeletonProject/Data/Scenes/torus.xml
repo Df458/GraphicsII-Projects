@@ -1,6 +1,24 @@
-<level>
-    <model type="primitive" shape="torus" radiusi="0.2" radiusr="0.75" sides="16" rings="24"  focused="true">
+<scene>
+
+    <skybox>
+		<color r="0.2" g="0.7" b="0.9"/>
+		<texture filename="space.dds"/>
+	</skybox>
+	
+    <camera active="true">
+      <projection angle="60"/>
+      <translate y="0.75" z="-3"/>
+      <lookat/>
+    </camera>
+	
+    <light type="point" energy="10">
+        <color r="1.0" g="1.0" b="0.3"/>
+        <translate x="-0.25" y="2" z="-1.5"/>
+    </light>
+	
+	<model type="primitive" shape="torus" radiusi="0.2" radiusr="0.75" sides="16" rings="24"  focused="true">
         <material texture="test.png" shine="1.0f">
         </material>
     </model>
-</level>
+
+</scene>

@@ -3,8 +3,8 @@
 #include "../GfxStats.h"
 
 
-ConeObject3D::ConeObject3D(float radius, unsigned radialSegments, float height, BaseMaterial* mat, ID3DXEffect* effect)
-	:MeshObject3D(mat, effect),m_Radius(radius), m_RadialSegments(radialSegments), m_Height(height)
+ConeObject3D::ConeObject3D(float radius, unsigned radialSegments, float height, BaseMaterial* mat)
+	:MeshObject3D(mat),m_Radius(radius), m_RadialSegments(radialSegments), m_Height(height)
 {
 	m_VertexCount = m_RadialSegments + 2;
 	m_TriCount = m_RadialSegments * 2;

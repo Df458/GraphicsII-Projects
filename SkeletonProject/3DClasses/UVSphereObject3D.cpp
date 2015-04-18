@@ -3,7 +3,7 @@
 #include "../GfxStats.h"
 
 
-UVSphereObject3D::UVSphereObject3D(float radius, unsigned rings, unsigned radialSegments, BaseMaterial* mat, ID3DXEffect* effect) : MeshObject3D(mat, effect)
+UVSphereObject3D::UVSphereObject3D(float radius, unsigned rings, unsigned radialSegments, BaseMaterial* mat) : MeshObject3D(mat)
 {
     m_Radius = radius;
     m_Rings = rings;
@@ -12,6 +12,10 @@ UVSphereObject3D::UVSphereObject3D(float radius, unsigned rings, unsigned radial
     m_VertexCount = m_Rings * m_RadialSegments + 2;
     m_TriCount = radialSegments * 2 + (m_RadialSegments * (m_Rings-1) * 2);
     m_IndexCount = m_TriCount * 3;
+
+	buildVertexBuffer(gd3dDevice);
+	buildIndexBuffer(gd3dDevice);
+	buildUVBuffer(gd3dDevice);
 }
 
 

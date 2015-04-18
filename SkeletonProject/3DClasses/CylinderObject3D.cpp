@@ -5,8 +5,8 @@
 #include "../GfxStats.h"
 
 
-CylinderObject3D::CylinderObject3D(float radius, unsigned radialSegments, float height, BaseMaterial* mat, ID3DXEffect* effect)
-	:MeshObject3D(mat, effect), m_Height(height), m_Radius(radius), m_RadialSegments(radialSegments)
+CylinderObject3D::CylinderObject3D(float radius, unsigned radialSegments, float height, BaseMaterial* mat)
+	:MeshObject3D(mat), m_Height(height), m_Radius(radius), m_RadialSegments(radialSegments)
 {
 	// Determine vertex count;
 	m_VertexCount = (m_RadialSegments * 2) + 2;

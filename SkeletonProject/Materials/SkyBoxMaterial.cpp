@@ -1,10 +1,10 @@
 #include "SkyBoxMaterial.h"
 #include "../ResourceManager.h"
 
-SkyBoxMaterial::SkyBoxMaterial(const char* texture_name)
+SkyBoxMaterial::SkyBoxMaterial(ID3DXEffect* pEffect, IDirect3DCubeTexture9* pTexture) : BaseMaterial(nullptr,pEffect)
 {
-	UniqueID cubeID = gResourceManager->LoadCubeTextureResource(texture_name);
-	m_CubeTexture = (IDirect3DCubeTexture9*)gResourceManager->GetCubeTexture(cubeID)->GetData();
+	m_CubeTexture = pTexture;
+	ConnectToEffect(pEffect);
 }
 
 void SkyBoxMaterial::ConnectToEffect( ID3DXEffect* effect )
@@ -19,7 +19,7 @@ void SkyBoxMaterial::ConnectToEffect( ID3DXEffect* effect )
 	tech = "SkyTech";
 }
 
-void SkyBoxMaterial::Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, LightSceneNode* light, IDirect3DCubeTexture9* cube )
+void SkyBoxMaterial::Render( D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass)
 {
 	D3DXMatrixMultiply(&m_VPMat, &worldMat, &viewProjMat);
 	HR(m_Effect->SetMatrix(m_VPMatHandle, &m_VPMat));

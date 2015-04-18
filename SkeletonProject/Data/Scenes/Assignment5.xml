@@ -1,0 +1,16 @@
+<multiscene>
+	
+<!-- Testing environment I want -->
+	<scene scene-name = "sphere.xml"/>
+	
+<!-- Space Scenes -->
+<!-- 	<scene scene-name = "solarsystem.xml"/> -->
+<!-- 	<scene scene-name = "billiards.xml"/> -->
+	
+<!-- Assignment 4 Requirements-->
+	<scene scene-name = "cube.xml"/>
+	<scene scene-name = "cylinder.xml"/>
+	<scene scene-name = "cone.xml"/>
+	<scene scene-name = "torus.xml"/>
+	<scene scene-name = "teapot.xml"/>
+</multiscene>

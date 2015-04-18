@@ -16,9 +16,8 @@ using namespace rapidxml;
 BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, float shine)
 : m_AmbientColor(amb), m_DiffuseColor(diff), m_SpecularColor(spec), m_Shininess(shine)
 {
-	id = 1;
 	ToggleTexture = 0;
-	m_Effect = NULL;
+	m_Effect = (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData();
 	m_Texture = nullptr;
 	ToggleNormal = 1;
 	ToggleReflection = 1;
@@ -31,15 +30,14 @@ BaseMaterial::BaseMaterial(D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, 
 	NormalStrength = 1.0f;
 	SpecularPower = 8;
 
-	m_Normal = (IDirect3DTexture9*)gResourceManager->GetTexture("normal.png")->GetData();
+	//m_Normal = (IDirect3DTexture9*)gResourceManager->GetTexture("normal.png")->GetData();
 }
 
 BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, D3DXVECTOR3 spec, float shine)
 : BaseMaterial(amb, diff, spec, shine)
 {
-	id = 1;
 	ToggleTexture = 1;
-	m_Effect = NULL;
+	m_Effect = (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData();
 	ToggleNormal = 1;
 	ToggleReflection = 1;
 	ToggleWire = 0;
@@ -52,14 +50,30 @@ BaseMaterial::BaseMaterial(const char* name, D3DXVECTOR3 amb, D3DXVECTOR3 diff, 
 	NormalStrength = 1.0f;
 	SpecularPower = 8;
 
-	m_Normal = (IDirect3DTexture9*)gResourceManager->GetTexture("normal.png")->GetData();
+	//m_Normal = (IDirect3DTexture9*)gResourceManager->GetTexture("normal.png")->GetData();
+}
+
+BaseMaterial::BaseMaterial(IDirect3DTexture9* pTexture, ID3DXEffect* effect)
+{
+	ToggleTexture = 1;
+	ToggleNormal = 1;
+	ToggleReflection = 1;
+	ToggleWire = 0;
+
+	AmbientCoefficient = 0.2f;
+	DiffuseCoefficient = 0.65f;
+	SpecularCoefficient = 0.15f;
+	ReflectionCoefficient = 0.1f;
+	NormalStrength = 1.0f;
+	SpecularPower = 8;
+
+	m_Texture = pTexture;
+	m_Effect = effect;
 }
 
 
 BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 {
-	id = 1;
-	m_Effect = NULL;
 	ToggleTexture = 1;
 	ToggleNormal = 1;
 	ToggleReflection = 1;
@@ -71,8 +85,6 @@ BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 	ReflectionCoefficient = 0.1f;
 	NormalStrength = 1.0f;
 	SpecularPower = 8;
-
-	m_Normal = (IDirect3DTexture9*)gResourceManager->GetTexture("normal.png")->GetData();
 
     if(xml_attribute<>* shine = node->first_attribute("shine", 5, false))
         m_Shininess = atof(shine->value());
@@ -96,11 +108,23 @@ BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 	else
 	{
 		fprintf(stderr, "Warning: trying to create a textured material with no texture!\n");
-		m_Texture = nullptr;
+		m_Texture = (IDirect3DTexture9*)gResourceManager->getDefaultTexture()->GetData();
 
 		ToggleTexture = 0;
 	}
 
+	if (xml_node<>* shader = node->first_node("shader", 6, false))
+	{
+		if (xml_attribute<>* shadername = shader->first_attribute("name", 4, false))
+		{
+			gResourceManager->LoadEffectResource(shadername->value());
+			m_Effect = (ID3DXEffect*)gResourceManager->GetEffect(shadername->value());
+		}
+	}
+	else if (m_Effect == nullptr)
+	{
+		m_Effect = (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData();
+	}
     if(xml_node<>* color = node->first_node("diffuse", 7, false))
     {
         if(xml_attribute<>* ar = color->first_attribute("r", 1, false))
