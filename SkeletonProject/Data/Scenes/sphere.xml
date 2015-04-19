@@ -17,7 +17,7 @@
     </light>
 	
 	<model type="primitive" shape="sphere" radius="0.4" rings="50" radials="50" focused="true">
-	<shader filename="LightingOld.fx"/>
+	<shader filename="Lighting.fx"/>
         <material texture="earth.png" shine="1.0f">
         </material>
     </model>

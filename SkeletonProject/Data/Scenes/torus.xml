@@ -2,7 +2,6 @@
 
     <skybox>
 		<color r="0.2" g="0.7" b="0.9"/>
-		<texture filename="space.dds"/>
 	</skybox>
 	
     <camera active="true">
