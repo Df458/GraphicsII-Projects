@@ -141,7 +141,7 @@ void SkeletonClass::onResetDevice()
 	// The aspect ratio depends on the backbuffer dimensions, which can 
 	// possibly change after a reset.  So rebuild the projection matrix.
 	//buildProjMtx();
-	mSceneManager->GetActiveScene()->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
+	mSceneManager->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 	gResourceManager->OnResetDevice();
 }
 

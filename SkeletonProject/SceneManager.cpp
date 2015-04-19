@@ -59,6 +59,17 @@ void SceneManager::UnloadScene(std::string name)
 
 }
 
+void SceneManager::updateSize(unsigned int renderWidth, float renderHeight)
+{
+	m_RenderWidth = renderWidth;
+	m_RenderHeight = renderHeight;
+
+	for (auto& scene : mScenes)
+	{
+		scene->updateSize(renderWidth, renderHeight);
+	}
+
+}
 Scene* SceneManager::GetActiveScene()
 {
 	return mScenes[activeSceneNumber];

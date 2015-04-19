@@ -43,7 +43,7 @@ public:
 	Scene* getScene(unsigned int sceneNumber);
 
 	void ChangeScene();
-
+	void updateSize(unsigned int renderWidth, float renderHeight);
 private:
 	void LoadResources();
 	void UnloadResources();
@@ -57,6 +57,9 @@ private:
 	int activeSceneNumber;
 
 	std::vector<Scene*> mScenes;
+
+	float m_RenderWidth = 1;
+	float m_RenderHeight = 1;
 };
 
 #endif // !SCENE_MANAGER_H_
