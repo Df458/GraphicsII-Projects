@@ -54,12 +54,13 @@ SkySceneNode::SkySceneNode(rapidxml::xml_node<>* node)
 		if (rapidxml::xml_attribute<>* texturename = texture_node->first_attribute("filename", 8, false))
 		{
 			gResourceManager->LoadCubeTextureResource(texturename->value());
+			texture = (IDirect3DCubeTexture9*)gResourceManager->GetCubeTexture(texturename->value())->GetData();
 		}
 	}
 
 	if (texture == nullptr)
 	{
-		texture = (IDirect3DCubeTexture9*)gResourceManager->getDefaultSkyEffect()->GetData();
+		texture = (IDirect3DCubeTexture9*)gResourceManager->getDefaultSkyTexture()->GetData();
 	}
 
     D3DXMatrixIdentity(&m_World);
@@ -84,7 +85,7 @@ void SkySceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     D3DXMATRIX view = activeScene->getActiveCamera()->getView();
     D3DXMATRIX proj = activeScene->getProjection();
     D3DXMATRIX fc = activeScene->getActiveCamera()->getFocusView();
-   // m_Model->Render(m_World, fc, view, proj, m_Mat, activeScene);
+    m_Model->Render(m_World, fc, view, proj, m_Mat, activeScene);
 }
 
 IDirect3DCubeTexture9* SkySceneNode::getSkyTexture() {

@@ -252,8 +252,8 @@ void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVEC
 		HR(m_Effect->SetTexture(m_TextureHandle, m_Texture));
 	if (m_Normal)
 		HR(m_Effect->SetTexture(m_NormalHandle, m_Normal));
-	/*if (cube)
-		HR(m_Effect->SetTexture(m_SkyTextureHandle, cube));*/
+	if (cube)
+		HR(m_Effect->SetTexture(m_SkyTextureHandle, cube));
 	HR(m_Effect->CommitChanges());
 	HR(m_Effect->BeginPass(pass));
 }
