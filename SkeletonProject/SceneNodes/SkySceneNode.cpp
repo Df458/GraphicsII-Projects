@@ -39,7 +39,7 @@ SkySceneNode::SkySceneNode(rapidxml::xml_node<>* node)
 
 	if(rapidxml::xml_node<>* shader_node = node->first_node("shader", 6, false))
 	{
-		if (rapidxml::xml_attribute<>* shadername = shader_node->first_attribute("name", 4, false))
+		if (rapidxml::xml_attribute<>* shadername = shader_node->first_attribute("filename", 8, false))
 		{
 			gResourceManager->LoadEffectResource(shadername->value());
 			effect = (ID3DXEffect*)gResourceManager->GetEffect(shadername->value())->GetData();
@@ -51,10 +51,9 @@ SkySceneNode::SkySceneNode(rapidxml::xml_node<>* node)
 	}
 	if (rapidxml::xml_node<>* texture_node = node->first_node("texture", 7, false))
 	{
-		if (rapidxml::xml_attribute<>* texturename = texture_node->first_attribute("name", 4, false))
+		if (rapidxml::xml_attribute<>* texturename = texture_node->first_attribute("filename", 8, false))
 		{
-			gResourceManager->LoadTextureResource(texturename->value());
-			effect = (ID3DXEffect*)gResourceManager->GetEffect(texturename->value())->GetData();
+			gResourceManager->LoadCubeTextureResource(texturename->value());
 		}
 	}
 
@@ -85,7 +84,7 @@ void SkySceneNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
     D3DXMATRIX view = activeScene->getActiveCamera()->getView();
     D3DXMATRIX proj = activeScene->getProjection();
     D3DXMATRIX fc = activeScene->getActiveCamera()->getFocusView();
-    m_Model->Render(m_World, fc, view, proj, m_Mat, activeScene);
+   // m_Model->Render(m_World, fc, view, proj, m_Mat, activeScene);
 }
 
 IDirect3DCubeTexture9* SkySceneNode::getSkyTexture() {

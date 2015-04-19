@@ -11,12 +11,13 @@
       <lookat/>
     </camera>
 	
-    <light type="point" energy="10">
+    <light type="point" energy="10" active="true">
         <color r="1.0" g="1.0" b="0.3"/>
         <translate x="-0.25" y="2" z="-1.5"/>
     </light>
 	
 	<model type="primitive" shape="sphere" radius="0.4" rings="50" radials="50" focused="true">
+	<shader filename="LightingOld.fx"/>
         <material texture="earth.png" shine="1.0f">
         </material>
     </model>

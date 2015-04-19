@@ -46,6 +46,15 @@ ModelSceneNode::ModelSceneNode(xml_node<>* node) : SceneNode(node)
 	ID3DXEffect* effect = nullptr;
 	IDirect3DTexture9* texture = nullptr;
 
+	if (rapidxml::xml_node<>* shader_node = node->first_node("shader", 6, false))
+	{
+		if (rapidxml::xml_attribute<>* shadername = shader_node->first_attribute("filename", 8, false))
+		{
+			gResourceManager->LoadEffectResource(shadername->value());
+			effect = (ID3DXEffect*)gResourceManager->GetEffect(shadername->value())->GetData();
+		}
+	}
+
     if(xml_node<>* nmat = node->first_node("material", 8, false))
     {
 		mat = new BaseMaterial(nmat);

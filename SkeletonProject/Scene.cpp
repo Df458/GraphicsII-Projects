@@ -56,6 +56,10 @@ bool Scene::loadScene(std::string filepath)
 
 	loadNode(node, m_RootNode);
 
+	if (m_ActiveCamera)
+		if (m_ActiveFocus)
+			m_ActiveCamera->setFocus(m_ActiveFocus);
+
 	return true;
 }
 
@@ -121,12 +125,13 @@ void Scene::loadLightNode(rapidxml::xml_node<>* node, SceneNode* parent)
 		parent->addChild(light_node);
 
 		bool active = (light == node->first_node("light", 6, false));
-		if (rapidxml::xml_attribute<>* active_a = node->first_attribute("active", 3, false)) {
-			active = strcmp(active_a->value(), "false");
+		if (!m_ActiveLight || active)
+		{
+			m_ActiveLight = light_node;
 		}
+		
 
 		loadNode(light, light_node);
-		m_ActiveLight = light_node;
 	}
 }
 
