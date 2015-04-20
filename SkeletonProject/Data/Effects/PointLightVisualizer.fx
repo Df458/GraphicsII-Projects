@@ -107,50 +107,8 @@ OutputVS PhongVS(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXC
 }
 
 float4 PhongPS(OutputVS input) : COLOR
-{
-	//float3 Normal = normalize(input.normal);
-	float3 Normal = NormalStr*2*(tex2D(normalbump, input.uv) - 0.5);
-	float3 LightDirection = input.light;
-	float3 ViewDirection = normalize(input.view);
-
-	float4 Diffuse = saturate(dot(Normal, LightDirection));
-	float4 Shadow = saturate(4 * Diffuse);
-
-	float3 Reflect = normalize(2 * Diffuse * Normal - LightDirection); // Calculate reflections
-	float4 Specular = pow(saturate(dot(Reflect, ViewDirection)), SpecularPower); // Calculate Specular (Relections.ViewDirection)^8
-
-	// REFLECT STUFF IS RIGHT HERE!!
-	//float3 emt = reflect(-ViewDirection, Normal);
-	float4 rcolor = texCUBE(skysampler, Reflect);
-
-	
-	float4 TextureColor = tex2D(sstate, input.uv);
-
-	//Toggles "Logic"
-	//Set ToggleTexture int to 1 to let variables be themselves (Self to 1st power)
-	//Set ToggleTexture int to 0 to set variables to 1 (Self to 0th power)
-	TextureColor = pow(abs(TextureColor), ToggleTexture);
-	
-	//Set ToggleDiffuse & ToggleDiffuse int to 1 to let variables be themselves
-	//Set ToggleDiffuse & ToggleDiffuse int to 0 to set variables to 0
-	//Diffuse = mul(Diffuse, ToggleDiffuse);
-	//Specular = mul(Specular, ToggleSpecular);
-	rcolor = mul(rcolor, ToggleReflection);
-	
-	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse * colLight / input.A.x + rcolor * (ReflectionCoef * 10) + Specular * (SpecularCoef * 10) * colLight / input.A.x);
-	//return rcolor;
-	//return TextureColor * colAmbient + (rcolor + Specular);
-	//return TextureColor * colAmbient * AmbientCoef + (TextureColor + colDiffuse * Diffuse) * DiffuseCoef + rcolor + Specular * SpecularCoef;
-}
-
-technique PhongWire
-{
-	pass P0
-	{
-		vertexShader = compile vs_3_0 PhongVS();
-		pixelShader = compile ps_3_0 PhongPS();
-		FillMode = Wireframe;
-	}
+{	
+	return colAmbient;
 }
 
 technique PhongSolid

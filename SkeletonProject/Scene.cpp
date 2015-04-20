@@ -77,6 +77,8 @@ void Scene::loadCameraNode(rapidxml::xml_node<>* node, SceneNode* parent)
 	{
 		CameraSceneNode* cam_node = new CameraSceneNode(camera);
 		parent->addChild(cam_node);
+		m_Nodes.insert(cam_node);
+
 
 		if (rapidxml::xml_attribute<>* active = camera->first_attribute("active", 6, false))
 			if (!strcmp(active->value(), "true"))
@@ -92,6 +94,7 @@ void Scene::loadSkyBoxNode(rapidxml::xml_node<>* node, SceneNode* parent)
 	{
 		SkySceneNode* sky_node = new SkySceneNode(skybox);
 		parent->addChild(sky_node);
+		m_Nodes.insert(sky_node);
 
 		if (rapidxml::xml_node<>* color = node->first_node("sky", 3, false))
 		{
@@ -121,8 +124,9 @@ void Scene::loadLightNode(rapidxml::xml_node<>* node, SceneNode* parent)
 {
 	for (rapidxml::xml_node<>* light = node->first_node("light", 5, false); light; light = light->next_sibling("light", 5, false)) {
 		LightSceneNode* light_node = new LightSceneNode(light);
-
 		parent->addChild(light_node);
+		m_Nodes.insert(light_node);
+
 
 		bool active = (light == node->first_node("light", 6, false));
 		if (!m_ActiveLight || active)
@@ -139,9 +143,9 @@ void Scene::loadModelNode(rapidxml::xml_node<>* node, SceneNode* parent)
 {
 	for (rapidxml::xml_node<>* model = node->first_node("model", 5, false); model; model = model->next_sibling("model", 5, false)) {
 		ModelSceneNode* model_node = new ModelSceneNode(model);
+		parent->addChild(model_node);
+		m_Nodes.insert(model_node);
 
-		parent->addChild(model_node)
-			;
 		if (rapidxml::xml_attribute<>* active = model->first_attribute("focused", 7, false))
 			if (!strcmp(active->value(), "true"))
 				m_ActiveFocus = model_node;

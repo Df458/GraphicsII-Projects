@@ -1,7 +1,7 @@
 <scene>
 
     <skybox radius="100" rings="50" radials="50">
-		<color r="0.7" g="0.7" b="0.9"/>
+		<color r="1.0" g="1.0" b="1.0"/>
 		<texture filename="space.dds"/>
 	</skybox>
 	
@@ -12,13 +12,21 @@
     </camera>
 	
     <light type="point" energy="10" active="true">
-        <color r="1.0" g="1.0" b="0.3"/>
+	<shader filename="PointLightVisualizer.fx"/>
+        <color r="1.0" g="1.0" b="1.0"/>
         <translate x="-0.25" y="2" z="-1.5"/>
     </light>
 	
-	<model type="primitive" shape="sphere" radius="0.4" rings="50" radials="50" focused="true">
-	<shader filename="Lighting.fx"/>
-        <material texture="earth.png" shine="1.0f">
+	<model type="primitive" shape="sphere" radius="1" rings="100" radials="100" focused="true">
+		<shader filename="Lighting.fx"/>
+        <material texture="Earth//earthmap8k.jpg" normal = "Earth//EarthNormal.png" shine="1.0f">
         </material>
+		
+		<model type="primitive" shape="sphere" radius="0.1" rings="100" radials="100" focused="false">
+			<translate x="1.2" y="1.2" z="-1.2"/>
+			<shader filename="Lighting.fx"/>
+			<material texture="Moon//moonmap4k.jpg" normal = "Moon//moonbump4k.jpg" shine="1.0f">
+			</material>
+		</model>
     </model>
 </scene>

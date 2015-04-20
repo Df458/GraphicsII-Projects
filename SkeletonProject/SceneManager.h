@@ -34,6 +34,8 @@ public:
 	void Initalize();
 	void Terminate();
 
+	void Update(float deltatime);
+
 	bool LoadMultiScene(std::string name);
 	void UnloadMultiScene(std::string name);
 	

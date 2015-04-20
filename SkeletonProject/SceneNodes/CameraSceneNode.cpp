@@ -52,6 +52,12 @@ CameraSceneNode::CameraSceneNode(xml_node<>* node) : SceneNode(node)
 
 void CameraSceneNode::Update(float deltatime)
 {
+	if (focusDistance != desiredFocusDistance)
+	{
+		focusDistance += (desiredFocusDistance - focusDistance) * 0.01f;
+
+		D3DXMatrixTranslation(&m_FocusView, 0, 0, -focusDistance);
+	}
 }
 
 void CameraSceneNode::setProjection(D3DXMATRIX projection)
@@ -136,10 +142,10 @@ void CameraSceneNode::turnFocus(float x, float y)
 
 void CameraSceneNode::zoomFocus(float distance)
 {
+	distance /= 120.0f;
     if(!focused)
         return;
-    focusDistance -= distance;
-    if(focusDistance <= m_Near)
-        focusDistance = m_Near + 0.1f;
-    D3DXMatrixTranslation(&m_FocusView, 0, 0, -focusDistance);
+    desiredFocusDistance -= distance;
+	if (desiredFocusDistance <= m_Near)
+		desiredFocusDistance = m_Near + 0.1f;
 }

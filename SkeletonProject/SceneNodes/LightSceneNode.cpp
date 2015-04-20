@@ -61,10 +61,10 @@ LightSceneNode::LightSceneNode(xml_node<>* node) : SceneNode(node)
 	ID3DXEffect* effect = nullptr;
 	if (xml_node<>* shader = node->first_node("shader", 6, false))
 	{
-		if (xml_attribute<>* shadername = shader->first_attribute("name", 4, false))
+		if (xml_attribute<>* shadername = shader->first_attribute("filename", 8, false))
 		{
 			gResourceManager->LoadEffectResource(shadername->value());
-			effect = (ID3DXEffect*)gResourceManager->GetEffect(shadername->value());
+			effect = (ID3DXEffect*)gResourceManager->GetEffect(shadername->value())->GetData();
 		}
 	}
 	if (effect == nullptr)
@@ -72,7 +72,12 @@ LightSceneNode::LightSceneNode(xml_node<>* node) : SceneNode(node)
 		effect = (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData();
 	}
 	BaseMaterial* material = new BaseMaterial(D3DXVECTOR3(m_Color), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0), 0);
-	material->ConnectToEffect((ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData());
+	if (!effect)
+	{
+		effect = (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData();
+	}
+	material->ConnectToEffect(effect);
+	m_Material = material;
 	m_Model = new UVSphereObject3D(0.1, 8, 8);
     m_Model->Create();
 }

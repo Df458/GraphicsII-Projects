@@ -23,6 +23,15 @@ void SceneManager::Terminate()
 
 }
 
+void SceneManager::Update(float deltatime)
+{
+	for (auto& scene : mScenes)
+	{
+		scene->Update(deltatime);
+	}
+}
+
+
 bool SceneManager::LoadMultiScene(std::string name)
 {
 	char* multiSceneBuffer = gResourceManager->loadSceneData(name);

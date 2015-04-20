@@ -168,7 +168,10 @@ void SkeletonClass::updateScene(float dt)
 	}
 
 	if (gDInput->mouseDZ() != 0)
-		mSceneManager->GetActiveScene()->getActiveCamera()->zoomFocus(gDInput->mouseDZ() * 0.0051f);
+		if (gDInput->keyDown(DIK_LSHIFT))
+			mSceneManager->GetActiveScene()->getActiveCamera()->zoomFocus(gDInput->mouseDZ()/2);
+		else
+			mSceneManager->GetActiveScene()->getActiveCamera()->zoomFocus(gDInput->mouseDZ());
 
 	if (gDInput->keyDown(DIK_M))
 		mSceneManager->GetActiveScene()->getActiveCamera()->releaseFocus();
@@ -323,6 +326,7 @@ void SkeletonClass::updateScene(float dt)
 		p7 = false;
 
 	mSceneManager->GetActiveScene()->Update(dt);
+	//mSceneManager->Update(dt);
 }
 
 void SkeletonClass::drawScene()

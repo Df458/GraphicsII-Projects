@@ -29,7 +29,8 @@ public:
 protected:
 	bool focused;
 	SceneNode* focusTarget;
-	float focusDistance;
+	float focusDistance = 3;
+	float desiredFocusDistance = 3;
 
     D3DXMATRIX m_Projection;
     D3DXMATRIX m_FocusView;
