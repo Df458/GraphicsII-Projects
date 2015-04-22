@@ -17,7 +17,7 @@
         <translate x=".7" y="2" z="-1.5"/>
     </light>
 	
-	<model type="primitive" shape="sphere" radius="1" rings="100" radials="100" focused="true">
+	<model type="X" filename="sphere.x" scale="1" focused="true">
 		<shader filename="Lighting.fx"/>
         <material texture="Earth//earthmap8k.jpg" normal = "Earth//EarthNormal.png" shine="1.0f">
         </material>

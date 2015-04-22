@@ -37,6 +37,7 @@ Implement fast unsigned integer key hash table.
 #include "Texture.h"
 #include "CubeTexture.h"
 #include "Effect.h"
+#include "Model.h"
 #include "Materials/BaseMaterial.h"
 #include "Utils.h"					//Used for Hugues ASCII data loader 
 
@@ -56,6 +57,7 @@ public:
 	UniqueID				LoadTextureResource(std::string filename, bool Preserve = false, bool count = true);
 	UniqueID				LoadCubeTextureResource(std::string filename, bool Preserve = false, bool count = true);
 	UniqueID				LoadEffectResource(std::string filename, bool Preserve = false, bool count = true);
+	UniqueID				LoadMeshResource(std::string filename, bool Preserve = false, bool count = true);
 
 	//Resource Getters
 	Resource*				GetResource(UniqueID pID, ResourceType resourceType);
@@ -64,6 +66,7 @@ public:
 	Texture*				GetTexture(UniqueID pID);
 	CubeTexture*			GetCubeTexture(UniqueID pID);
 	Effect*					GetEffect(UniqueID pID);
+	Model*					GetMesh(UniqueID pID);
 
 	//Provide String lookup for Release mode
 #ifndef _DEBUG
@@ -73,6 +76,7 @@ public:
 	Texture*				GetTexture(std::string filename);
 	CubeTexture*			GetCubeTexture(std::string filename);
 	Effect*					GetEffect(std::string filename);
+	Model*					GetMesh(std::string filename);
 #endif // !_DEBUG
 
 	//Resource Unloaders
@@ -82,6 +86,7 @@ public:
 	void					UnloadTexture(UniqueID pID, bool Preserve = false, bool count = true);
 	void					UnloadCubeTexture(UniqueID pID, bool Preserve = false, bool count = true);
 	void					UnloadEffect(UniqueID pID, bool Preserve = false, bool count = true);
+	void					UnloadMesh(UniqueID pID, bool Preserve = false, bool count = true);
 
 	//Provide String Unloading for Release mode
 #ifndef _DEBUG
@@ -91,6 +96,7 @@ public:
 	void					UnloadTexture(std::string filename, bool Preserve = false, bool count = true);
 	void					UnloadCubeTexture(std::string filename, bool Preserve = false, bool count = true);
 	void					UnloadEffect(std::string filename, bool Preserve = false, bool count = true);
+	void					UnloadMesh(std::string filename, bool Preserve = false, bool count = true);
 #endif // !_DEBUG
 
 	void					OnLostDevice();
@@ -98,19 +104,20 @@ public:
 
 	//Custom Resource Management
 	char*					loadSceneData(std::string name);//Calls Hugues ASCII data loader 
-	std::string				getSceneDataFilePath(){ return SceneFilePath; };
+	std::string				getSceneDataFilePath();;
 
 	//Default getters
-	Effect*					getDefaultEffect(){ return GetEffect(m_DefaultEffectID); };
-	Effect*					getDefaultSkyEffect(){ return GetEffect(m_DefaultSkyEffectID); };
-	Texture*				getDefaultTexture(){ return GetTexture(m_DefaultTextureID); }; 
-	CubeTexture*			getDefaultSkyTexture(){ return GetCubeTexture(m_DefaultCubeTextureID); };
+	Effect*					getDefaultEffect();;
+	Effect*					getDefaultSkyEffect();;
+	Texture*				getDefaultTexture();; 
+	CubeTexture*			getDefaultSkyTexture();;
 
 private:
 	//Resources
 	HashTable<UniqueID, Texture*> textureMap;
 	HashTable<UniqueID, CubeTexture*> cubeTextureMap;
 	HashTable<UniqueID, Effect*> effectMap;
+	HashTable<UniqueID, Model*> meshMap;
 	
 	//Default ObjectsID
 	UniqueID				m_DefaultEffectID;
@@ -123,6 +130,8 @@ private:
 	bool					LoadTextureData(std::string TextureName);
 	bool					LoadCubeTextureData(std::string TextureName);
 	bool					LoadEffectData(std::string EffectName);
+	bool					LoadModelData(std::string ModelName);
+
 
 	//File Paths
 	std::string				DataRootFilePath;

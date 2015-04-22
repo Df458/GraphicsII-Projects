@@ -15,7 +15,7 @@
         <translate x="-0.25" y="2" z="-1.5"/>
     </light>
 	
-    <model type="primitive" shape="cone" height="0.5" radius="0.5" radials="24"  focused="true">
+    <model type="X" filename="cone.x" scale="1" focused="true">
         <material texture="test.png" shine="1.0f">
 			<color r="1.0"/>
         </material>

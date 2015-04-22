@@ -96,6 +96,7 @@
     <ClCompile Include="3DClasses\TorusObject3D.cpp" />
     <ClCompile Include="3DClasses\UVSphereObject3D.cpp" />
     <ClCompile Include="3DClasses\Vertex.cpp" />
+    <ClCompile Include="3DClasses\XModel3D.cpp" />
     <ClCompile Include="d3dApp.cpp" />
     <ClCompile Include="DirectInput.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="3DClasses\TorusObject3D.h" />
     <ClInclude Include="3DClasses\UVSphereObject3D.h" />
     <ClInclude Include="3DClasses\Vertex.h" />
+    <ClInclude Include="3DClasses\XModel3D.h" />
     <ClInclude Include="CRC32.h" />
     <ClInclude Include="CubeTexture.h" />
     <ClInclude Include="d3dApp.h" />
@@ -135,6 +137,7 @@
     <ClInclude Include="Materials\BaseMaterial.h" />
     <ClInclude Include="Materials\SimplePhong.h" />
     <ClInclude Include="Materials\SkyBoxMaterial.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />

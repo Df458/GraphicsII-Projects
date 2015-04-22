@@ -8,7 +8,8 @@ class Scene;
 
 class MeshObject3D {
 public:
-    MeshObject3D();
+	MeshObject3D();
+	MeshObject3D(LPD3DXMESH pMesh);
 	virtual void Create();
 	virtual void Render(D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view, D3DXMATRIX& projection, BaseMaterial* material, Scene* scene);
 

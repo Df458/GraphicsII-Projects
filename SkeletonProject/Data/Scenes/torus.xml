@@ -15,7 +15,7 @@
         <translate x="-0.25" y="2" z="-1.5"/>
     </light>
 	
-	<model type="primitive" shape="torus" radiusi="0.2" radiusr="0.75" sides="16" rings="24"  focused="true">
+	<model type="X" filename="torus.x" scale="1" focused="true">
         <material texture="test.png" shine="1.0f">
         </material>
     </model>

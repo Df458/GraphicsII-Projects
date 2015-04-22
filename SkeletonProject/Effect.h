@@ -2,10 +2,9 @@
 							Effect.h
 Author: Johnathan O'Malia © 2015
 Description:	Effect Resource Container class.
-Stores texture and provides data necessary for resource manager
+				Stores texture and provides data necessary for resource manager
 
 TODO:
-Test
 /************************************************************************/
 //Parent Class
 #include "Resource.h"

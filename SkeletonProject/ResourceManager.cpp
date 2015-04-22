@@ -102,6 +102,9 @@ UniqueID ResourceManager::LoadResource(std::string filename, ResourceType resour
 		break;
 	case EFFECT:
 		return LoadEffectResource(filename, Preserve, count);
+		break;	
+	case MODEL:
+		return LoadMeshResource(filename, Preserve, count);
 		break;
 	}
 	std::string msg = "Unrecognized resource type! " + resourceType;
@@ -126,6 +129,7 @@ UniqueID ResourceManager::LoadTextureResource(std::string filename, bool Preserv
 		{
 			tmpTexture->preserveCount++;
 		}
+		return uid;
 	}
 	else //if not
 	{
@@ -159,6 +163,7 @@ UniqueID ResourceManager::LoadCubeTextureResource(std::string filename, bool Pre
 		{
 			tmpTexture->preserveCount++;
 		}
+		return uid;
 	}
 	else //if not
 	{
@@ -192,6 +197,7 @@ UniqueID ResourceManager::LoadEffectResource(std::string filename, bool Preserve
 		{
 			tmpEffect->preserveCount++;
 		}
+		return uid;
 	}
 	else //if not
 	{
@@ -207,6 +213,39 @@ UniqueID ResourceManager::LoadEffectResource(std::string filename, bool Preserve
 	}
 	//TODO: log effect texture error;
 	return m_DefaultEffectID;
+}
+
+UniqueID ResourceManager::LoadMeshResource(std::string filename, bool Preserve, bool count)
+{
+	UniqueID uid = internString(filename);
+	Model* tmpMesh = nullptr;
+
+	tmpMesh = meshMap.GetValue(uid);
+
+	if (tmpMesh != nullptr)
+	{
+		if(count)
+			tmpMesh->instanceCount++;
+		if (Preserve)
+		{
+			tmpMesh->preserveCount++;
+		}
+		return uid;
+	}
+	else //if not
+	{
+		if (LoadModelData(filename))
+		{
+			return uid;
+		}
+		else
+		{
+			//TODO: log effect load failure error;
+			return NULL;
+		}
+	}
+	//TODO: log effect texture error;
+	return NULL;
 }
 
 Resource* ResourceManager::GetResource(UniqueID pID, ResourceType resourceType)
@@ -239,6 +278,11 @@ CubeTexture* ResourceManager::GetCubeTexture(UniqueID pID)
 Effect* ResourceManager::GetEffect(UniqueID pID)
 {
 	return effectMap.GetValue(pID);
+}
+
+Model* ResourceManager::GetMesh(UniqueID pID)
+{
+	return meshMap.GetValue(pID);
 }
 
 //Release String Accessors
@@ -275,6 +319,12 @@ Effect* ResourceManager::GetEffect(std::string filename)
 {
 	return effectMap.GetValue(internString(filename));
 }
+
+Model* ResourceManager::GetMesh(std::string filename)
+{
+	return meshMap.GetValue(internString(filename));
+}
+
 #endif
 
 bool ResourceManager::LoadTextureData(std::string TextureName)
@@ -334,6 +384,30 @@ bool ResourceManager::LoadEffectData(std::string EffectName)
 	effectMap.Insert(effectID, new Effect(effect, effectID, EffectName));
 
 	return true;
+}
+
+
+bool ResourceManager::LoadModelData(std::string ModelName)
+{
+	HRESULT result = S_OK;
+
+	LPD3DXBUFFER materialBuffer;
+	DWORD numMaterials;
+	LPD3DXMESH mesh;
+
+	result = D3DXLoadMeshFromX((ModelFilePath + ModelName).c_str(), D3DXMESH_SYSTEMMEM,
+		gd3dDevice, NULL,
+		&materialBuffer, NULL, &numMaterials,
+		&mesh);
+
+	if (FAILED(result))
+	{
+		MessageBox(NULL, ("Error loading Model " + ModelName).c_str(), "Error", MB_OK | MB_ICONERROR);
+		return false;
+	}
+
+	UniqueID modelID = internString(ModelName);
+	meshMap.Insert(modelID, new Model(mesh, modelID, ModelName));
 }
 
 char* ResourceManager::loadSceneData(std::string SceneName)//Calls Hugues ASCII data loader 
@@ -421,6 +495,24 @@ void ResourceManager::UnloadEffect(UniqueID pID, bool Preserve, bool count)
 	}
 }
 
+void ResourceManager::UnloadMesh(UniqueID pID, bool Preserve /*= false*/, bool count /*= true*/)
+{
+	Model* tmp = meshMap.GetValue(pID);
+	if (tmp != nullptr)
+	{
+		if (Preserve)
+			tmp->preserveCount--;
+		if (count)
+			tmp->instanceCount--;
+		if (tmp->instanceCount <= 0 && tmp->preserveCount <= 0)
+			meshMap.Remove(pID);
+	}
+	else
+	{
+		//TODO: Log Resource not found Error Here.
+	}
+}
+
 #ifndef _DEBUG
 void ResourceManager::UnloadResource(std::string TextureName, ResourceType resourceType, bool Preserve, bool count)
 {
@@ -442,8 +534,12 @@ void ResourceManager::UnloadEffect(std::string EffectName, bool Preserve, bool c
 	UnloadEffect(internString(EffectName),Preserve, count);
 }
 
-#endif
+void ResourceManager::UnloadMesh(std::string filename, bool Preserve /*= false*/, bool count /*= true*/)
+{
+	UnloadMesh(internString(filename),Preserve, count);
+}
 
+#endif
 
 void ResourceManager::LocateDataFolders()
 {
@@ -506,4 +602,29 @@ bool ResourceManager::DirectoryExists(const std::string& dirName)
 		return true; 
 
 	return false;
+}
+
+CubeTexture* ResourceManager::getDefaultSkyTexture()
+{
+	return GetCubeTexture(m_DefaultCubeTextureID);
+}
+
+Texture* ResourceManager::getDefaultTexture()
+{
+	return GetTexture(m_DefaultTextureID);
+}
+
+Effect* ResourceManager::getDefaultSkyEffect()
+{
+	return GetEffect(m_DefaultSkyEffectID);
+}
+
+Effect* ResourceManager::getDefaultEffect()
+{
+	return GetEffect(m_DefaultEffectID);
+}
+
+std::string ResourceManager::getSceneDataFilePath()
+{
+	return SceneFilePath;
 }

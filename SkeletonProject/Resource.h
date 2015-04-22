@@ -1,11 +1,9 @@
 /************************************************************************
 							Resource.h
 Author: Johnathan O'Malia © 2015
-Description: Base class for common functionality for resource types
+Description:	Base class for common functionality for resource types
 
 TODO:
-everything
-
 /************************************************************************/
 #ifndef RESOURCE_H_
 #define RESOURCE_H_
@@ -23,6 +21,7 @@ enum ResourceType
 	TEXTURE,
 	CUBETEXTURE,
 	EFFECT,
+	MODEL
 };
 
 class ResourceManager;

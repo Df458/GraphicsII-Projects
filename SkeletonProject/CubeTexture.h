@@ -5,7 +5,6 @@ Description:	CubeTexture Resource Container class.
 				Stores texture and provides data necessary for resource manager
 
 TODO:
-Test
 /************************************************************************/
 //Parent Class
 #include "Resource.h"

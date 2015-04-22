@@ -74,6 +74,9 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Scene Graph</Filter>
     </ClCompile>
+    <ClCompile Include="3DClasses\XModel3D.cpp">
+      <Filter>3D Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneNodes\CameraSceneNode.h">
@@ -169,6 +172,12 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Scene.h">
       <Filter>Scene Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Resource Manager\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="3DClasses\XModel3D.h">
+      <Filter>3D Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

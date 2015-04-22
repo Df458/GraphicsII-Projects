@@ -19,6 +19,8 @@ public:
     virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice);
     void generatePrimitive(const char* name, rapidxml::xml_node<>* node);
 private:
+	void loadXModel(std::string filename, float scale);
+
 	MeshObject3D* m_Model = NULL;
 	BaseMaterial* m_Material = NULL;
 };

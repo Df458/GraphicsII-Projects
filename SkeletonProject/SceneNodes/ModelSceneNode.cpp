@@ -9,6 +9,7 @@
 #include "../3DClasses/ConeObject3D.h"
 #include "../3DClasses/TeapotObject3D.h"
 #include "../3DClasses/UVSphereObject3D.h"
+#include "../3DClasses/XModel3D.h"
 #include "../Materials/BaseMaterial.h"
 #include "SkySceneNode.h"
 #include "../Scene.h"
@@ -84,10 +85,18 @@ ModelSceneNode::ModelSceneNode(xml_node<>* node) : SceneNode(node)
         if(xml_attribute<>* shape = node->first_attribute("shape", 5, false))
             generatePrimitive(shape->value(), node);
     }
-    else if(!strcmp(type->value(), "mesh"))
+    else if(!strcmp(type->value(), "X"))
     {
-//:TODO: 23.02.15 19:38:45, df458
-// load a mesh here
+		if (xml_attribute<>* name = node->first_attribute("filename", 8, false))
+		{
+			float modelScale = 1.0f;
+			if (xml_attribute<>* scale = node->first_attribute("scale", 5, false))
+			{
+				modelScale = atof(scale->value());
+			}
+			gResourceManager->LoadMeshResource(name->value());
+			loadXModel(name->value(), modelScale);
+		}
     }
 }
 
@@ -99,6 +108,11 @@ ModelSceneNode::~ModelSceneNode()
 BaseMaterial* ModelSceneNode::getMaterial(void)
 { 
 	return m_Material; 
+}
+
+void ModelSceneNode::loadXModel(std::string filename, float scale)
+{
+	m_Model = new XModel3D((LPD3DXMESH)gResourceManager->GetMesh(filename)->GetData());
 }
 
 void ModelSceneNode::Update(float deltatime)
