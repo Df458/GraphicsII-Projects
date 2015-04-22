@@ -26,6 +26,7 @@ public:
 	SceneNode* getFocusNode(){ return focusTarget; };
     bool getFocused(void) { return focused; }
 	D3DXMATRIX getFocusView(void) const;
+	D3DXMATRIX getBillboardMatrix(void) const;
 protected:
 	bool focused;
 	SceneNode* focusTarget;

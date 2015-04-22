@@ -77,6 +77,9 @@
     <ClCompile Include="3DClasses\XModel3D.cpp">
       <Filter>3D Objects</Filter>
     </ClCompile>
+    <ClCompile Include="SceneNodes\ParticleEmitterNode.cpp">
+      <Filter>Scene Graph\Nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneNodes\CameraSceneNode.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="BilliardBallNode.h">
       <Filter>John%27s Billiards</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodes\ParticleEmitterNode.h">
+      <Filter>Scene Graph\Nodes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

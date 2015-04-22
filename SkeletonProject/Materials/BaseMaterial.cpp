@@ -10,6 +10,7 @@
 #include "BaseMaterial.h"
 #include "../SceneNodes/LightSceneNode.h"
 #include "../SceneNodes/SkySceneNode.h"
+#include "../SceneNodes/CameraSceneNode.h"
 #include "../ResourceManager.h"
 #include "../Scene.h"
 //=============================================================================

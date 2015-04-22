@@ -92,6 +92,17 @@ D3DXMATRIX CameraSceneNode::getProjection(void) const
     return m_Projection;
 }
 
+D3DXMATRIX CameraSceneNode::getBillboardMatrix(void) const
+{
+	D3DXMATRIX v = getView();
+	D3DXVECTOR3 forward = D3DXVECTOR3(-v._13, -v._23, -v._33);
+	D3DXVECTOR3 up(v._12, v._22, v._32);
+	D3DXVECTOR3 right;
+	D3DXVec3Cross(&right, &forward, &up);
+	D3DXMATRIX mat = { right.x, right.y, right.z, 0.0f, up.x, up.y, up.z, 0.0f, forward.x, forward.y, forward.z, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+	return mat;
+}
+
 void CameraSceneNode::rebuildProjection(float w, float h)
 {
     D3DXMatrixPerspectiveFovLH(&m_Projection, m_Angle * DEGTORAD, w/h, m_Near, m_Far);

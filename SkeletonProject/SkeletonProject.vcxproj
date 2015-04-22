@@ -110,6 +110,7 @@
     <ClCompile Include="SceneNodes\CameraSceneNode.cpp" />
     <ClCompile Include="SceneNodes\LightSceneNode.cpp" />
     <ClCompile Include="SceneNodes\ModelSceneNode.cpp" />
+    <ClCompile Include="SceneNodes\ParticleEmitterNode.cpp" />
     <ClCompile Include="SceneNodes\SceneNode.cpp" />
     <ClCompile Include="SceneNodes\SkySceneNode.cpp" />
     <ClCompile Include="SkeletonClass.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="SceneNodes\CameraSceneNode.h" />
     <ClInclude Include="SceneNodes\LightSceneNode.h" />
     <ClInclude Include="SceneNodes\ModelSceneNode.h" />
+    <ClInclude Include="SceneNodes\ParticleEmitterNode.h" />
     <ClInclude Include="SceneNodes\SceneNode.h" />
     <ClInclude Include="SceneNodes\SkySceneNode.h" />
     <ClInclude Include="SkeletonClass.h" />

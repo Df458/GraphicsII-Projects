@@ -109,7 +109,7 @@ OutputVS PhongVS(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXC
 float4 PhongPS(OutputVS input) : COLOR
 {
 	//float3 Normal = normalize(input.normal);
-	float3 Normal = NormalStr*2*(tex2D(normalbump, input.uv) - 0.5);
+	float3 Normal = NormalStr*2*mul(tex2D(normalbump, input.uv) - 0.5, ToggleNormal);
 	float3 LightDirection = input.light;
 	float3 ViewDirection = normalize(input.view);
 
