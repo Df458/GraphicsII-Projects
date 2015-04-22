@@ -7,7 +7,7 @@
 #include "../ResourceManager.h"
 
 using namespace rapidxml;
-
+// TODO: Write the contents of this class
 ParticleEmitterNode::ParticleEmitterNode(MeshObject3D* model)
 {
     m_Parent = NULL;

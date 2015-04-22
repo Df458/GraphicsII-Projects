@@ -79,6 +79,7 @@ protected:
 	D3DXHANDLE			SpecularCoefficientHandle = 0;
 	D3DXHANDLE			ReflectionCoefficientHandle = 0;
 	D3DXHANDLE			NormalStrengthHandle = 0;
+	bool m_Billboard = false;
 
 public:
     BaseMaterial(D3DXVECTOR3 amb = D3DXVECTOR3(0.1f, 0.1f, 0.1f), D3DXVECTOR3 diff = D3DXVECTOR3(0.9f, 0.9f, 0.9f), D3DXVECTOR3 spec = D3DXVECTOR3(1.0f, 1.0f, 1.0f), float shine = 0.1f);
