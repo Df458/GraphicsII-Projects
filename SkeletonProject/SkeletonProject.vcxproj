@@ -125,6 +125,7 @@
     <ClInclude Include="3DClasses\UVSphereObject3D.h" />
     <ClInclude Include="3DClasses\Vertex.h" />
     <ClInclude Include="3DClasses\XModel3D.h" />
+    <ClInclude Include="BilliardBallNode.h" />
     <ClInclude Include="CRC32.h" />
     <ClInclude Include="CubeTexture.h" />
     <ClInclude Include="d3dApp.h" />

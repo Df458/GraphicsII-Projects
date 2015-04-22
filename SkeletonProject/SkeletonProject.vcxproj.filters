@@ -179,6 +179,9 @@
     <ClInclude Include="3DClasses\XModel3D.h">
       <Filter>3D Objects</Filter>
     </ClInclude>
+    <ClInclude Include="BilliardBallNode.h">
+      <Filter>John%27s Billiards</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Materials">
@@ -213,6 +216,9 @@
     </Filter>
     <Filter Include="Resource Manager\Hashing">
       <UniqueIdentifier>{62440db0-5b89-469b-8dab-7922931c4c59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="John%27s Billiards">
+      <UniqueIdentifier>{a3859457-b088-491c-a5d8-f2c26a31066d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

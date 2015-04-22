@@ -269,36 +269,77 @@ D3DXMATRIX Scene::getProjection()
 
 void Scene::DEBUGTOGGLETEXTURE()
 {
-
+	for (SceneNode* obj : m_Nodes)
+	{
+		if (obj->getMaterial() != nullptr)
+		{
+			obj->getMaterial()->DEBUGTOGGLETEXTURE();
+		}
+	}
 }
 
 void Scene::DEBUGBLENDSPECULARREFLECTION(float increment)
 {
-
+	for (SceneNode* obj : m_Nodes)
+	{
+		if (obj->getMaterial() != nullptr)
+		{
+			obj->getMaterial()->DEBUGBLENDSPECULARREFLECTION(increment);
+		}
+	}
 }
 
 void Scene::DEBUGTOGGLENORMAL()
 {
-
+	for (SceneNode* obj : m_Nodes)
+	{
+		if (obj->getMaterial() != nullptr)
+		{
+			obj->getMaterial()->DEBUGTOGGLENORMAL();
+		}
+	}
 }
 
 void Scene::DEBUGSPECULARPOWER(int power)
 {
-
+	for (SceneNode* obj : m_Nodes)
+	{
+		if (obj->getMaterial() != nullptr)
+		{
+			obj->getMaterial()->DEBUGSPECULARPOWER(power);
+		}
+	}
 }
 
 void Scene::DEBUGNORMALSTRENGTH(float increment)
 {
-
+	for (SceneNode* obj : m_Nodes)
+	{
+		if (obj->getMaterial() != nullptr)
+		{
+			obj->getMaterial()->DEBUGNORMALSTRENGTH(increment);
+		}
+	}
 }
 
 void Scene::DEBUGTOGGLEWIREFRAME()
 {
-
+	for (SceneNode* obj : m_Nodes)
+	{
+		if (obj->getMaterial() != nullptr)
+		{
+			obj->getMaterial()->DEBUGTOGGLEWIREFRAME();
+		}
+	}
 }
 
 void Scene::DEBUGTOGGLEREFLECTION()
 {
-
+	for (SceneNode* obj : m_Nodes)
+	{
+		if (obj->getMaterial() != nullptr)
+		{
+			obj->getMaterial()->DEBUGTOGGLEREFLECTION();
+		}
+	}
 }
-

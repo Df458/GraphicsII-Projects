@@ -172,12 +172,7 @@ void SkeletonClass::updateScene(float dt)
 			mSceneManager->GetActiveScene()->getActiveCamera()->zoomFocus(gDInput->mouseDZ()/2);
 		else
 			mSceneManager->GetActiveScene()->getActiveCamera()->zoomFocus(gDInput->mouseDZ());
-
-	if (gDInput->keyDown(DIK_M))
-		mSceneManager->GetActiveScene()->getActiveCamera()->releaseFocus();
-	if (gDInput->keyDown(DIK_N))
-		mSceneManager->GetActiveScene()->getActiveCamera()->setFocus(mSceneManager->GetActiveScene()->getActiveFocus());
-
+	
 
 	//Assignment 4 Controls
 	if (gDInput->keyDown(DIK_ADD))
