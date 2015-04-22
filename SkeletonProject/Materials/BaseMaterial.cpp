@@ -220,6 +220,7 @@ unsigned BaseMaterial::PreRender(void)
 
 void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, Scene* scene)
 {
+	//worldMat *= scene->getActiveCamera()->getBillboardMatrix(); //Uncomment for FUN
 	LightSceneNode* light = scene->getActiveLight();
 	IDirect3DCubeTexture9* cube = NULL;
 	if(SkySceneNode* sky = scene->getActiveSky())

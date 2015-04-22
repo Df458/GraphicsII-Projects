@@ -99,7 +99,7 @@ D3DXMATRIX CameraSceneNode::getBillboardMatrix(void) const
 	D3DXVECTOR3 up(v._12, v._22, v._32);
 	D3DXVECTOR3 right;
 	D3DXVec3Cross(&right, &forward, &up);
-	D3DXMATRIX mat = { right.x, right.y, right.z, 0.0f, up.x, up.y, up.z, 0.0f, forward.x, forward.y, forward.z, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+	D3DXMATRIX mat = { right.x, right.y, right.z, 0.0f, up.x, up.y, up.z, 0.0f, forward.x, forward.y, forward.z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
 	return mat;
 }
 
