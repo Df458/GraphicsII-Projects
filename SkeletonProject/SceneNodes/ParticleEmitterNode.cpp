@@ -1,6 +1,7 @@
 #include "../d3dUtil.h"
 #include "CameraSceneNode.h"
 #include "ParticleEmitterNode.h"
+#include "../3DClasses/XModel3D.h"
 #include "../3DClasses/MeshObject3D.h"
 #include "../Materials/BaseMaterial.h"
 #include "../Scene.h"
@@ -58,34 +59,15 @@ ParticleEmitterNode::ParticleEmitterNode(xml_node<>* node) : SceneNode(node)
 		mat = new BaseMaterial(texture, effect);
 	}
 	m_Material = mat;
-
-    xml_attribute<>* type = node->first_attribute("type", 4, false);
-    if(!type)
-    {
-        fprintf(stderr, "Error: Model defined in level with no type(node %s).\n", node->name());
-        return;
-    }
+	m_Material->makeBillboard();
 
 	if (effect == nullptr)
 	{
 		effect = (ID3DXEffect*)gResourceManager->getDefaultEffect()->GetData();
 	}
 
-    if(!strcmp(type->value(), "primitive"))
-    {
-    }
-    else if(!strcmp(type->value(), "X"))
-    {
-		if (xml_attribute<>* name = node->first_attribute("filename", 8, false))
-		{
-			float modelScale = 1.0f;
-			if (xml_attribute<>* scale = node->first_attribute("scale", 5, false))
-			{
-				modelScale = atof(scale->value());
-			}
-			gResourceManager->LoadMeshResource(name->value());
-		}
-    }
+	gResourceManager->LoadMeshResource("plane.x");
+	m_Model = new XModel3D((LPD3DXMESH)gResourceManager->GetMesh("plane.x")->GetData());
 }
 
 ParticleEmitterNode::~ParticleEmitterNode()
@@ -100,9 +82,6 @@ BaseMaterial* ParticleEmitterNode::getMaterial(void)
 
 void ParticleEmitterNode::Update(float deltatime)
 {
-	m_Yaw += 1 * deltatime;
-	D3DXMatrixRotationY(&m_Rotation, m_Yaw);
-	m_World = m_Scale * m_Rotation * m_Translation;
 }
 
 void ParticleEmitterNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
@@ -112,5 +91,10 @@ void ParticleEmitterNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevic
     D3DXMATRIX view = activeScene->getView();
     D3DXMATRIX proj = activeScene->getProjection();
     D3DXMATRIX fc = activeScene->getActiveCamera()->getFocusView();
-    m_Model->Render(world, fc, view, proj,  m_Material, activeScene);
+	for (int i = 0; i < 100; ++i) {
+		D3DXMATRIX t;
+		D3DXMatrixTranslation(&t, (rand() % 20 - 10), (rand() % 20 - 10), (rand() % 20 - 10));
+		D3DXMATRIX w = world * t;
+		m_Model->Render(w, fc, view, proj, m_Material, activeScene);
+	}
 }

@@ -9,6 +9,7 @@
 #include "SceneNodes/SkySceneNode.h"
 #include "SceneNodes/LightSceneNode.h"
 #include "SceneNodes/ModelSceneNode.h"
+#include "SceneNodes/ParticleEmitterNode.h"
 #include "Materials/BaseMaterial.h"
 #include "Utils.h"
 #include "ResourceManager.h"
@@ -69,6 +70,7 @@ void Scene::loadNode(rapidxml::xml_node<>* node, SceneNode* parent)
 	loadSkyBoxNode(node, parent);
 	loadLightNode(node, parent);
 	loadModelNode(node, parent);
+	loadEmitterNode(node, parent);
 }
 
 void Scene::loadCameraNode(rapidxml::xml_node<>* node, SceneNode* parent)
@@ -151,6 +153,21 @@ void Scene::loadModelNode(rapidxml::xml_node<>* node, SceneNode* parent)
 				m_ActiveFocus = model_node;
 
 		loadNode(model, model_node);
+	}
+}
+
+void Scene::loadEmitterNode(rapidxml::xml_node<>* node, SceneNode* parent)
+{
+	for (rapidxml::xml_node<>* model = node->first_node("emitter", 7, false); model; model = model->next_sibling("emitter", 7, false)) {
+		ParticleEmitterNode* emitter_node = new ParticleEmitterNode(model);
+		parent->addChild(emitter_node);
+		m_Nodes.insert(emitter_node);
+
+		if (rapidxml::xml_attribute<>* active = model->first_attribute("focused", 7, false))
+			if (!strcmp(active->value(), "true"))
+				m_ActiveFocus = emitter_node;
+
+		loadNode(model, emitter_node);
 	}
 }
 

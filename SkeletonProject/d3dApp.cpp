@@ -150,6 +150,9 @@ void D3DApp::initDirect3D()
 		devBehaviorFlags,   // vertex processing
 	    &md3dPP,            // present parameters
 	    &gd3dDevice));      // return created device
+	
+	gd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	gd3dDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
 }
 
 int D3DApp::run()

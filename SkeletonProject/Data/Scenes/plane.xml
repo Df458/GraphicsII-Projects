@@ -15,9 +15,10 @@
         <translate x="-0.25" y="2" z="-1.5"/>
     </light>
 	
-	<model type="X" filename="plane.x" scale="1" focused="true">
-        <material texture="test.png" shine="1.0f">
+	<emitter focused="true">
+        <material texture="Particles//Smoke.png" shine="1.0f">
+			<shader filename="particles.fx"/>
 			<color g="1.0"/>
         </material>
-    </model>
+    </emitter>
 </scene>

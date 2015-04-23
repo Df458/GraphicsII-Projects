@@ -1,7 +1,7 @@
 <multiscene>
 	
 <!-- Testing environment I want -->
-	<scene scene-name = "plane.xml"/>
+<!--	<scene scene-name = "plane.xml"/> -->
 	<scene scene-name = "sphere.xml"/>
 	
 <!-- Space Scenes -->

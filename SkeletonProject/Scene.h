@@ -80,6 +80,7 @@ private:
 	void loadSkyBoxNode(rapidxml::xml_node<>* node, SceneNode* parent);
 	void loadLightNode(rapidxml::xml_node<>* node, SceneNode* parent);
 	void loadModelNode(rapidxml::xml_node<>* node, SceneNode* parent);
+	void loadEmitterNode(rapidxml::xml_node<>* node, SceneNode* parent);
 
 	SceneNode* m_RootNode;
 	SceneNode* m_ActiveFocus = NULL;

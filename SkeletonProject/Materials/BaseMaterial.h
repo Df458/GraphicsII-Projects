@@ -102,6 +102,8 @@ public:
 	void DEBUGTOGGLEWIREFRAME();
 	void DEBUGTOGGLEREFLECTION();
 
+	void makeBillboard() { m_Billboard = true; }
+
 	void updateTech();
 };
 //=============================================================================
