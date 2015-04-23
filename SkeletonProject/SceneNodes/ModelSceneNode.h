@@ -8,6 +8,7 @@ class BaseMaterial;
 class ModelSceneNode : public SceneNode
 {
 public:
+	ModelSceneNode(){};
     ModelSceneNode(MeshObject3D* model);
 	ModelSceneNode(MeshObject3D* model, float x, float y, float z, float xRot = 0, float yRot = 0, float zRot = 0);
     ModelSceneNode(rapidxml::xml_node<>* node);

@@ -1,28 +1,27 @@
 <scene billiards="true">
 
-	<skybox radius="100" rings="50" radials="50">
+    <skybox radius="100" rings="50" radials="50">
 		<color r="1.0" g="1.0" b="1.0"/>
 		<texture filename="space.dds"/>
 	</skybox>
 	
-	<camera active="true">
-      <projection angle="60"/>
-      <translate y="0.75" z="-3"/>
+    <camera active="true">
+      <projection angle="40"/>
+      <translate y="12" z="66"/>
       <lookat/>
     </camera>
 	
-	<ball filename="sphere.x" number="0">
-		<shader filename="Lighting.fx"/>
-        <material texture="Earth//earthmap8k.jpg" normal = "Earth//EarthNormal.png" shine="1.0f">
+    <light type="point" energy="10" active="true">
+	<shader filename="PointLightVisualizer.fx"/>
+        <color r="1.0" g="1.0" b="1.0"/>
+        <translate x=".7" y="2" z="-1.5"/>
+    </light>
+	
+	<model type="X" filename="table.x" scale="1" focused="true">
+	
+        <material texture="gold.png" normal ="nd.png" shine="1.0f">		
+		<shader filename="table.fx"/>
         </material>
 		<translate x="0" y="0" z="0"/>
-	</ball>
-	
-		<ball filename="sphere.x" number="1">
-		<shader filename="Lighting.fx"/>
-        <material texture="Earth//earthmap8k.jpg" normal = "Earth//EarthNormal.png" shine="1.0f">
-        </material>
-		<translate x="0" y="0" z="2"/>
-	</ball>
-
+    </model>
 </scene>

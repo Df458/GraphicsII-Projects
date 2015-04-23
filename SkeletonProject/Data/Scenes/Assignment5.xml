@@ -6,7 +6,7 @@
 	
 <!-- Space Scenes -->
 <!-- 	<scene scene-name = "solarsystem.xml"/> -->
-<!-- 	<scene scene-name = "billiards.xml"/> -->
+	<scene scene-name = "billiards.xml"/>
 	
 <!-- Assignment 4 Requirements-->
 	<scene scene-name = "cube.xml"/>

@@ -16,7 +16,7 @@
     </light>
 	
 	<model type="X" filename="torus.x" scale="1" focused="true">
-        <material texture="test.png" shine="1.0f">
+        <material texture="test.png" normal = "nd.png" shine="1.0f">
         </material>
     </model>
 

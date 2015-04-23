@@ -16,7 +16,7 @@
     </light>
 	
     <model type="X" filename="cone.x" scale="1" focused="true">
-        <material texture="test.png" shine="1.0f">
+        <material texture="test.png" normal = "nd.png" shine="1.0f">
 			<color r="1.0"/>
         </material>
     </model>

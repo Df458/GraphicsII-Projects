@@ -85,6 +85,10 @@ SkeletonClass::SkeletonClass(HINSTANCE hInstance, std::string winCaption, D3DDEV
 	mSceneManager->LoadMultiScene("Assignment5.xml");
 	mSceneManager->GetActiveScene()->updateSize(md3dPP.BackBufferWidth, md3dPP.BackBufferHeight);
 
+	/*gd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	gd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	gd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);*/
+
 	/*m_Camera = mSceneManager->GetActiveScene()->getActiveCamera();
 
 	if (m_Scene->getActiveFocus()) {

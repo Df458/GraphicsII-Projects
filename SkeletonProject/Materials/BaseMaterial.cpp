@@ -125,10 +125,10 @@ BaseMaterial::BaseMaterial(rapidxml::xml_node<>* node) : BaseMaterial()
 
 	if (xml_node<>* shader = node->first_node("shader", 6, false))
 	{
-		if (xml_attribute<>* shadername = shader->first_attribute("name", 4, false))
+		if (xml_attribute<>* shadername = shader->first_attribute("filename", 8, false))
 		{
 			gResourceManager->LoadEffectResource(shadername->value());
-			m_Effect = (ID3DXEffect*)gResourceManager->GetEffect(shadername->value());
+			m_Effect = (ID3DXEffect*)gResourceManager->GetEffect(shadername->value())->GetData();
 		}
 	}
 	else if (m_Effect == nullptr)

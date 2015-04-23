@@ -16,7 +16,8 @@
     </light>
 	
 	<model type="primitive" shape="cube" width="0.8" height="0.8" depth="0.8"  focused="true">
-        <material texture="test.png" shine="1.0f">
+        <material texture="test.png" normal = "normal.png" shine="1.0f">
+			<shader filename="default.fx"/>
         </material>
     </model>
 </scene>

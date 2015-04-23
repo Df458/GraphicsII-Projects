@@ -107,6 +107,7 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneNodes\BilliardBallNode.cpp" />
     <ClCompile Include="SceneNodes\CameraSceneNode.cpp" />
     <ClCompile Include="SceneNodes\LightSceneNode.cpp" />
     <ClCompile Include="SceneNodes\ModelSceneNode.cpp" />
@@ -126,7 +127,6 @@
     <ClInclude Include="3DClasses\UVSphereObject3D.h" />
     <ClInclude Include="3DClasses\Vertex.h" />
     <ClInclude Include="3DClasses\XModel3D.h" />
-    <ClInclude Include="BilliardBallNode.h" />
     <ClInclude Include="CRC32.h" />
     <ClInclude Include="CubeTexture.h" />
     <ClInclude Include="d3dApp.h" />
@@ -144,6 +144,7 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneNodes\BilliardBallNode.h" />
     <ClInclude Include="SceneNodes\CameraSceneNode.h" />
     <ClInclude Include="SceneNodes\LightSceneNode.h" />
     <ClInclude Include="SceneNodes\ModelSceneNode.h" />

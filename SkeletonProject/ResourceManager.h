@@ -9,7 +9,6 @@ Make defaults and error defaults data driven
 Add proper default and error resource usage.
 
 Custom Resource Management
-Model Loading
 Proper material handling
 Implement fast unsigned integer key hash table. 
 

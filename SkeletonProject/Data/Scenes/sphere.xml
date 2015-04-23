@@ -18,15 +18,15 @@
     </light>
 	
 	<model type="X" filename="sphere.x" scale="1" focused="true">
-		<shader filename="Lighting.fx"/>
         <material texture="Earth//earthmap8k.jpg" normal = "Earth//EarthNormal.png" shine="1.0f">
+		<shader filename="Lighting.fx"/>
         </material>
 		<translate x="0" y="0" z="0"/>
 		
 		<model type="primitive" shape="sphere" radius="0.1" rings="100" radials="100" focused="false">
 			<translate x=".25" y=".7" z="-1.5"/>
-			<shader filename="Lighting.fx"/>
 			<material texture="Moon//moonmap4k.jpg" normal = "Moon//moonbump4k.jpg" shine="1.0f">
+			<shader filename="Lighting.fx"/>
 			</material>
 		</model>
     </model>
