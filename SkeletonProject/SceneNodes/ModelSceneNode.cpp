@@ -217,8 +217,8 @@ void ModelSceneNode::generatePrimitive(const char* name, xml_node<>* node)
         fprintf(stderr, "Primitive shape: %s is undefined in this function(%s:%d).\nPlease define it.\n", name, __FILE__, __LINE__);
     }
 
-    if(m_Model)
+    /*if(m_Model)
     {
         m_Model->Create();
-    }
+    }*/
 }

@@ -93,6 +93,8 @@ OutputVS PhongVS(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXC
 float4 PhongPS(OutputVS input) : COLOR
 {
 	float4 TextureColor = tex2D(sstate, input.uv);
+	if(TextureColor.a < 0.1f)
+		discard;
 
 	return TextureColor;
 }

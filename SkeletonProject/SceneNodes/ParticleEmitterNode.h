@@ -1,12 +1,13 @@
 #ifndef PARTICLE_EMITTER_NODE_H
 #define PARTICLE_EMITTER_NODE_H
 #include "SceneNode.h"
+#include <stack>
 
 class MeshObject3D;
 class BaseMaterial;
 
 struct Particle {
-	int life = 100;
+	float life = 100;
 	D3DXMATRIX position;
 };
 
@@ -22,11 +23,13 @@ public:
 
 	virtual void Update(float deltatime);
 	virtual void Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice);
+	virtual void createParticle();
 private:
 	MeshObject3D* m_Model = NULL;
 	BaseMaterial* m_Material = NULL;
 	std::vector<Particle*> particles;
-	std::vector<Particle*> dead;
+	std::stack<Particle*> dead;
+	float timer = 0;
 };
 
 #endif

@@ -1,6 +1,7 @@
 uniform extern float4x4 matWorld;
 uniform extern float4x4 matITWorld;
 uniform extern float4x4 matVP;
+uniform extern float4x4 matBillboard;
 
 uniform extern float3   vLightPos;
 uniform extern float3   vAttenuation;
@@ -86,7 +87,7 @@ OutputVS PhongVS(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXC
 	float4x4 matWorldViewProj = mul(matWorld, matVP);
 
 	// Transform the position 
-	outVS.pos = mul(pos, matWorldViewProj);
+	outVS.pos = mul(mul(pos, matBillboard), matWorldViewProj);
 
 	// Find position in world space
 	float3 worldPos = mul(pos, matWorld).xyz;
@@ -109,18 +110,19 @@ OutputVS PhongVS(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXC
 float4 PhongPS(OutputVS input) : COLOR
 {
 	//float3 Normal = normalize(input.normal);
-	float3 Normal = NormalStr*2*(tex2D(normalbump, input.uv) - 0.5);
+	float3 BNormal = 2*(tex2D(normalbump, input.uv) - 0.5);
+	float3 Normal = normalize(input.normal);
 	float3 LightDirection = input.light;
 	float3 ViewDirection = normalize(input.view);
 
-	float4 Diffuse = saturate(dot(Normal, LightDirection));
-	float4 Shadow = saturate(4 * Diffuse);
+	float4 BDiffuse = NormalStr * (saturate(dot(BNormal, LightDirection)));
+	float4 Diffuse = (saturate(dot(Normal, LightDirection)));
+	float4 Shadow = saturate(4 * (1/NormalStr * Diffuse) * (NormalStr * BDiffuse));
 
-	float3 Reflect = normalize(2 * Diffuse * Normal - LightDirection); // Calculate reflections
+	float3 Reflect = normalize(2 * BDiffuse * BNormal - LightDirection); // Calculate reflections
 	float4 Specular = pow(saturate(dot(Reflect, ViewDirection)), SpecularPower); // Calculate Specular (Relections.ViewDirection)^8
 
 	// REFLECT STUFF IS RIGHT HERE!!
-	//float3 emt = reflect(-ViewDirection, Normal);
 	float4 rcolor = texCUBE(skysampler, Reflect);
 
 	
@@ -137,10 +139,7 @@ float4 PhongPS(OutputVS input) : COLOR
 	//Specular = mul(Specular, ToggleSpecular);
 	rcolor = mul(rcolor, ToggleReflection);
 	
-	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * Diffuse * colLight / input.A.x + rcolor * (ReflectionCoef * 10) + Specular * (SpecularCoef * 10) * colLight / input.A.x);
-	//return rcolor;
-	//return TextureColor * colAmbient + (rcolor + Specular);
-	//return TextureColor * colAmbient * AmbientCoef + (TextureColor + colDiffuse * Diffuse) * DiffuseCoef + rcolor + Specular * SpecularCoef;
+	return TextureColor * colAmbient + Shadow * (TextureColor * colDiffuse * BDiffuse * Diffuse * colLight / input.A.x + rcolor * (ReflectionCoef * 10) + Specular * (SpecularCoef * 10) * colLight / input.A.x);
 }
 
 technique PhongWire

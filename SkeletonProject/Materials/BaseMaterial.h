@@ -79,6 +79,7 @@ protected:
 	D3DXHANDLE			SpecularCoefficientHandle = 0;
 	D3DXHANDLE			ReflectionCoefficientHandle = 0;
 	D3DXHANDLE			NormalStrengthHandle = 0;
+	D3DXHANDLE			m_BillboardHandle = 0;
 	bool m_Billboard = false;
 
 public:
@@ -102,7 +103,7 @@ public:
 	void DEBUGTOGGLEWIREFRAME();
 	void DEBUGTOGGLEREFLECTION();
 
-	void makeBillboard() { m_Billboard = true; }
+	void makeBillboard() { m_Billboard = true; m_BillboardHandle = m_Effect->GetParameterByName(0, "matBillboard"); }
 
 	void updateTech();
 };

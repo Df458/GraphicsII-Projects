@@ -11,8 +11,8 @@
     </camera>
 	
     <light type="point" energy="10">
-        <color r="1.0" g="1.0" b="0.3"/>
-        <translate x="-0.25" y="2" z="-1.5"/>
+        <color r="1.0" g="1.0" b="1.0"/>
+        <translate x="-4" y="0" z="0"/>
     </light>
 	
     <model type="X" filename="teapot.x" scale="1" focused="true">

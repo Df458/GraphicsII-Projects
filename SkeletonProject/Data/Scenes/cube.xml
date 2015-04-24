@@ -11,13 +11,13 @@
     </camera>
 	
     <light type="point" energy="10">
-        <color r="1.0" g="1.0" b="0.3"/>
+        <color r="0.0" g="0.0" b="1.0"/>
         <translate x="-0.25" y="2" z="-1.5"/>
     </light>
 	
 	<model type="primitive" shape="cube" width="0.8" height="0.8" depth="0.8"  focused="true">
         <material texture="test.png" normal = "normal.png" shine="1.0f">
-			<shader filename="default.fx"/>
+			<shader filename="Lighting.fx"/>
         </material>
     </model>
 </scene>

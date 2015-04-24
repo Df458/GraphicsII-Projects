@@ -30,9 +30,9 @@ void MeshObject3D::Render(D3DXMATRIX& world, D3DXMATRIX& cview, D3DXMATRIX& view
     GfxStats::GetInstance()->addTriangles(m_TriCount);
     
     if(!m_Mesh)
-        printf("Error: no mesh\n");
+		MessageBox(NULL, "Error: No mesh", "Error", MB_OK | MB_ICONERROR);
     if(!material)
-        printf("Error: no material\n");
+		MessageBox(NULL, "Error: No material", "Error", MB_OK | MB_ICONERROR);
     D3DXVECTOR3 vscale;
     D3DXQUATERNION quat;
     D3DXMATRIX iview;

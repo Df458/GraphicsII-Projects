@@ -8,7 +8,7 @@
 #include "../ResourceManager.h"
 
 using namespace rapidxml;
-// TODO: Write the contents of this class
+
 ParticleEmitterNode::ParticleEmitterNode(MeshObject3D* model)
 {
     m_Parent = NULL;
@@ -72,6 +72,12 @@ ParticleEmitterNode::ParticleEmitterNode(xml_node<>* node) : SceneNode(node)
 
 ParticleEmitterNode::~ParticleEmitterNode()
 {
+	for (auto i : particles)
+		delete i;
+	while (dead.size() > 0) {
+		delete dead.top();
+		dead.pop();
+	}
     delete m_Model;
 }
 
@@ -82,19 +88,49 @@ BaseMaterial* ParticleEmitterNode::getMaterial(void)
 
 void ParticleEmitterNode::Update(float deltatime)
 {
+	for (auto i = particles.begin(); i != particles.end();) {
+		D3DXMATRIX w;
+		D3DXMatrixTranslation(&w, (rand() % 14 - 7) * deltatime, rand() % 4 * deltatime, (rand() % 14 - 7) * deltatime);
+		(*i)->position *= w;
+		(*i)->life -= deltatime;
+		if ((*i)->life <= 0) {
+			dead.push(*i);
+			i = particles.erase(i);
+		} else
+			++i;
+	}
+	timer -= deltatime;
+	if (timer <= 0) {
+		createParticle();
+		timer = 0.05;
+	}
+}
+
+void ParticleEmitterNode::createParticle() {
+	if (dead.size() > 0) {
+		particles.push_back(dead.top());
+		dead.pop();
+	}
+	else {
+		particles.push_back(new Particle);
+	}
+
+	Particle* p = particles.back();
+	p->life = 10;
+	D3DXMATRIX w;
+	D3DXMatrixTranslation(&w, (rand() % 100 - 50) * 0.02f, (rand() % 100 - 50) * 0.02f, (rand() % 100 - 50) * 0.02f);
+	p->position = m_World * w;
 }
 
 void ParticleEmitterNode::Render(Scene* activeScene, IDirect3DDevice9* gd3dDevice)
 {
 	m_World = m_Scale * m_Rotation * m_Translation;
-    D3DXMATRIX world = m_World * activeScene->getTopMatrix();
+    
     D3DXMATRIX view = activeScene->getView();
     D3DXMATRIX proj = activeScene->getProjection();
     D3DXMATRIX fc = activeScene->getActiveCamera()->getFocusView();
-	for (int i = 0; i < 100; ++i) {
-		D3DXMATRIX t;
-		D3DXMatrixTranslation(&t, (rand() % 20 - 10), (rand() % 20 - 10), (rand() % 20 - 10));
-		D3DXMATRIX w = world * t;
-		m_Model->Render(w, fc, view, proj, m_Material, activeScene);
+	for (int i = 0; i < particles.size(); ++i) {
+		D3DXMATRIX world = particles[i]->position;
+		m_Model->Render(world, fc, view, proj, m_Material, activeScene);
 	}
 }

@@ -220,8 +220,14 @@ unsigned BaseMaterial::PreRender(void)
 
 void BaseMaterial::Render(D3DXMATRIX& worldMat, D3DXMATRIX& viewProjMat, D3DXVECTOR4 viewer_pos, unsigned pass, Scene* scene)
 {
-	if (m_Billboard)
-		worldMat *= scene->getActiveCamera()->getBillboardMatrix();
+	if (NormalStrength < 0)
+		NormalStrength = 0;
+	if (NormalStrength > 1)
+		NormalStrength = 1;
+	if (m_Billboard && m_BillboardHandle) {
+		//worldMat *= scene->getActiveCamera()->getBillboardMatrix();
+		HR(m_Effect->SetMatrix(m_BillboardHandle, &scene->getActiveCamera()->getBillboardMatrix()));
+	}
 	LightSceneNode* light = scene->getActiveLight();
 	IDirect3DCubeTexture9* cube = NULL;
 	if(SkySceneNode* sky = scene->getActiveSky())

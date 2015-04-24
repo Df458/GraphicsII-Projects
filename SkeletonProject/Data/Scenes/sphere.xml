@@ -11,7 +11,7 @@
       <lookat/>
     </camera>
 	
-    <light type="point" energy="10" active="true">
+    <light type="point" energy="3" active="true">
 	<shader filename="PointLightVisualizer.fx"/>
         <color r="1.0" g="1.0" b="1.0"/>
         <translate x=".7" y="2" z="-1.5"/>
